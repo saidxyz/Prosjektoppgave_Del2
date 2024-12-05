@@ -30,6 +30,9 @@
     <_ContentIncludedByDefault Remove="Views\Account\Register.cshtml" />
     <_ContentIncludedByDefault Remove="Views\Home\Index.cshtml" />
     <_ContentIncludedByDefault Remove="Views\Shared\_layout.cshtml" />
+    <_ContentIncludedByDefault Remove="CMS-Test\obj\CMS-Test.csproj.nuget.dgspec.json" />
+    <_ContentIncludedByDefault Remove="CMS-Test\obj\project.assets.json" />
+    <_ContentIncludedByDefault Remove="CMS-Test\obj\project.packagespec.json" />
   </ItemGroup>
 
 </Project>
