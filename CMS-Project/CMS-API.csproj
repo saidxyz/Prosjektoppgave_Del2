@@ -35,4 +35,22 @@
     <_ContentIncludedByDefault Remove="CMS-Test\obj\project.packagespec.json" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="CMS-Test\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="CMS-Test\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="CMS-Test\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="CMS-Test\**" />
+    <None Remove=".gitattributes" />
+    <None Remove=".gitignore" />
+  </ItemGroup>
+
 </Project>
