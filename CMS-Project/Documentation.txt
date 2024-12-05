@@ -1,0 +1,40 @@
+users with name and password, who owns Documents and Folders.
+Folders can have Folders and Documents.
+Content type isn't used as much. it's basically just a string.
+
+NOTE: folder creation requires your first folderParentId to be NULL!!!
+
+DTOs:
+FolderDto, updateFolderDto: (string)Name, (int)ParentFolderId
+DocumentDto, updateDocumentDto: (string)Title, (string)Content,(string)ContentType,(int)FolderId
+RegisterDto: (string) Username, (string) password, (string)Email
+LoginDto: (string) Username, (string) password
+
+
+Folder and Documents services:
+-GetAll(userId) which returns all of that type limited to [userId].
+-Get(id) which returns [id] of selected element
+-Create(Dto, userid) which saves the [Dto] along with [userid] to create given object and returns it. it also checks ownership.
+-update(id,dto,userid) updates selected [id] element, updates with [dto]. [userid] to check ownership. returns true or false.
+-delete(id, userid) deletes given [id] of the element. [userid] is used to check ownership. returns true or false.
+-exists(id) checks if given [id] of the element exists. returns true or false.
+
+user service:
+-RegisterUser(dto) takes dto and turns it into user in users table, also checks if name and epost exists. datetime gets set now in created date. returns user
+-AuthenticateUser(dto) checks if user exists with same name as [dto], and then checks if password matches. generates JWT token and returns it
+-GenerateJwtToken(user) generates JWT token for given [user] and returns it
+-GetUserId(username) get the id from given[username], and returns its id. If it doesn't find any it will return -1
+
+
+Folder and Documents Controller:
+both use their respective service along with user service to talk with database.
+All functions have a part that gets NameIdentifier from claims to use userService to find userid.
+the userid is used to check ownership in elements after.
+
+-get[ALL]() gets all elements of that type which the user owns.
+-get[id]() gets selected [id] of that element. user ownership gets checked.
+-create(dto) creates element of that type with [dto].
+-update(id,dto) updates selected element with [id], and updates it with [dto]. service checks the ownerships for updating.
+-Delete(id) deletes element with [id]
+
+NOTE: folder creation requires your first folderParentId to be NULL!!!
