@@ -130,13 +130,8 @@ namespace CMS_Project.Services
 
             return await GetUserIdAsync(username);
         }
-
-        /// <summary>
+        
         /// Retrieves a user by their unique identifier.
-        /// </summary>
-        /// <param name="userId">The ID of the user to be retrieved.</param>
-        /// <returns>The user with the specified ID.</returns>
-        /// <exception cref="ArgumentException">Thrown if no user is found with the specified ID.</exception>
         public async Task<User> GetUserByIdAsync(int userId)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);

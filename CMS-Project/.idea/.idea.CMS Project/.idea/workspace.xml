@@ -10,12 +10,39 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd71df89-53c1-4b5a-af52-1e82122ea875" name="Changes" comment="" />
+    <list default="true" id="dd71df89-53c1-4b5a-af52-1e82122ea875" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.idea.CMS Project/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.idea.CMS Project/.idea/projectSettingsUpdater.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.idea.CMS Project/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Models/DTOs/ErrorMessageDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Models/DTOs/ErrorResponse.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Models/DTOs/GetFoldersResponse.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.CMS Project/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CMS Project/.idea/indexLayout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.CMS Project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CMS Project/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controllers/FolderController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/FolderController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/DTOs/UserDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/DTOs/UserDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/UserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/UserService.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "saidxyz"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/saidxyz/Prosjektoppgave_Del2.git",
+    "accountId": "25680bb9-1b78-4ae9-a945-25dc5a97ff6b"
+  }
+}]]></component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/CMS-Test/CMSControllerTest.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/CMS-Test/Usings.cs" root0="FORCE_HIGHLIGHTING" />
@@ -23,13 +50,97 @@
     <setting file="file://$PROJECT_DIR$/appsettings.Development.json" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/appsettings.json" root0="FORCE_HIGHLIGHTING" />
   </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 6
+}]]></component>
+  <component name="ProjectId" id="2poYJQMoaL1WPGHX1YulHDVGMnd" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "node.js.selected.package.tslint": "(autodetect)"
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="dd71df89-53c1-4b5a-af52-1e82122ea875" name="Changes" comment="" />
+      <created>1733433823086</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1733433823086</updated>
+      <workItem from="1733433824676" duration="6733000" />
+    </task>
     <servers />
   </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnitTestsCoverage.Settings">
+    <option name="coveragePercentColumnWidth" value="150" />
+    <option name="sortOrder" value="DESCENDING" />
+    <option name="sortedColumn" value="1" />
+    <option name="symbolColumnWidth" value="701" />
+    <coverage-tree-state>
+      <expand>
+        <path>
+          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
+          <item name="Total 27% 678/927" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+        </path>
+        <path>
+          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
+          <item name="Total 27% 678/927" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="CMS-API 16% 665/787" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+        </path>
+        <path>
+          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
+          <item name="Total 27% 678/927" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="CMS-API 16% 665/787" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="CMS_Project 16% 604/719" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+        </path>
+        <path>
+          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
+          <item name="Total 27% 678/927" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="CMS-API 16% 665/787" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="CMS_Project 16% 604/719" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Controllers 24% 188/247" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+        </path>
+        <path>
+          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
+          <item name="Total 27% 678/927" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="CMS-API 16% 665/787" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="CMS_Project 16% 604/719" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Controllers 24% 188/247" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="FolderController 61% 38/97" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+        </path>
+        <path>
+          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
+          <item name="Total 27% 678/927" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="CMS-API 16% 665/787" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="CMS_Project 16% 604/719" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Controllers 24% 188/247" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="FolderController 61% 38/97" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="DeleteFolder(int) 50% 9/18" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+        </path>
+      </expand>
+      <select />
+    </coverage-tree-state>
+  </component>
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
 </project>

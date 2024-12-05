@@ -17,13 +17,16 @@ namespace CMS_Project.Controllers
         private readonly ILogger<FolderController> _logger;
         private readonly IUserService _userService;
 
-        public FolderController(IFolderService folderService, ILogger<FolderController> logger, IUserService userService)
+        public FolderController(
+            IUserService userService, 
+            IFolderService folderService, 
+            ILogger<FolderController> logger)
         {
-            _folderService = folderService;
             _userService = userService;
+            _folderService = folderService;
             _logger = logger;
-            
         }
+
         
         // POST: api/Folder/create-folder
         [HttpPost("create-folder")]
@@ -60,7 +63,7 @@ namespace CMS_Project.Controllers
             catch (ArgumentException ex)
             {
                 _logger.LogError(ex, "An error occurred while creating the folder.");
-                return Conflict(new { message = ex.Message });
+                return Conflict(new ErrorResponse { Message = ex.Message });
             }
             catch (Exception ex)
             {
@@ -74,29 +77,25 @@ namespace CMS_Project.Controllers
         [HttpGet("all")]
         public async Task<IActionResult> GetFolders()
         {
-            // Get NameIdentifier from claims to find user ID
             var userId = await _userService.GetUserIdFromClaimsAsync(User);
-            
-            // Mappe entitiene til DTO-er
             var folderDtos = await _folderService.GetAllFoldersAsDtoAsync(userId);
-            
-            // Hent brukerinformasjon fra tjenesten
             var user = await _userService.GetUserByIdAsync(userId);
-            
-            var response = new
+
+            var response = new GetFoldersResponse
             {
-                User = new
+                User = new UserDto
                 {
-                    userId = user.Id,
-                    user.Username,
-                    user.Email,
-                    user.CreatedDate
+                    UserId = user.Id,
+                    Username = user.Username,
+                    Email = user.Email,
+                    CreatedDate = user.CreatedDate
                 },
                 Folders = folderDtos
             };
 
             return Ok(response);
         }
+
         
         // Rekursiv mapping til FolderDto
         private FolderDto MapToFolderDto(Folder folder)
