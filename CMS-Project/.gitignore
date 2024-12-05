@@ -3,29 +3,12 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 CMS-API/CMS-Test/
-bin/
-obj/
-
-# IDE-specific folders
-.idea/
-
 # User-specific files
 *.rsuser
 *.suo
 *.user
 *.userosscache
 *.sln.docstates
-
-# Entity Framework migration history (optional)
-Migrations/
-
-# Environment-specific files
-.DS_Store
-Thumbs.db
-
-#Ignore any log or temporary files:
-*.log
-*.tmp
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
