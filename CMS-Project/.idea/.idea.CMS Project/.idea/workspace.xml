@@ -65,7 +65,7 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="3e9436a3-b91b-41b5-a807-8fcbbc8b4f3e" />
+  <component name="RunManager" selected="326155df-3446-4441-bd23-4a1ba8b08a93" />
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -76,7 +76,8 @@
       <updated>1733433823086</updated>
       <workItem from="1733433824676" duration="6907000" />
       <workItem from="1733440838738" duration="11856000" />
-      <workItem from="1733455127554" duration="10395000" />
+      <workItem from="1733455127554" duration="10691000" />
+      <workItem from="1733466870194" duration="398000" />
     </task>
     <servers />
   </component>
@@ -92,22 +93,22 @@
       <expand>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 66% 533/1564" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 66% 537/1568" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 66% 533/1564" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 66% 537/1568" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
           <item name="CMS-API 42% 461/791" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 66% 533/1564" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 66% 537/1568" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
           <item name="CMS-API 42% 461/791" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
           <item name="CMS_Project 45% 401/723" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 66% 533/1564" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 66% 537/1568" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
           <item name="CMS-API 42% 461/791" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
           <item name="CMS_Project 45% 401/723" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
           <item name="Controllers 87% 31/247" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />

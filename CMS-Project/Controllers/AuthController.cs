@@ -62,5 +62,6 @@ namespace CMS_Project.Controllers
                 return StatusCode(500, "En unexpected error occurred.");
             }
         }
+        
     }
 }
