@@ -12,7 +12,7 @@
   <component name="ChangeListManager">
     <list default="true" id="dd71df89-53c1-4b5a-af52-1e82122ea875" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CMS Project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CMS Project/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controllers/FolderController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/FolderController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controllers/DocumentController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/DocumentController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,18 +53,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "editor.preferences.smartKeys_rider",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -74,7 +75,7 @@
       <option name="presentableId" value="Default" />
       <updated>1733433823086</updated>
       <workItem from="1733433824676" duration="6907000" />
-      <workItem from="1733440838738" duration="2324000" />
+      <workItem from="1733440838738" duration="11674000" />
     </task>
     <servers />
   </component>
@@ -82,7 +83,7 @@
     <option name="version" value="3" />
   </component>
   <component name="UnitTestsCoverage.Settings">
-    <option name="coveragePercentColumnWidth" value="98" />
+    <option name="coveragePercentColumnWidth" value="67" />
     <option name="sortOrder" value="DESCENDING" />
     <option name="sortedColumn" value="1" />
     <option name="symbolColumnWidth" value="454" />
@@ -90,42 +91,42 @@
       <expand>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 16% 887/1052" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 42% 741/1281" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 16% 887/1052" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="CMS-API 19% 635/787" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 42% 741/1281" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="CMS-API 33% 525/787" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 16% 887/1052" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="CMS-API 19% 635/787" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="CMS_Project 20% 574/719" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 42% 741/1281" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="CMS-API 33% 525/787" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="CMS_Project 35% 464/719" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 16% 887/1052" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="CMS-API 19% 635/787" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="CMS_Project 20% 574/719" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="Controllers 36% 158/247" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 42% 741/1281" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="CMS-API 33% 525/787" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="CMS_Project 35% 464/719" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Controllers 68% 79/247" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 16% 887/1052" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="CMS-API 19% 635/787" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="CMS_Project 20% 574/719" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="Controllers 36% 158/247" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="FolderController 92% 8/97" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 42% 741/1281" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="CMS-API 33% 525/787" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="CMS_Project 35% 464/719" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Controllers 68% 79/247" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="DocumentController 60% 48/119" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 16% 887/1052" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="CMS-API 19% 635/787" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="CMS_Project 20% 574/719" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="Controllers 36% 158/247" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="FolderController 92% 8/97" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="GetFolder(int) 43% 8/14" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 42% 741/1281" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="CMS-API 33% 525/787" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="CMS_Project 35% 464/719" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Controllers 68% 79/247" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="DocumentController 60% 48/119" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="CreateDocument(DocumentCreateDto) 80% 6/30" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
       </expand>
       <select />

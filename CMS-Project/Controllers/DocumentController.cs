@@ -1,5 +1,4 @@
 ﻿using CMS_Project.Models.DTOs;
-using CMS_Project.Models.Entities;
 using CMS_Project.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -35,6 +34,7 @@ namespace CMS_Project.Controllers
         [HttpPost("create-document")]
         public async Task<IActionResult> CreateDocument([FromBody] DocumentCreateDto documentCreateDto)
         {
+            
             _logger.LogInformation("Received documentCreateDto: {@documentCreateDto}", documentCreateDto);
 
             // ModelState check
@@ -65,8 +65,9 @@ namespace CMS_Project.Controllers
             catch (ArgumentException ex)
             {
                 _logger.LogWarning(ex.Message);
-                return BadRequest(new { message = ex.Message });
+                return BadRequest(new ErrorResponse { Message = ex.Message });
             }
+
             catch (DbUpdateException ex)
             {
                 _logger.LogError(ex, "Database update error occurred while creating the document.");
@@ -145,7 +146,7 @@ namespace CMS_Project.Controllers
             {
                 var userId = await _userService.GetUserIdFromClaimsAsync(User);
                 var responseDto = await _documentService.GetDocumentByIdAsync(id, userId);
-        
+
                 if (responseDto == null)
                 {
                     return NotFound(new { message = $"Document with ID {id} was not found or does not belong to the user." });
@@ -164,6 +165,7 @@ namespace CMS_Project.Controllers
                 return StatusCode(500, $"An unexpected error occurred: {ex.Message}");
             }
         }
+
 
 
 
@@ -193,7 +195,7 @@ namespace CMS_Project.Controllers
                 var result = await _documentService.UpdateDocumentAsync(id, updateDocumentDto, userId);
                 if (!result)
                     {
-                        _logger.LogWarning($"Document with ID {id} was not found for update."); 
+                        _logger.LogWarning($"Document with ID {id} was not found for update.");
                         return NotFound(new { message = $"Document with ID {id} was not found." });
                     }
                     _logger.LogInformation($"Document with ID {id} was updated successfully.");
