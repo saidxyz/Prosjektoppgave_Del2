@@ -1,0 +1,41 @@
+﻿@page "/folders"
+@using CMS_Web.Components.Models
+@inject CmsApiService CmsApiService
+
+<h3>Folder List</h3>
+
+@if (folders == null)
+{
+    <p>Loading folders...</p>
+}
+else if (!folders.Any())
+{
+    <p>No folders available.</p>
+}
+else
+{
+    <ul>
+        @foreach (var folder in folders)
+        {
+            <li>@folder.Name</li>  <!-- Display folder name -->
+            @if (folder.ChildrenFolders.Any())
+            {
+                <ul>
+                    @foreach (var child in folder.ChildrenFolders)
+                    {
+                        <li>@child.Name</li> <!-- Display child folder name -->
+                    }
+                </ul>
+            }
+        }
+    </ul>
+}
+
+@code {
+    private List<Folder> folders;
+
+    protected override async Task OnInitializedAsync()
+    {
+        folders = await CmsApiService.GetFoldersAsync();
+    }
+}
