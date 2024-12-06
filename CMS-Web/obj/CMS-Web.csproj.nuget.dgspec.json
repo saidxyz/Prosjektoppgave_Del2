@@ -110,6 +110,7 @@
         "packagesPath": "C:\\Users\\said_\\.nuget\\packages\\",
         "outputPath": "C:\\Prosjektoppgave_Del2\\CMS-Web\\obj\\",
         "projectStyle": "PackageReference",
+        "UsingMicrosoftNETSdk": false,
         "configFilePaths": [
           "C:\\Users\\said_\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
