@@ -1,11 +1,23 @@
 {
   "Version": 1,
-  "Hash": "V0QgHGLog7y0QUArClgdgKmBDe373Buf6QZIKk0/tMY=",
+  "Hash": "sgnoDy+OQNtNapxiwfmricQsLV/HSo2MWOuW+/T42BA=",
   "Source": "CMS-Web",
   "BasePath": "_content/CMS-Web",
   "Mode": "Default",
   "ManifestType": "Build",
-  "ReferencedProjectsConfiguration": [],
+  "ReferencedProjectsConfiguration": [
+    {
+      "Identity": "C:\\Prosjektoppgave_Del2\\CMS-Project\\CMS-API.csproj",
+      "Version": 2,
+      "Source": "CMS-API",
+      "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
+      "AdditionalPublishProperties": "",
+      "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework",
+      "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
+      "AdditionalBuildProperties": "",
+      "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework"
+    }
+  ],
   "DiscoveryPatterns": [
     {
       "Name": "CMS-Web\\wwwroot",
