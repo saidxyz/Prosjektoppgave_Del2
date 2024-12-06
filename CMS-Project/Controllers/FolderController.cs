@@ -167,7 +167,7 @@ namespace CMS_Project.Controllers
             }
             catch (ArgumentException ex)
             {
-                return Conflict(new { message = ex.Message });
+                return Conflict(new ErrorResponse { Message = ex.Message });
             }
             catch (Exception ex)
             {
