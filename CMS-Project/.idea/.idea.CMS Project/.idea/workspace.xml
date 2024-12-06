@@ -10,9 +10,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd71df89-53c1-4b5a-af52-1e82122ea875" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.CMS Project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CMS Project/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="dd71df89-53c1-4b5a-af52-1e82122ea875" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -77,7 +75,7 @@
       <workItem from="1733433824676" duration="6907000" />
       <workItem from="1733440838738" duration="11856000" />
       <workItem from="1733455127554" duration="10691000" />
-      <workItem from="1733466870194" duration="398000" />
+      <workItem from="1733466870194" duration="2441000" />
     </task>
     <servers />
   </component>
@@ -93,25 +91,12 @@
       <expand>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 66% 537/1568" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 69% 474/1505" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 66% 537/1568" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 69% 474/1505" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
           <item name="CMS-API 42% 461/791" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-        </path>
-        <path>
-          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 66% 537/1568" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="CMS-API 42% 461/791" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="CMS_Project 45% 401/723" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-        </path>
-        <path>
-          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 66% 537/1568" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="CMS-API 42% 461/791" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="CMS_Project 45% 401/723" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="Controllers 87% 31/247" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
       </expand>
       <select />
