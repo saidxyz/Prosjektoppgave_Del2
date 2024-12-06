@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Prosjektoppgave_Del2\\CMS-Web\\CMS-Web\\CMS-Web.csproj": {}
+    "C:\\Prosjektoppgave_Del2\\CMS-Web\\CMS-Web.csproj": {}
   },
   "projects": {
-    "C:\\Prosjektoppgave_Del2\\CMS-Web\\CMS-Web\\CMS-Web.csproj": {
+    "C:\\Prosjektoppgave_Del2\\CMS-Web\\CMS-Web.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Prosjektoppgave_Del2\\CMS-Web\\CMS-Web\\CMS-Web.csproj",
+        "projectUniqueName": "C:\\Prosjektoppgave_Del2\\CMS-Web\\CMS-Web.csproj",
         "projectName": "CMS-Web",
-        "projectPath": "C:\\Prosjektoppgave_Del2\\CMS-Web\\CMS-Web\\CMS-Web.csproj",
+        "projectPath": "C:\\Prosjektoppgave_Del2\\CMS-Web\\CMS-Web.csproj",
         "packagesPath": "C:\\Users\\said_\\.nuget\\packages\\",
-        "outputPath": "C:\\Prosjektoppgave_Del2\\CMS-Web\\CMS-Web\\obj\\",
+        "outputPath": "C:\\Prosjektoppgave_Del2\\CMS-Web\\obj\\",
         "projectStyle": "PackageReference",
         "UsingMicrosoftNETSdk": false,
         "configFilePaths": [
@@ -43,12 +43,6 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "dependencies": {
-            "Microsoft.Extensions.Http": {
-              "target": "Package",
-              "version": "[8.0.1, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",

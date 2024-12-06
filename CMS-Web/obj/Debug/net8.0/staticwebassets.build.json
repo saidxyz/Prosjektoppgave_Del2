@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ijwWdi03ZMNCSPCPmCvdjuA9oTzz4+bwV2v1PWnRIr8=",
+  "Hash": "V0QgHGLog7y0QUArClgdgKmBDe373Buf6QZIKk0/tMY=",
   "Source": "CMS-Web",
   "BasePath": "_content/CMS-Web",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "CMS-Web\\wwwroot",
       "Source": "CMS-Web",
-      "ContentRoot": "C:\\Prosjektoppgave_Del2\\CMS-Web\\CMS-Web\\wwwroot\\",
+      "ContentRoot": "C:\\Prosjektoppgave_Del2\\CMS-Web\\wwwroot\\",
       "BasePath": "_content/CMS-Web",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Prosjektoppgave_Del2\\CMS-Web\\CMS-Web\\obj\\Debug\\net8.0\\scopedcss\\bundle\\CMS-Web.styles.css",
+      "Identity": "C:\\Prosjektoppgave_Del2\\CMS-Web\\obj\\Debug\\net8.0\\scopedcss\\bundle\\CMS-Web.styles.css",
       "SourceId": "CMS-Web",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Prosjektoppgave_Del2\\CMS-Web\\CMS-Web\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
+      "ContentRoot": "C:\\Prosjektoppgave_Del2\\CMS-Web\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
       "BasePath": "_content/CMS-Web",
       "RelativePath": "CMS-Web.styles.css",
       "AssetKind": "All",
@@ -33,13 +33,13 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Prosjektoppgave_Del2\\CMS-Web\\CMS-Web\\obj\\Debug\\net8.0\\scopedcss\\bundle\\CMS-Web.styles.css"
+      "OriginalItemSpec": "C:\\Prosjektoppgave_Del2\\CMS-Web\\obj\\Debug\\net8.0\\scopedcss\\bundle\\CMS-Web.styles.css"
     },
     {
-      "Identity": "C:\\Prosjektoppgave_Del2\\CMS-Web\\CMS-Web\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\CMS-Web.bundle.scp.css",
+      "Identity": "C:\\Prosjektoppgave_Del2\\CMS-Web\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\CMS-Web.bundle.scp.css",
       "SourceId": "CMS-Web",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Prosjektoppgave_Del2\\CMS-Web\\CMS-Web\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
+      "ContentRoot": "C:\\Prosjektoppgave_Del2\\CMS-Web\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
       "BasePath": "_content/CMS-Web",
       "RelativePath": "CMS-Web.bundle.scp.css",
       "AssetKind": "All",
@@ -52,13 +52,13 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Prosjektoppgave_Del2\\CMS-Web\\CMS-Web\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\CMS-Web.bundle.scp.css"
+      "OriginalItemSpec": "C:\\Prosjektoppgave_Del2\\CMS-Web\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\CMS-Web.bundle.scp.css"
     },
     {
-      "Identity": "C:\\Prosjektoppgave_Del2\\CMS-Web\\CMS-Web\\wwwroot\\app.css",
+      "Identity": "C:\\Prosjektoppgave_Del2\\CMS-Web\\wwwroot\\app.css",
       "SourceId": "CMS-Web",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Prosjektoppgave_Del2\\CMS-Web\\CMS-Web\\wwwroot\\",
+      "ContentRoot": "C:\\Prosjektoppgave_Del2\\CMS-Web\\wwwroot\\",
       "BasePath": "_content/CMS-Web",
       "RelativePath": "app.css",
       "AssetKind": "All",
@@ -74,10 +74,10 @@
       "OriginalItemSpec": "wwwroot\\app.css"
     },
     {
-      "Identity": "C:\\Prosjektoppgave_Del2\\CMS-Web\\CMS-Web\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "Identity": "C:\\Prosjektoppgave_Del2\\CMS-Web\\wwwroot\\bootstrap\\bootstrap.min.css",
       "SourceId": "CMS-Web",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Prosjektoppgave_Del2\\CMS-Web\\CMS-Web\\wwwroot\\",
+      "ContentRoot": "C:\\Prosjektoppgave_Del2\\CMS-Web\\wwwroot\\",
       "BasePath": "_content/CMS-Web",
       "RelativePath": "bootstrap/bootstrap.min.css",
       "AssetKind": "All",
@@ -93,10 +93,10 @@
       "OriginalItemSpec": "wwwroot\\bootstrap\\bootstrap.min.css"
     },
     {
-      "Identity": "C:\\Prosjektoppgave_Del2\\CMS-Web\\CMS-Web\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "Identity": "C:\\Prosjektoppgave_Del2\\CMS-Web\\wwwroot\\bootstrap\\bootstrap.min.css.map",
       "SourceId": "CMS-Web",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Prosjektoppgave_Del2\\CMS-Web\\CMS-Web\\wwwroot\\",
+      "ContentRoot": "C:\\Prosjektoppgave_Del2\\CMS-Web\\wwwroot\\",
       "BasePath": "_content/CMS-Web",
       "RelativePath": "bootstrap/bootstrap.min.css.map",
       "AssetKind": "All",
@@ -112,10 +112,10 @@
       "OriginalItemSpec": "wwwroot\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Identity": "C:\\Prosjektoppgave_Del2\\CMS-Web\\CMS-Web\\wwwroot\\favicon.png",
+      "Identity": "C:\\Prosjektoppgave_Del2\\CMS-Web\\wwwroot\\favicon.png",
       "SourceId": "CMS-Web",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Prosjektoppgave_Del2\\CMS-Web\\CMS-Web\\wwwroot\\",
+      "ContentRoot": "C:\\Prosjektoppgave_Del2\\CMS-Web\\wwwroot\\",
       "BasePath": "_content/CMS-Web",
       "RelativePath": "favicon.png",
       "AssetKind": "All",

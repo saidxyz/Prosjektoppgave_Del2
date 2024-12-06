@@ -33,6 +33,21 @@
     <_ContentIncludedByDefault Remove="CMS-Test\obj\CMS-Test.csproj.nuget.dgspec.json" />
     <_ContentIncludedByDefault Remove="CMS-Test\obj\project.assets.json" />
     <_ContentIncludedByDefault Remove="CMS-Test\obj\project.packagespec.json" />
+    <_ContentIncludedByDefault Remove="CMS-Web\appsettings.Development.json" />
+    <_ContentIncludedByDefault Remove="CMS-Web\appsettings.json" />
+    <_ContentIncludedByDefault Remove="CMS-Web\obj\CMS-Web.csproj.nuget.dgspec.json" />
+    <_ContentIncludedByDefault Remove="CMS-Web\obj\project.assets.json" />
+    <_ContentIncludedByDefault Remove="CMS-Web\obj\project.packagespec.json" />
+    <_ContentIncludedByDefault Remove="CMS-Web\Properties\launchSettings.json" />
+    <_ContentIncludedByDefault Remove="CMS-Web\Components\App.razor" />
+    <_ContentIncludedByDefault Remove="CMS-Web\Components\Layout\MainLayout.razor" />
+    <_ContentIncludedByDefault Remove="CMS-Web\Components\Layout\NavMenu.razor" />
+    <_ContentIncludedByDefault Remove="CMS-Web\Components\Pages\Counter.razor" />
+    <_ContentIncludedByDefault Remove="CMS-Web\Components\Pages\Error.razor" />
+    <_ContentIncludedByDefault Remove="CMS-Web\Components\Pages\Home.razor" />
+    <_ContentIncludedByDefault Remove="CMS-Web\Components\Pages\Weather.razor" />
+    <_ContentIncludedByDefault Remove="CMS-Web\Components\Routes.razor" />
+    <_ContentIncludedByDefault Remove="CMS-Web\Components\_Imports.razor" />
   </ItemGroup>
 
   <ItemGroup>

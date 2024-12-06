@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CMS-Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6fe16686cb8eadf27bb8f686edf707b78459aaa7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+98753594dcf03b8b099ba5c6e06d1e3dbed6ea2c")]
 [assembly: System.Reflection.AssemblyProductAttribute("CMS-Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CMS-Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
