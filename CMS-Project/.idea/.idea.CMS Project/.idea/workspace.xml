@@ -14,9 +14,52 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dd71df89-53c1-4b5a-af52-1e82122ea875" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../CMS-Web/CMS-Web/Components/Pages/Login.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../CMS-Web/CMS-Web/Components/Pages/Register.razor" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.idea.CMS Project/.idea/dataSources.local.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.idea.CMS Project/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CMS-Web/Components/Pages/Login.razor" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CMS-Web/Data/Models/DocumentDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CMS-Web/Data/Models/FolderDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CMS-Web/Data/Models/JWTDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CMS-Web/Data/Models/RegisterDto.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CMS Project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CMS Project/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMS-Web/CMS-Web.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/CMS-Web.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMS-Web/Client.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMS-Web/Components/Pages/Auth.razor" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMS-Web/Components/Pages/Home.razor" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/Components/Pages/Home.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMS-Web/Components/Pages/Register.razor" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/Components/Pages/Register.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMS-Web/Data/Models/LoginDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/Data/Models/LoginDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMS-Web/Data/Models/TokenDto.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMS-Web/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMS-Web/bin/Debug/net8.0/CMS-API.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/bin/Debug/net8.0/CMS-API.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMS-Web/bin/Debug/net8.0/CMS-API.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/bin/Debug/net8.0/CMS-API.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMS-Web/bin/Debug/net8.0/CMS-Web.deps.json" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/bin/Debug/net8.0/CMS-Web.deps.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMS-Web/bin/Debug/net8.0/CMS-Web.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/bin/Debug/net8.0/CMS-Web.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMS-Web/bin/Debug/net8.0/CMS-Web.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/bin/Debug/net8.0/CMS-Web.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMS-Web/bin/Debug/net8.0/CMS-Web.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/bin/Debug/net8.0/CMS-Web.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMS-Web/bin/Debug/net8.0/CMS-Web.staticwebassets.runtime.json" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/bin/Debug/net8.0/CMS-Web.staticwebassets.runtime.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMS-Web/obj/CMS-Web.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/obj/CMS-Web.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMS-Web/obj/CMS-Web.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/obj/CMS-Web.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMS-Web/obj/CMS-Web.csproj.nuget.g.targets" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/obj/CMS-Web.csproj.nuget.g.targets" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.sourcelink.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/apphost.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/apphost.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/ref/CMS-Web.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/ref/CMS-Web.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/refint/CMS-Web.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/refint/CMS-Web.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/staticwebassets.build.json" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/staticwebassets.build.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/staticwebassets.development.json" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/staticwebassets.development.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMS-Web/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMS-Web/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMS-Web/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/obj/project.packagespec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMS-Web/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/obj/rider.project.model.nuget.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMS-Web/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/obj/rider.project.restore.info" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +89,6 @@
     <setting file="file://$PROJECT_DIR$/Program.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/appsettings.Development.json" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/appsettings.json" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/obj/Debug/net6.0/.NETCoreApp,Version=v6.0.AssemblyAttributes.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/5d938e1a52458be6d778788b5454cca6af63f3848625822d2877455acbcc3b/ClaimsPrincipal.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
@@ -61,20 +103,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;.NET Launch Settings Profile.CMS-API: CMS_Project.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.smartKeys_rider&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    ".NET Launch Settings Profile.CMS-API: CMS_Project.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "HotReloadSettingsPage",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="CMS-API: CMS_Project" type="LaunchSettings" factoryName=".NET Launch Settings Profile" temporary="true">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/CMS-API.csproj" />

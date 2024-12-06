@@ -1,7 +1,11 @@
-﻿namespace Client.Data.Models;
+﻿using System.ComponentModel.DataAnnotations;
+namespace Client.Data.Models;
 
 public class LoginDto
 {
-    public string Username { get; set; }
-    public string Password { get; set; }
+    [Required(ErrorMessage = "Email required!")]
+    public string Username { get; set; } = null!;
+
+    [Required(ErrorMessage = "Password required!")]
+    public string Password { get; set; } = null!;
 }

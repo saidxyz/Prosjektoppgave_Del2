@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "sgnoDy+OQNtNapxiwfmricQsLV/HSo2MWOuW+/T42BA=",
+  "Hash": "S5VrIKeBaRoX7FPZpWyaFmTQbqNiWKIbJ6t0CchbK70=",
   "Source": "CMS-Web",
   "BasePath": "_content/CMS-Web",
   "Mode": "Default",
@@ -141,6 +141,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.png"
+    },
+    {
+      "Identity": "C:\\Users\\said_\\.nuget\\packages\\microsoft.aspnetcore.components.webassembly.authentication\\8.0.11\\staticwebassets\\AuthenticationService.js",
+      "SourceId": "Microsoft.AspNetCore.Components.WebAssembly.Authentication",
+      "SourceType": "Package",
+      "ContentRoot": "C:\\Users\\said_\\.nuget\\packages\\microsoft.aspnetcore.components.webassembly.authentication\\8.0.11\\staticwebassets\\",
+      "BasePath": "_content/Microsoft.AspNetCore.Components.WebAssembly.Authentication",
+      "RelativePath": "AuthenticationService.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\said_\\.nuget\\packages\\microsoft.aspnetcore.components.webassembly.authentication\\8.0.11\\staticwebassets\\AuthenticationService.js"
     }
   ]
 }

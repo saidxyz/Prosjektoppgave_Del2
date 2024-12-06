@@ -1,60 +1,51 @@
-﻿@page "/register"
+﻿@page "/login"
 @using System.Text.Json
 @using System.Timers
 @using Client.Data.Models
 @rendermode InteractiveServer
-
-
 @inject IHttpClientFactory ClientFactory
 @inject IJSRuntime JSRuntime
 @inject HttpClient Client
 
 @inject NavigationManager NavManager
 
-<PageTitle>Register</PageTitle>
+<PageTitle>Login</PageTitle>
 
-<h3>Register</h3>
-
+<h3>Login</h3>
 
 <div class="form-group">
     <form>
-
-        <label for="username">username</label>
-        <input type="text" id="username" class="form-control" @bind="registerDto.Username" required />
-        <br />
         <label for="email">e-mail</label>
-        <input type="text" id="email" class="form-control" @bind="registerDto.Email" required />
+        <input type="text" id="email" class="form-control" @bind="loginDto.Username" required />
         <br />
 
         <label for="password">pass the word</label>
-        <input type="password" id="password" class="form-control" @bind="registerDto.Password" required />
+        <input type="password" id="password" class="form-control" @bind="loginDto.Password" required />
 
         <br />
-        <button class="btn btn-primary" type="submit" @onclick="OnRegisterClick" @onclick:preventDefault="true">Login</button>
+        <button class="btn btn-primary" type="submit" @onclick="OnLoginClick" @onclick:preventDefault="true">Login</button>
     </form>
 
-    <div style="border:solid 1px @successStyleColor;padding-left:8px;margin-top:16px;display:@visibleFeedback;">
-        <p style="color:@successStyleColor;margin:0;">@feedback</p>
+    <a href="/register">don't have an account yet? register here.</a>
+
+    <div style="border:solid 1px red;padding-left:8px;margin-top:16px;display:@visibleFeedback;">
+        <p style="color:red;margin:0;">@feedback</p>
     </div>
 
 </div>
 
 
 @code {
-    private readonly RegisterDto registerDto = new();
+    private readonly LoginDto loginDto = new();
     public string? feedback;
-    public bool successFeedback = false;
-    public string visibleFeedback = "none";
-
-    public string successStyleColor = "red";
-
+    public string visibleFeedback= "none";
 
     private Timer feedbackTimer;
 
-    public async Task OnRegisterClick()
+    public async Task OnLoginClick()
     {
 
-        if (registerDto.Email == null || registerDto.Password == null)
+        if (loginDto.Username == null || loginDto.Password == null)
         {
             return;
         }
@@ -62,9 +53,10 @@
         var requestMessage = new HttpRequestMessage()
             {
                 Method = new HttpMethod("POST"),
-                RequestUri = new Uri("https://localhost:7225/api/Auth/Register"),
-                Content = JsonContent.Create(registerDto)
+                RequestUri = new Uri("https://localhost:7238/api/Auth/Login"),
+                Content = JsonContent.Create(loginDto)
             };
+        //new LoginDto { Password = "Bobby123!", Email = "bob@bobs.com" }
 
         var client = ClientFactory.CreateClient();
 
@@ -80,6 +72,8 @@
 
         }
 
+        string responseBody;
+
         if (response != null)
         {
 
@@ -87,15 +81,18 @@
             {
                 case System.Net.HttpStatusCode.BadRequest:
                     feedback = "E-mail or password is incorrect.";
-                    successFeedback = false;
                     ShowFeedback();
                     StartFeedbackTimer();
                     break;
                 case System.Net.HttpStatusCode.OK:
 
-                    successFeedback = true;
-                    ShowFeedback();
-                    StartFeedbackTimer();
+                    feedback = "Registered successfully, redirecting shortly.";
+                    responseBody = await response.Content.ReadAsStringAsync();
+                    var deserializeResponseBody = JsonSerializer.Deserialize<JWTDto>(responseBody, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                    if (deserializeResponseBody != null && deserializeResponseBody.IsSuccess == true) await JSRuntime.InvokeVoidAsync("localStorage.setItem", "key", deserializeResponseBody.Token);
+
+                    NavManager.NavigateTo("/");
+
                     break;
 
 
@@ -118,7 +115,6 @@
 
     private void ShowFeedback()
     {
-        successStyleColor = successFeedback ? "green" : "red";
         visibleFeedback = "block";
     }
 
@@ -128,9 +124,6 @@
         feedbackTimer.Stop();
         visibleFeedback = "none";
         await InvokeAsync(StateHasChanged);
-        if(successFeedback){
-            NavManager.NavigateTo("/login");
-        }
     }
 
 

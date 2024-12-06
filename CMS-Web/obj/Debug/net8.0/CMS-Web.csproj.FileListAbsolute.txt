@@ -113,3 +113,15 @@ C:\Prosjektoppgave_Del2\CMS-Web\obj\Debug\net8.0\refint\CMS-Web.dll
 C:\Prosjektoppgave_Del2\CMS-Web\obj\Debug\net8.0\CMS-Web.pdb
 C:\Prosjektoppgave_Del2\CMS-Web\obj\Debug\net8.0\CMS-Web.genruntimeconfig.cache
 C:\Prosjektoppgave_Del2\CMS-Web\obj\Debug\net8.0\ref\CMS-Web.dll
+C:\Prosjektoppgave_Del2\CMS-Web\bin\Debug\net8.0\Microsoft.AspNetCore.Authorization.dll
+C:\Prosjektoppgave_Del2\CMS-Web\bin\Debug\net8.0\Microsoft.AspNetCore.Components.dll
+C:\Prosjektoppgave_Del2\CMS-Web\bin\Debug\net8.0\Microsoft.AspNetCore.Components.Authorization.dll
+C:\Prosjektoppgave_Del2\CMS-Web\bin\Debug\net8.0\Microsoft.AspNetCore.Components.Forms.dll
+C:\Prosjektoppgave_Del2\CMS-Web\bin\Debug\net8.0\Microsoft.AspNetCore.Components.Web.dll
+C:\Prosjektoppgave_Del2\CMS-Web\bin\Debug\net8.0\Microsoft.AspNetCore.Components.WebAssembly.Authentication.dll
+C:\Prosjektoppgave_Del2\CMS-Web\bin\Debug\net8.0\Microsoft.AspNetCore.Metadata.dll
+C:\Prosjektoppgave_Del2\CMS-Web\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Prosjektoppgave_Del2\CMS-Web\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Prosjektoppgave_Del2\CMS-Web\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Prosjektoppgave_Del2\CMS-Web\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+C:\Prosjektoppgave_Del2\CMS-Web\bin\Debug\net8.0\Microsoft.JSInterop.dll
