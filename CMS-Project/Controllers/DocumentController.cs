@@ -81,7 +81,7 @@ namespace CMS_Project.Controllers
         }
 
 
-
+        
 
         // GET: api/Document/all
         [HttpGet("all")]
@@ -216,6 +216,10 @@ namespace CMS_Project.Controllers
             }
         }
 
+        
+        
+        
+        
         // DELETE: api/Documents/{id}
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteDocument(int id)

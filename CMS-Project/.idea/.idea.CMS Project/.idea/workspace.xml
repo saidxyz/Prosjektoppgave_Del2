@@ -13,6 +13,7 @@
     <list default="true" id="dd71df89-53c1-4b5a-af52-1e82122ea875" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CMS Project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CMS Project/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Controllers/DocumentController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/DocumentController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/DTOs/DocumentResponseDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/DTOs/DocumentResponseDto.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,11 +36,11 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/CMS-Test/CMSControllerTest.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/CMS-Test/Usings.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Program.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/appsettings.Development.json" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/appsettings.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/5d938e1a52458be6d778788b5454cca6af63f3848625822d2877455acbcc3b/ClaimsPrincipal.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -53,19 +54,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "editor.preferences.smartKeys_rider",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.smartKeys_rider&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
+  <component name="RunManager" selected="3e9436a3-b91b-41b5-a807-8fcbbc8b4f3e" />
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -75,7 +77,8 @@
       <option name="presentableId" value="Default" />
       <updated>1733433823086</updated>
       <workItem from="1733433824676" duration="6907000" />
-      <workItem from="1733440838738" duration="11674000" />
+      <workItem from="1733440838738" duration="11856000" />
+      <workItem from="1733455127554" duration="7047000" />
     </task>
     <servers />
   </component>
@@ -83,50 +86,60 @@
     <option name="version" value="3" />
   </component>
   <component name="UnitTestsCoverage.Settings">
-    <option name="coveragePercentColumnWidth" value="67" />
+    <option name="coveragePercentColumnWidth" value="50" />
     <option name="sortOrder" value="DESCENDING" />
     <option name="sortedColumn" value="1" />
-    <option name="symbolColumnWidth" value="454" />
+    <option name="symbolColumnWidth" value="619" />
     <coverage-tree-state>
       <expand>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 42% 741/1281" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 65% 505/1462" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 42% 741/1281" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="CMS-API 33% 525/787" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 65% 505/1462" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="CMS-API 38% 492/791" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 42% 741/1281" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="CMS-API 33% 525/787" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="CMS_Project 35% 464/719" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 65% 505/1462" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="CMS-API 38% 492/791" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="CMS_Project 40% 431/723" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 42% 741/1281" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="CMS-API 33% 525/787" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="CMS_Project 35% 464/719" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="Controllers 68% 79/247" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 65% 505/1462" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="CMS-API 38% 492/791" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="CMS_Project 40% 431/723" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Controllers 81% 48/247" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 42% 741/1281" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="CMS-API 33% 525/787" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="CMS_Project 35% 464/719" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="Controllers 68% 79/247" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="DocumentController 60% 48/119" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 65% 505/1462" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="CMS-API 38% 492/791" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="CMS_Project 40% 431/723" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Controllers 81% 48/247" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="DocumentController 86% 17/119" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 42% 741/1281" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="CMS-API 33% 525/787" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="CMS_Project 35% 464/719" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="Controllers 68% 79/247" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="DocumentController 60% 48/119" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="CreateDocument(DocumentCreateDto) 80% 6/30" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 65% 505/1462" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="CMS-API 38% 492/791" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="CMS_Project 40% 431/723" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Controllers 81% 48/247" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="DocumentController 86% 17/119" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="GetAllDocuments() 0% 17/17" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+        </path>
+        <path>
+          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
+          <item name="Total 65% 505/1462" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="CMS-API 38% 492/791" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="CMS_Project 40% 431/723" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Controllers 81% 48/247" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="DocumentController 86% 17/119" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="GetAllDocuments() 0% 17/17" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="MoveNext() 0% 17/17" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
       </expand>
       <select />
