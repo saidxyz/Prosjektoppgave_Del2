@@ -49,7 +49,7 @@ else
             <option value=0> </option>
             @foreach (var folder in allFolders)
             {
-                <option value="@folder.Id">@folder.Name</option>
+                <option value="@folder.FolderId">@folder.Name</option>
             }
         </select>
         <br />
@@ -61,7 +61,7 @@ else
 else if (selectedDocument != null && editingDocument == false)
 {
     <h4>@selectedDocument.Title</h4>
-    <p>in: @selectedDocument.FolderName</p>
+    <p>in: @selectedDocument.DocumentId</p>
     <p>created: @selectedDocument.CreatedDate</p>
     <p>type: @selectedDocument.ContentType</p>
     <p>@selectedDocument.Content</p>
@@ -95,7 +95,7 @@ else if (selectedDocument != null && editingDocument == true)
             <option value=0> </option>
             @foreach (var folder in allFolders)
             {
-                <option value="@folder.Id">@folder.Name</option>
+                <option value="@folder.FolderId">@folder.Name</option>
             }
         </select>
         <br />
@@ -111,7 +111,7 @@ else if (selectedDocument != null && editingDocument == true)
 
     // Variables
     private DocumentDto? selectedDocument;
-    private readonly CreateDocumentDto newDocument = new();
+    private readonly DocumentCreateDto newDocument = new();
 
     private UpdateDocumentDto updateDocument = new();
 
@@ -153,7 +153,7 @@ else if (selectedDocument != null && editingDocument == true)
 
                     updateDocument.Title = selectedDocument.Title;
                     updateDocument.ContentType = selectedDocument.ContentType;
-                    updateDocument.FolderId = selectedDocument.FolderId;
+                    updateDocument.FolderId = selectedDocument.DocumentId;
                     updateDocument.Content = selectedDocument.Content;
 
                     await JSRuntime.InvokeVoidAsync("localStorage.removeItem", "selectedDocumentId");
@@ -183,7 +183,7 @@ else if (selectedDocument != null && editingDocument == true)
         }
         else
         {
-            newDocument.FolderName = allFolders.First(f => f.Id == newDocument.FolderId).Name;
+            newDocument.Title = allFolders.First(f => f.Id newDocument.FolderId).Name;
 
             var requestMessage = new HttpRequestMessage()
                 {
@@ -275,7 +275,7 @@ else if (selectedDocument != null && editingDocument == true)
         }
         else
         {
-            updateDocument.FolderName = allFolders.First(f => f.Id == updateDocument.FolderId).Name;
+            updateDocument.FolderId = allFolders.First(f => f.FolderId == updateDocument.FolderId).Name;
 
             var requestMessage = new HttpRequestMessage()
                 {
@@ -294,7 +294,7 @@ else if (selectedDocument != null && editingDocument == true)
                 requestMessage = new HttpRequestMessage()
                     {
                         Method = new HttpMethod("GET"),
-                        RequestUri = new Uri($"https://localhost:7225/api/Document/{selectedDocument.Id}")
+                        RequestUri = new Uri($"https://localhost:7225/api/Document/{selectedDocument.DocumentId}")
                     };
                 requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userToken);
                 response = await Http.SendAsync(requestMessage);
@@ -342,7 +342,7 @@ else if (selectedDocument != null && editingDocument == true)
         }
         else
         {
-            updateDocument.FolderName = allFolders.First(f => f.Id == updateDocument.FolderId).Name;
+            updateDocument.FolderId = allFolders.First(f => f.Id == updateDocument.FolderId).Name;
 
             var requestMessage = new HttpRequestMessage()
                 {
