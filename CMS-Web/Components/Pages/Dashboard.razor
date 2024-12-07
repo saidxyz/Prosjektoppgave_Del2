@@ -6,7 +6,9 @@
 
 <h3>Welcome to the Dashboard</h3>
 
-<button class="btn btn-danger" @onclick="OnLogoutClick">Logout</button>
+<NavLink class="nav-link" href="/logout">
+    <span class="bi bi-door-open" aria-hidden="true"></span> Logout
+</NavLink>
 
 @code {
     private string token;

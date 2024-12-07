@@ -1,26 +1,13 @@
 ﻿@page "/logout"
 
-@rendermode InteractiveServer
-@inject IHttpClientFactory ClientFactory
-@inject HttpClient Http
-@inject IJSRuntime JSRuntime
-@inject NavigationManager NavManager
-
-
-<h3>Logout</h3>
-
-
-<div>
-    <p>You are being logged out...</p>
-</div>
-
+<h3>Logging out...</h3>
 
 @code {
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    [Inject] private NavigationManager NavigationManager { get; set; }
+
+    protected override void OnInitialized()
     {
-        if (firstRender)
-        {
-            NavManager.NavigateTo("/login");
-        }
+        // Simply navigate to the login page immediately
+        NavigationManager.NavigateTo("/login", true);
     }
 }

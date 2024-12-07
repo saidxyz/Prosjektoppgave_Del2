@@ -9,6 +9,7 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddHttpClient();
 builder.Services.AddSingleton<LoginStateService>();
+builder.Services.AddScoped<FolderService>();
 
 var app = builder.Build();
 

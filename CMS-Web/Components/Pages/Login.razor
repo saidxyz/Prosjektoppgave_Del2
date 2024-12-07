@@ -105,9 +105,8 @@
 
                         feedback = "Login successful! Redirecting shortly.";
                         // Add delay before redirect to ensure user sees feedback
-                        await Task.Delay(1000);  // 1 second delay before redirect
+                        await Task.Delay(1000);
 
-                        // Navigate to the dashboard
                         NavManager.NavigateTo("/dashboard");
                     }
                     else
