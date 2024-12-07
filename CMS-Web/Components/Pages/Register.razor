@@ -114,11 +114,15 @@
                         
                         if (responseData != null && !string.IsNullOrEmpty(responseData.Token))
                         {
-                            await JSRuntime.InvokeVoidAsync("localStorage.setItem", "authToken", responseData.Token);
-                            token = responseData.Token;
+                            if (JSRuntime != null)
+                            {
+                                await JSRuntime.InvokeVoidAsync("localStorage.setItem", "authToken", responseData.Token);
+                            }
                             
+                            token = responseData.Token;
                             successFeedback = true;
-                            feedback = $"Registration successful! Token: {responseData.Token}";                      
+                            feedback = $"Registration successful! Token: {responseData.Token}";
+                            
                             ShowFeedback();
                             StartFeedbackTimer();
                         }
