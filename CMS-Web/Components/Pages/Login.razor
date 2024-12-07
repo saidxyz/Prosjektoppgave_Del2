@@ -3,6 +3,7 @@
 @using System.Timers
 @using Client.Data.Models
 @rendermode InteractiveServer
+
 @inject IHttpClientFactory ClientFactory
 @inject IJSRuntime JSRuntime
 @inject HttpClient Client
@@ -59,8 +60,8 @@
         //new LoginDto { Password = "Bobby123!", Email = "bob@bobs.com" }
 
         var client = ClientFactory.CreateClient();
-
         HttpResponseMessage? response = null;
+        
         try
         {
             response = await client.SendAsync(requestMessage);

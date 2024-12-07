@@ -1,10 +1,12 @@
-﻿namespace Client.Data.Models;
-
-public class JWTDto
+﻿namespace Client.Data.Models
 {
-    public Boolean IsSuccess { get; set; }
+    public class JWTDto
+    {
+        public Boolean IsSuccess { get; set; }
     
-    public string Token { get; set; } = null!;
+        public string Token { get; set; } = null!;
     
-    public string Message { get; set; } = null!;
+        public string Message { get; set; } = null!;
+    }
+    
 }

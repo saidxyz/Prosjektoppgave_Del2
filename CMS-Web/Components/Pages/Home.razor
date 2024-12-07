@@ -1,8 +1,8 @@
 ﻿@page "/"
 @using System.Text.Json
 @using System.Net.Http.Headers
-@using Client.Data.Models
 @using System.Web
+@using Client.Data.Models
 @rendermode InteractiveServer
 @inject HttpClient Http
 @inject IJSRuntime JSRuntime
@@ -40,7 +40,7 @@
             <label for="selectParent">change location:</label>
             <select name="parentFolderSelect" id="selectParent" @bind="editFolder.ParentFolderId">
                 @foreach(var folder in allFolders){
-                    <option value="@folder.FolderId">@folder.Name</option>
+                    <option value="@folder.Id">@folder.Name</option>
                 }
             </select>
             <br />
@@ -108,8 +108,8 @@
 
     private List<DocumentDto> childDocuments = new();
 
-    private readonly FolderCreateDto newFolder = new();
-    private readonly FolderCreateDto editFolder = new();
+    private readonly CreateFolderDto newFolder = new();
+    private readonly CreateFolderDto editFolder = new();
     private NavigatableFolderDto? targetEditFolder;
     private NavigatableFolderDto? targetDeleteFolder;
     private NavigatableFolderDto currentFolder = new() { Name = "Root" };
@@ -145,10 +145,10 @@
     private async Task<List<NavigatableFolderDto>> GetFolders()
     {
         var requestMessage = new HttpRequestMessage()
-            {
-                Method = new HttpMethod("GET"),
-                RequestUri = new Uri("https://localhost:7225/api/Folder")
-            };
+        {
+            Method = new HttpMethod("GET"),
+            RequestUri = new Uri("https://localhost:7225/api/Folder")
+        };
         //new LoginDto { Password = "Bobby123!", Email = "bob@bobs.com" }
 
         requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userToken);
@@ -192,14 +192,14 @@
         else
         {
 
-            newFolder.ParentFolderId = currentFolder.FolderId;
+            newFolder.ParentFolderId = currentFolder.Id;
 
             var requestMessage = new HttpRequestMessage()
-                {
-                    Method = new HttpMethod("POST"),
-                    RequestUri = new Uri("https://localhost:7238/api/Folder"),
-                    Content = JsonContent.Create(newFolder)
-                };
+            {
+                Method = new HttpMethod("POST"),
+                RequestUri = new Uri("https://localhost:7225/api/Folder"),
+                Content = JsonContent.Create(newFolder)
+            };
 
 
             requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userToken);
@@ -256,11 +256,11 @@
         {
 
             var requestMessage = new HttpRequestMessage()
-                {
-                    Method = new HttpMethod("PUT"),
-                    RequestUri = new Uri($"https://localhost:7225/api/Folder/{HttpUtility.UrlEncode(targetEditFolder.Url)}"),
-                    Content = JsonContent.Create(editFolder)
-                };
+            {
+                Method = new HttpMethod("PUT"),
+                RequestUri = new Uri($"https://localhost:7225/api/Folder/{HttpUtility.UrlEncode(targetEditFolder.Url)}"),
+                Content = JsonContent.Create(editFolder)
+            };
 
 
             requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userToken);
@@ -300,7 +300,7 @@
     private async Task DeleteFolder()
     {
 
-        var childFolders = allFolders.Where(cf => cf.ParentFolder?.FolderId == targetDeleteFolder?.FolderId).ToList();
+        var childFolders = allFolders.Where(cf => cf.ParentFolder?.Id == targetDeleteFolder?.Id).ToList();
 
         if (targetDeleteFolder == null)
         {
@@ -314,10 +314,10 @@
         {
 
             var requestMessage = new HttpRequestMessage()
-                {
-                    Method = new HttpMethod("DELETE"),
-                    RequestUri = new Uri($"https://localhost:7225/api/Folder/{HttpUtility.UrlEncode(targetDeleteFolder.Url)}"),
-                };
+            {
+                Method = new HttpMethod("DELETE"),
+                RequestUri = new Uri($"https://localhost:7225/api/Folder/{HttpUtility.UrlEncode(targetDeleteFolder.Url)}"),
+            };
 
 
             requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userToken);
@@ -367,7 +367,7 @@
 
     private async Task OnSelectDocument(DocumentDto document){
 
-        await JSRuntime.InvokeVoidAsync("localStorage.setItem", "selectedDocumentId", document.DocumentId);
+        await JSRuntime.InvokeVoidAsync("localStorage.setItem", "selectedDocumentId", document.Id);
 
         NavManager.NavigateTo("/document");
     }
@@ -394,7 +394,7 @@
             childFolders.Clear();
             foreach (var folder in folders)
             {
-                if (folder.ParentFolder != null && folder.ParentFolder.FolderId == currentFolder.FolderId)
+                if (folder.ParentFolder != null && folder.ParentFolder.Id == currentFolder.Id)
                 {
                     childFolders.Add(folder);
                 }
