@@ -93,12 +93,7 @@ namespace CMS_Project.Services
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
-
-        /// <summary>
-        /// Find user by username and returns id. if failed returns -1
-        /// </summary>
-        /// <param name="username"></param>
-        /// <returns>user id. -1 if failed</returns>
+        
         public async Task<int> GetUserIdAsync(string username)
         {
             var user = await _context.Users.SingleOrDefaultAsync(u => u.Username == username);

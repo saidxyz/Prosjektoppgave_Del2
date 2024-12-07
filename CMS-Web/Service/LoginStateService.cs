@@ -9,5 +9,4 @@
             IsLoggedIn = status;
         }
     }
-
 }

@@ -1,5 +1,7 @@
+using System.Net.Http.Headers;
 using CMS_Web.Components;
 using CMS_Web.Service;
+using Microsoft.JSInterop;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,9 +9,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-builder.Services.AddHttpClient();
+
+builder.Services.AddHttpClient(async cfg =>
+{
+    var token = await JSRuntime.InvokeAsync<string>("localStorage.getItem", "authToken");
+
+    cfg.BaseAddress = new Uri("https://localhost:7238/");
+    cfg.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+});
+
 builder.Services.AddSingleton<LoginStateService>();
-builder.Services.AddScoped<FolderService>();
 
 var app = builder.Build();
 

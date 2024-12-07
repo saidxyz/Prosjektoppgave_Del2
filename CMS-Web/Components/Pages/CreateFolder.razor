@@ -1,0 +1,32 @@
+﻿
+
+@page "/CreateFolder"
+@using System.Net.Http.Headers
+<h3>CreateFolder</h3>
+
+<label> Parent:</label>
+<select></select>
+
+<label>Folder Name</label>
+    <input type="text" />
+
+    <button @onclick="AddFolder">Save</button>
+
+    @code {
+        [Inject]private IHttpClientFactory httpFactory { get; set; }
+
+    var requestMessage = new HttpRequestMessage()
+    {
+        Method = new HttpMethod("POST"),
+        RequestUri = new Uri("https://localhost:7225/api/Folder"),
+        Content = JsonContent.Create(newFolder)
+    };
+
+    private void AddFolder()
+    {
+        var httpClient = httpFactory.CreateClient();
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue {}
+        throw new NotImplementedException();
+    }
+
+}
