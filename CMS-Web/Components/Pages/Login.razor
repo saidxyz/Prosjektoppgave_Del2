@@ -2,13 +2,10 @@
 @using System.Text.Json
 @using System.Timers
 @using CMS_Web.Data.Models
-@using CMS_Web.Data.Models
 @rendermode InteractiveServer
-
 @inject IHttpClientFactory ClientFactory
 @inject IJSRuntime JSRuntime
 @inject HttpClient Client
-
 @inject NavigationManager NavManager
 
 <PageTitle>Login</PageTitle>
@@ -17,8 +14,8 @@
 
 <div class="form-group">
     <form>
-        <label for="email">e-mail</label>
-        <input type="text" id="email" class="form-control" @bind="loginDto.Username" required />
+        <label for="username">Username</label>
+        <input type="text" id="username" class="form-control" @bind="loginDto.Username" required />
         <br />
 
         <label for="password">pass the word</label>
@@ -30,9 +27,12 @@
 
     <a href="/register">don't have an account yet? register here.</a>
 
-    <div style="border:solid 1px red;padding-left:8px;margin-top:16px;display:@visibleFeedback;">
-        <p style="color:red;margin:0;">@feedback</p>
-    </div>
+    @if (showFeedback)
+    {
+        <div style="border:solid 1px red;padding-left:8px;margin-top:16px;">
+            <p style="color:red;margin:0;">@feedback</p>
+        </div>
+    }
 
 </div>
 
@@ -40,15 +40,16 @@
 @code {
     private readonly LoginDto loginDto = new();
     public string? feedback;
-    public string visibleFeedback= "none";
-
+    private bool showFeedback = false;
     private Timer feedbackTimer;
 
     public async Task OnLoginClick()
     {
 
-        if (loginDto.Username == null || loginDto.Password == null)
+        if (string.IsNullOrEmpty(loginDto.Username) || string.IsNullOrEmpty(loginDto.Password))
         {
+            feedback = "E-mail and password are required.";
+            ShowFeedback();
             return;
         }
 
@@ -70,61 +71,60 @@
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex);
+            feedback = $"An error occurred: {ex.Message}";
+            ShowFeedback();
+            return;
 
         }
-
-        string responseBody;
-
         if (response != null)
         {
-
+            string responseBody = await response.Content.ReadAsStringAsync();
+            var deserializeResponseBody = JsonSerializer.Deserialize<JWTResponseDto>(responseBody, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            
             switch (response.StatusCode)
             {
                 case System.Net.HttpStatusCode.BadRequest:
-                    feedback = "E-mail or password is incorrect.";
-                    ShowFeedback();
-                    StartFeedbackTimer();
+                    feedback = "Invalid Username or password.";                    
                     break;
+                    
                 case System.Net.HttpStatusCode.OK:
-
-                    feedback = "Registered successfully, redirecting shortly.";
-                    responseBody = await response.Content.ReadAsStringAsync();
-                    var deserializeResponseBody = JsonSerializer.Deserialize<JWTResponseDto>(responseBody, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-                    if (deserializeResponseBody != null && deserializeResponseBody.IsSuccess == true) await JSRuntime.InvokeVoidAsync("localStorage.setItem", "key", deserializeResponseBody.Token);
-
-                    NavManager.NavigateTo("/");
-
+                    if (deserializeResponseBody?.IsSuccess == true && !string.IsNullOrEmpty(deserializeResponseBody.Token))
+                    {
+                        await JSRuntime.InvokeVoidAsync("localStorage.setItem", "authToken", deserializeResponseBody.Token);
+                        feedback = "Login successful! Redirecting shortly.";
+                        NavManager.NavigateTo("/"); 
+                    }
+                    else
+                    {
+                        feedback = "Login failed. Please check your credentials.";
+                    }
                     break;
-
-
+                    
+                default:
+                    feedback = "Something went wrong. Please try again.";
+                    break;
             }
-
-
         }
-
-
+        ShowFeedback();
     }
+    private void ShowFeedback()
+    {
+        showFeedback = true;
+        StartFeedbackTimer();
+    }
+
 
     private void StartFeedbackTimer()
     {
-        feedbackTimer = new(5000);
-
-        feedbackTimer.Elapsed += async (_sender, _e) => await HideFeedback();
+        feedbackTimer = new Timer(5000);
+        feedbackTimer.Elapsed += async (_, _) => await HideFeedback();
         feedbackTimer.Start();
     }
-
-
-    private void ShowFeedback()
-    {
-        visibleFeedback = "block";
-    }
-
 
     private async Task HideFeedback()
     {
         feedbackTimer.Stop();
-        visibleFeedback = "none";
+        showFeedback = false;
         await InvokeAsync(StateHasChanged);
     }
 
