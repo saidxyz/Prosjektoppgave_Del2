@@ -59,7 +59,6 @@
                 RequestUri = new Uri("https://localhost:7238/api/Auth/Login"),
                 Content = JsonContent.Create(loginDto)
             };
-        //new LoginDto { Password = "Bobby123!", Email = "bob@bobs.com" }
 
         var client = ClientFactory.CreateClient();
         HttpResponseMessage? response = null;
@@ -93,8 +92,8 @@
                     {
                         var token = deserializeResponseBody["token"];
                         await JSRuntime.InvokeVoidAsync("localStorage.setItem", "authToken", token);
-                        await Task.Delay(500);
                         feedback = "Login successful! Redirecting shortly.";
+                        await Task.Delay(500);
                         NavManager.NavigateTo("/");
                     }
                     else
@@ -117,8 +116,7 @@
         showFeedback = true;
         StartFeedbackTimer();
     }
-
-
+    
     private void StartFeedbackTimer()
     {
         feedbackTimer = new Timer(5000);
