@@ -1,4 +1,6 @@
-﻿namespace CMS_Web.Data.Models
+﻿using System;
+
+namespace CMS_Web.Data.Models
 {
     public class DocumentDto
     {

@@ -1,4 +1,10 @@
+using System;
+using System.Net.Http;
 using CMS_Web.Components;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.JSInterop;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,18 +12,24 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-builder.Services.AddScoped(sp =>
+builder.Services.AddScoped<HttpClient>(sp =>
 {
     var client = new HttpClient
     {
-        BaseAddress = new Uri("https://localhost:7238/")
+        BaseAddress = new Uri("https://localhost:7238/")  // Your API base address
     };
-    
-    // Attach the token if available
-    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", GetTokenFromLocalStorage());
-    
+
+    // Get the token from localStorage
+    var token = sp.GetRequiredService<IJSRuntime>().InvokeAsync<string>("localStorage.getItem", "authToken").Result;
+
+    if (!string.IsNullOrEmpty(token))
+    {
+        client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+    }
+
     return client;
 });
+
 
 
 builder.Services.AddHttpClient();

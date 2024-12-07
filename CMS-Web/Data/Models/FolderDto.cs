@@ -1,4 +1,6 @@
-﻿namespace CMS_Web.Data.Models;
+﻿using System.Collections.Generic;
+
+namespace CMS_Web.Data.Models;
 
 class FolderDto
 {

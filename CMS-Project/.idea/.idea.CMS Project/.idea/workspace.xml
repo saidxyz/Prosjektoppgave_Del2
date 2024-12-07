@@ -14,8 +14,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dd71df89-53c1-4b5a-af52-1e82122ea875" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.CMS Project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CMS Project/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CMS-Web/CMS-Web.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/CMS-Web.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMS-Web/Components/Pages/Error.razor" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/Components/Pages/Error.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMS-Web/Data/Models/DocumentDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/Data/Models/DocumentDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMS-Web/Data/Models/FolderDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/Data/Models/FolderDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMS-Web/Data/Models/JWTResponseDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/Data/Models/JWTResponseDto.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CMS-Web/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/Program.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
