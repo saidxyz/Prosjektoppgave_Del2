@@ -14,17 +14,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dd71df89-53c1-4b5a-af52-1e82122ea875" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../CMS-Web/Components/Pages/CreateDocument.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../CMS-Web/Components/Pages/CreateFolder.razor" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../CMS-Web/Data/Models/FolderDto.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CMS Project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CMS Project/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Controllers/AuthController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/AuthController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Data/CMS.db" beforeDir="false" afterPath="$PROJECT_DIR$/Data/CMS.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Services/UserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/UserService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CMS-Web/Components/Pages/Folders.razor" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CMS-Web/Components/Pages/Logout.razor" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/Components/Pages/Logout.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/CMS.db-shm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/CMS.db-wal" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMS-Web/Components/Pages/CreateFolder.razor" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/Components/Pages/CreateFolder.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMS-Web/Data/Models/Folder.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../CMS-Web/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CMS-Web/Service/FolderService.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CMS-Web/Service/LoginStateService.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../CMS-Web/bin/Debug/net8.0/CMS-API.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/bin/Debug/net8.0/CMS-API.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CMS-Web/bin/Debug/net8.0/CMS-API.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/bin/Debug/net8.0/CMS-API.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CMS-Web/bin/Debug/net8.0/CMS-API.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/bin/Debug/net8.0/CMS-API.pdb" afterDir="false" />
@@ -33,7 +31,6 @@
       <change beforePath="$PROJECT_DIR$/../CMS-Web/bin/Debug/net8.0/CMS-Web.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/bin/Debug/net8.0/CMS-Web.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.AssemblyInfoInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.csproj.AssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.csproj.CoreCompileInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.dll" afterDir="false" />
@@ -140,6 +137,7 @@
       <workItem from="1733598561035" duration="1898000" />
       <workItem from="1733605727848" duration="1501000" />
       <workItem from="1733609065921" duration="701000" />
+      <workItem from="1733612179210" duration="638000" />
     </task>
     <servers />
   </component>

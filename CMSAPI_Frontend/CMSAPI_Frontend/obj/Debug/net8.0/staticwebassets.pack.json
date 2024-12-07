@@ -1,0 +1,41 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\DTE2802_Prosjekt\\CMSAPI_Frontend\\CMSAPI_Frontend\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\CMSAPI_Frontend.bundle.scp.css",
+      "PackagePath": "staticwebassets\\CMSAPI_Frontend.bundle.scp.css"
+    },
+    {
+      "Id": "C:\\DTE2802_Prosjekt\\CMSAPI_Frontend\\CMSAPI_Frontend\\wwwroot\\app.css",
+      "PackagePath": "staticwebassets\\app.css"
+    },
+    {
+      "Id": "C:\\DTE2802_Prosjekt\\CMSAPI_Frontend\\CMSAPI_Frontend\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\DTE2802_Prosjekt\\CMSAPI_Frontend\\CMSAPI_Frontend\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\DTE2802_Prosjekt\\CMSAPI_Frontend\\CMSAPI_Frontend\\wwwroot\\favicon.png",
+      "PackagePath": "staticwebassets\\favicon.png"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.CMSAPI_Frontend.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.CMSAPI_Frontend.props",
+      "PackagePath": "build\\CMSAPI_Frontend.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.CMSAPI_Frontend.props",
+      "PackagePath": "buildMultiTargeting\\CMSAPI_Frontend.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.CMSAPI_Frontend.props",
+      "PackagePath": "buildTransitive\\CMSAPI_Frontend.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

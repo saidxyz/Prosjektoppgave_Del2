@@ -1,0 +1,131 @@
+﻿@page "/login"
+@using System.Text.Json
+@using System.Timers
+@using CMSAPI_Frontend.Data.Models
+@rendermode InteractiveServer
+
+@inject IHttpClientFactory ClientFactory
+@inject IJSRuntime JSRuntime
+@inject HttpClient Client
+
+@inject NavigationManager NavManager
+
+<PageTitle>Login</PageTitle>
+
+<h3>Login</h3>
+
+<div class="form-group">
+    <form>
+        <label for="email">e-mail</label>
+        <input type="text" id="email" class="form-control" @bind="loginDto.Email" required />
+        <br />
+
+        <label for="password">pass the word</label>
+        <input type="password" id="password" class="form-control" @bind="loginDto.Password" required />
+
+        <br />
+        <button class="btn btn-primary" type="submit" @onclick="OnLoginClick" @onclick:preventDefault="true">Login</button>
+    </form>
+
+    <a href="/register">don't have an account yet? register here.</a>
+
+    <div style="border:solid 1px red;padding-left:8px;margin-top:16px;display:@visibleFeedback;">
+        <p style="color:red;margin:0;">@feedback</p>
+    </div>
+
+</div>
+
+
+@code {
+    private readonly LoginDto loginDto = new();
+    public string? feedback;
+    public string visibleFeedback= "none";
+
+    private Timer feedbackTimer;
+
+    public async Task OnLoginClick()
+    {
+
+        if (loginDto.Email == null || loginDto.Password == null)
+        {
+            return;
+        }
+
+        var requestMessage = new HttpRequestMessage()
+            {
+                Method = new HttpMethod("POST"),
+                RequestUri = new Uri("https://localhost:7225/api/Auth/Login"),
+                Content = JsonContent.Create(loginDto)
+            };
+        //new LoginDto { Password = "Bobby123!", Email = "bob@bobs.com" }
+
+        var client = ClientFactory.CreateClient();
+
+        HttpResponseMessage? response = null;
+        try
+        {
+            response = await client.SendAsync(requestMessage);
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+
+        }
+
+        string responseBody;
+
+        if (response != null)
+        {
+
+            switch (response.StatusCode)
+            {
+                case System.Net.HttpStatusCode.BadRequest:
+                    feedback = "E-mail or password is incorrect.";
+                    ShowFeedback();
+                    StartFeedbackTimer();
+                    break;
+                case System.Net.HttpStatusCode.OK:
+
+                    feedback = "Registered successfully, redirecting shortly.";
+                    responseBody = await response.Content.ReadAsStringAsync();
+                    var deserializeResponseBody = JsonSerializer.Deserialize<JWTResponseDto>(responseBody, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                    if (deserializeResponseBody != null && deserializeResponseBody.IsSuccess == true) await JSRuntime.InvokeVoidAsync("localStorage.setItem", "key", deserializeResponseBody.Token);
+
+                    NavManager.NavigateTo("/");
+
+                    break;
+
+
+            }
+
+
+        }
+
+
+    }
+
+    private void StartFeedbackTimer()
+    {
+        feedbackTimer = new(5000);
+
+        feedbackTimer.Elapsed += async (_sender, _e) => await HideFeedback();
+        feedbackTimer.Start();
+    }
+
+
+    private void ShowFeedback()
+    {
+        visibleFeedback = "block";
+    }
+
+
+    private async Task HideFeedback()
+    {
+        feedbackTimer.Stop();
+        visibleFeedback = "none";
+        await InvokeAsync(StateHasChanged);
+    }
+
+
+}

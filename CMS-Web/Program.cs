@@ -9,13 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-
-builder.Services.AddHttpClient(async cfg =>
+builder.Services.AddHttpClient<object>(async cfg =>
 {
-    var token = await JSRuntime.InvokeAsync<string>("localStorage.getItem", "authToken");
-
     cfg.BaseAddress = new Uri("https://localhost:7238/");
-    cfg.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 });
 
 builder.Services.AddSingleton<LoginStateService>();

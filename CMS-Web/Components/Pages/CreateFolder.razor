@@ -1,4 +1,5 @@
 ﻿
+@using CMS_Web.Data.Models
 
 @page "/CreateFolder"
 @using System.Net.Http.Headers
@@ -10,23 +11,29 @@
 <label>Folder Name</label>
     <input type="text" />
 
-    <button @onclick="AddFolder">Save</button>
+    <button @onclick="AddFolderAsync">Save</button>
 
     @code {
+        CreateFolderDto Folder { get; set; } = new CreateFolderDto();
         [Inject]private IHttpClientFactory httpFactory { get; set; }
+        [Inject]private IJSRuntime JSRuntime { get; set; }
+        
 
-    var requestMessage = new HttpRequestMessage()
+    private async Task AddFolderAsync()
     {
-        Method = new HttpMethod("POST"),
-        RequestUri = new Uri("https://localhost:7225/api/Folder"),
-        Content = JsonContent.Create(newFolder)
-    };
+        await JSRuntime.InvokeVoidAsync("alert('Test')");
+        var token = await JSRuntime.InvokeAsync<string>("localStorage.getItem", "authToken");
+        Console.WriteLine("Token saved to localStorage: " + token);
 
-    private void AddFolder()
-    {
+        var newFolder = new CreateFolderDto
+        {
+            Name = "test",
+            ParentFolderId = null
+        };
+
         var httpClient = httpFactory.CreateClient();
-        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue {}
-        throw new NotImplementedException();
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer " + token);
+        await httpClient.PostAsync("/api/Folder", JsonContent.Create(newFolder));
     }
 
 }

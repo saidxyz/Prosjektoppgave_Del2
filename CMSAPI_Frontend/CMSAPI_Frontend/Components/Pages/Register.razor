@@ -1,0 +1,137 @@
+﻿@page "/register"
+@using System.Text.Json
+@using System.Timers
+@using CMSAPI_Frontend.Data.Models
+@rendermode InteractiveServer
+
+
+@inject IHttpClientFactory ClientFactory
+@inject IJSRuntime JSRuntime
+@inject HttpClient Client
+
+@inject NavigationManager NavManager
+
+<PageTitle>Register</PageTitle>
+
+<h3>Register</h3>
+
+
+<div class="form-group">
+    <form>
+
+        <label for="username">username</label>
+        <input type="text" id="username" class="form-control" @bind="registerDto.Username" required />
+        <br />
+        <label for="email">e-mail</label>
+        <input type="text" id="email" class="form-control" @bind="registerDto.Email" required />
+        <br />
+
+        <label for="password">pass the word</label>
+        <input type="password" id="password" class="form-control" @bind="registerDto.Password" required />
+
+        <br />
+        <button class="btn btn-primary" type="submit" @onclick="OnRegisterClick" @onclick:preventDefault="true">Login</button>
+    </form>
+
+    <div style="border:solid 1px @successStyleColor;padding-left:8px;margin-top:16px;display:@visibleFeedback;">
+        <p style="color:@successStyleColor;margin:0;">@feedback</p>
+    </div>
+
+</div>
+
+
+@code {
+    private readonly RegisterDto registerDto = new();
+    public string? feedback;
+    public bool successFeedback = false;
+    public string visibleFeedback = "none";
+
+    public string successStyleColor = "red";
+
+
+    private Timer feedbackTimer;
+
+    public async Task OnRegisterClick()
+    {
+
+        if (registerDto.Email == null || registerDto.Password == null)
+        {
+            return;
+        }
+
+        var requestMessage = new HttpRequestMessage()
+            {
+                Method = new HttpMethod("POST"),
+                RequestUri = new Uri("https://localhost:7225/api/Auth/Register"),
+                Content = JsonContent.Create(registerDto)
+            };
+
+        var client = ClientFactory.CreateClient();
+
+        HttpResponseMessage? response = null;
+        try
+        {
+            response = await client.SendAsync(requestMessage);
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+
+        }
+
+        if (response != null)
+        {
+
+            switch (response.StatusCode)
+            {
+                case System.Net.HttpStatusCode.BadRequest:
+                    feedback = "E-mail or password is incorrect.";
+                    successFeedback = false;
+                    ShowFeedback();
+                    StartFeedbackTimer();
+                    break;
+                case System.Net.HttpStatusCode.OK:
+
+                    successFeedback = true;
+                    ShowFeedback();
+                    StartFeedbackTimer();
+                    break;
+
+
+            }
+
+
+        }
+
+
+    }
+
+    private void StartFeedbackTimer()
+    {
+        feedbackTimer = new(5000);
+
+        feedbackTimer.Elapsed += async (_sender, _e) => await HideFeedback();
+        feedbackTimer.Start();
+    }
+
+
+    private void ShowFeedback()
+    {
+        successStyleColor = successFeedback ? "green" : "red";
+        visibleFeedback = "block";
+    }
+
+
+    private async Task HideFeedback()
+    {
+        feedbackTimer.Stop();
+        visibleFeedback = "none";
+        await InvokeAsync(StateHasChanged);
+        if(successFeedback){
+            NavManager.NavigateTo("/login");
+        }
+    }
+
+
+}

@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\CMSAPI_Frontend.props" />
+</Project>

@@ -46,7 +46,7 @@ namespace CMS_Project.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
-            if (!ModelState.IsValid
+            if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             
             try
