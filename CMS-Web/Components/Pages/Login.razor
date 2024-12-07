@@ -79,7 +79,7 @@
         if (response != null)
         {
             string responseBody = await response.Content.ReadAsStringAsync();
-            var deserializeResponseBody = JsonSerializer.Deserialize<JWTResponseDto>(responseBody, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            Console.WriteLine(responseBody);
             
             switch (response.StatusCode)
             {
@@ -88,20 +88,25 @@
                     break;
                     
                 case System.Net.HttpStatusCode.OK:
-                    if (deserializeResponseBody?.IsSuccess == true && !string.IsNullOrEmpty(deserializeResponseBody.Token))
+                    var deserializeResponseBody = JsonSerializer.Deserialize<Dictionary<string, string>>(responseBody);
+                    if (deserializeResponseBody != null && deserializeResponseBody.ContainsKey("token"))
                     {
-                        await JSRuntime.InvokeVoidAsync("localStorage.setItem", "authToken", deserializeResponseBody.Token);
+                        var token = deserializeResponseBody["token"];
+                        await JSRuntime.InvokeVoidAsync("localStorage.setItem", "authToken", token);
+                        await Task.Delay(500);
                         feedback = "Login successful! Redirecting shortly.";
-                        NavManager.NavigateTo("/"); 
+                        NavManager.NavigateTo("/");
                     }
                     else
                     {
                         feedback = "Login failed. Please check your credentials.";
+                        ShowFeedback();
                     }
                     break;
                     
                 default:
-                    feedback = "Something went wrong. Please try again.";
+                    feedback = "An error occurred while processing your login. Please try again.";
+                    ShowFeedback();
                     break;
             }
         }
