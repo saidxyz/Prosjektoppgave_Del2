@@ -2,5 +2,6 @@
 
 public class RegisterResponse
 {
+    public string Message { get; set; }
     public string Token { get; set; }
 }

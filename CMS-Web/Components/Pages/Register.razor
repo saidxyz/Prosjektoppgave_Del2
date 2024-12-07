@@ -96,29 +96,43 @@
                     ShowFeedback();
                     StartFeedbackTimer();
                     break;
-                case System.Net.HttpStatusCode.OK:
-                    var responseContent = await response.Content.ReadAsStringAsync();
-                    Console.WriteLine("Registration response: " + responseContent);
-                    var responseData = JsonSerializer.Deserialize<RegisterResponse>(responseContent);
                     
-                    if (responseData != null && !string.IsNullOrEmpty(responseData.Token))
+                case System.Net.HttpStatusCode.OK:
+                    if (response.IsSuccessStatusCode)
                     {
-                        token = responseData.Token;
-                        await JSRuntime.InvokeVoidAsync("localStorage.setItem", "authToken", responseData.Token);
-                        successFeedback = true;
-                        feedback = $"Registration successful! Token: {responseData.Token}";
-                        ShowFeedback();
-                        StartFeedbackTimer();
-                    }
-                    else
-                    {
-                        feedback = "Registration failed. No token received.";
-                        successFeedback = false;
-                        ShowFeedback();
-                        StartFeedbackTimer();
+                        var responseContent = await response.Content.ReadAsStringAsync();
+                        Console.WriteLine("Registration response: " + responseContent);
+                        
+                        var options = new JsonSerializerOptions
+                        {
+                            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                        };
+
+                        var responseData = JsonSerializer.Deserialize<RegisterResponse>(responseContent, options);
+
+                        Console.WriteLine("Deserialized responseData: " + (responseData != null ? JsonSerializer.Serialize(responseData) : "null"));
+                        
+                        if (responseData != null && !string.IsNullOrEmpty(responseData.Token))
+                        {
+                            await JSRuntime.InvokeVoidAsync("localStorage.setItem", "authToken", responseData.Token);
+                            token = responseData.Token;
+                            
+                            successFeedback = true;
+                            feedback = $"Registration successful! Token: {responseData.Token}";                      
+                            ShowFeedback();
+                            StartFeedbackTimer();
+                        }
+
                     }
                     break;
             }
+        }
+        else
+        {
+            feedback = "Registration failed. No response from the server.";
+            successFeedback = false;
+            ShowFeedback();
+            StartFeedbackTimer();
         }
     }
 
