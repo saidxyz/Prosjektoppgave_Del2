@@ -46,16 +46,14 @@
     public string? feedback;
     public bool successFeedback = false;
     public string visibleFeedback = "none";
-
     public string successStyleColor = "red";
 
 
     private Timer feedbackTimer;
-
+    private string? token;
     public async Task OnRegisterClick()
     {
-
-        if (registerDto.Email == null || registerDto.Password == null)
+        if (registerDto.Email == null || registerDto.Password == null || registerDto.Username == null)        
         {
             return;
         }
@@ -68,17 +66,15 @@
             };
 
         var client = ClientFactory.CreateClient();
-
         HttpResponseMessage? response = null;
+        
         try
         {
             response = await client.SendAsync(requestMessage);
-
         }
         catch (Exception ex)
         {
             Console.WriteLine(ex);
-
         }
 
         if (response != null)
@@ -86,57 +82,59 @@
             switch (response.StatusCode)
             {
                 case System.Net.HttpStatusCode.BadRequest:
-                    feedback = "Email or password is incorrect.";
+                    feedback = "Invalid input. Please check your data.";                    
+                    successFeedback = false;
+                    ShowFeedback();
+                    StartFeedbackTimer();
+                    break;
+                    
+                case System.Net.HttpStatusCode.Conflict:                 
+                    var conflictContent = await response.Content.ReadAsStringAsync();
+                    var conflictMessage = JsonSerializer.Deserialize<ErrorResponse>(conflictContent)?.Message;
+                    feedback = conflictMessage ?? "Username or email already exists.";
                     successFeedback = false;
                     ShowFeedback();
                     StartFeedbackTimer();
                     break;
                 case System.Net.HttpStatusCode.OK:
-                    // Assume the response contains the token in the body
                     var responseContent = await response.Content.ReadAsStringAsync();
-                    var responseData = JsonSerializer.Deserialize<LoginResponse>(responseContent);
-                
+                    Console.WriteLine("Registration response: " + responseContent);
+                    var responseData = JsonSerializer.Deserialize<RegisterResponse>(responseContent);
+                    
                     if (responseData != null && !string.IsNullOrEmpty(responseData.Token))
                     {
-                        // Store the token in localStorage (or sessionStorage)
+                        token = responseData.Token;
                         await JSRuntime.InvokeVoidAsync("localStorage.setItem", "authToken", responseData.Token);
                         successFeedback = true;
-                        feedback = "Registration successful! You can now log in.";
+                        feedback = $"Registration successful! Token: {responseData.Token}";
                         ShowFeedback();
                         StartFeedbackTimer();
                     }
                     else
                     {
-                        successFeedback = false;
                         feedback = "Registration failed. No token received.";
+                        successFeedback = false;
                         ShowFeedback();
                         StartFeedbackTimer();
                     }
                     break;
             }
-
-
         }
-
-
     }
 
     private void StartFeedbackTimer()
     {
         feedbackTimer = new(5000);
-
         feedbackTimer.Elapsed += async (_sender, _e) => await HideFeedback();
         feedbackTimer.Start();
     }
-
 
     private void ShowFeedback()
     {
         successStyleColor = successFeedback ? "green" : "red";
         visibleFeedback = "block";
     }
-
-
+    
     private async Task HideFeedback()
     {
         feedbackTimer.Stop();

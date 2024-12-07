@@ -1,4 +1,6 @@
-﻿using CMS_Project.Data;
+﻿using System;
+using System.Collections.Generic;
+using CMS_Project.Data;
 using CMS_Project.Models.Entities;
 using CMS_Project.Models.DTOs;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +8,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 
 namespace CMS_Project.Services
@@ -21,12 +25,6 @@ namespace CMS_Project.Services
             _configuration = configuration;
         }
 
-        /// <summary>
-        /// Register user by Dto
-        /// </summary>
-        /// <param name="registerDto"></param>
-        /// <returns>user</returns>
-        /// <exception cref="ArgumentException"></exception>
         public async Task<User> RegisterUserAsync(RegisterDto registerDto)
         {
             // Sjekk om brukernavn eller e-post allerede finnes
@@ -51,13 +49,7 @@ namespace CMS_Project.Services
 
             return user;
         }
-
-        /// <summary>
-        /// check for username and verify the password. generates jwt and returns it
-        /// </summary>
-        /// <param name="loginDto"></param>
-        /// <returns>JWT token</returns>
-        /// <exception cref="UnauthorizedAccessException"></exception>
+        
         public async Task<string> AuthenticateUserAsync(LoginDto loginDto)
         {
             var user = await _context.Users
@@ -71,12 +63,7 @@ namespace CMS_Project.Services
             return token;
         }
 
-        /// <summary>
-        /// Generates JWT token by given user
-        /// </summary>
-        /// <param name="user"></param>
-        /// <returns>JWT token</returns>
-        /// <exception cref="InvalidOperationException"></exception>
+
         private string GenerateJwtToken(User user)
         {
             var key = _configuration["Jwt:Key"];
