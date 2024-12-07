@@ -6,6 +6,20 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+builder.Services.AddScoped(sp =>
+{
+    var client = new HttpClient
+    {
+        BaseAddress = new Uri("https://localhost:7238/")
+    };
+    
+    // Attach the token if available
+    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", GetTokenFromLocalStorage());
+    
+    return client;
+});
+
+
 builder.Services.AddHttpClient();
 
 var app = builder.Build();

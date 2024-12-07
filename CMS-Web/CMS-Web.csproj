@@ -12,10 +12,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Data\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <_ContentIncludedByDefault Remove="Components\Pages\Document.razor" />
       <_ContentIncludedByDefault Remove="Components\Pages\Error.razor" />
       <_ContentIncludedByDefault Remove="Components\Pages\Home.razor" />
