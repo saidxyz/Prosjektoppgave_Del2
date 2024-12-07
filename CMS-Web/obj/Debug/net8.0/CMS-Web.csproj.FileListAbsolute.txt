@@ -125,3 +125,4 @@ C:\Prosjektoppgave_Del2\CMS-Web\bin\Debug\net8.0\Microsoft.Extensions.Dependency
 C:\Prosjektoppgave_Del2\CMS-Web\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
 C:\Prosjektoppgave_Del2\CMS-Web\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
 C:\Prosjektoppgave_Del2\CMS-Web\bin\Debug\net8.0\Microsoft.JSInterop.dll
+C:\Prosjektoppgave_Del2\CMS-Web\obj\Debug\net8.0\scopedcss\Components\Pages\Home.razor.rz.scp.css

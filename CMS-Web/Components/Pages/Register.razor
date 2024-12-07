@@ -1,7 +1,8 @@
 ﻿@page "/register"
 @using System.Text.Json
 @using System.Timers
-@using Client.Data.Models
+@using CMS_Web.Data.Models
+@using CMS_Web.Data.Models
 @rendermode InteractiveServer
 
 
@@ -61,8 +62,8 @@
 
         var requestMessage = new HttpRequestMessage()
             {
-                Method = new HttpMethod("POST"),
-                RequestUri = new Uri("https://localhost:7225/api/Auth/Register"),
+                Method = HttpMethod.Post,
+                RequestUri = new Uri("https://localhost:7238/api/Auth/Register"),
                 Content = JsonContent.Create(registerDto)
             };
 
@@ -82,23 +83,36 @@
 
         if (response != null)
         {
-
             switch (response.StatusCode)
             {
                 case System.Net.HttpStatusCode.BadRequest:
-                    feedback = "E-mail or password is incorrect.";
+                    feedback = "Email or password is incorrect.";
                     successFeedback = false;
                     ShowFeedback();
                     StartFeedbackTimer();
                     break;
                 case System.Net.HttpStatusCode.OK:
-
-                    successFeedback = true;
-                    ShowFeedback();
-                    StartFeedbackTimer();
+                    // Assume the response contains the token in the body
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    var responseData = JsonSerializer.Deserialize<LoginResponse>(responseContent);
+                
+                    if (responseData != null && !string.IsNullOrEmpty(responseData.Token))
+                    {
+                        // Store the token in localStorage (or sessionStorage)
+                        await JSRuntime.InvokeVoidAsync("localStorage.setItem", "authToken", responseData.Token);
+                        successFeedback = true;
+                        feedback = "Registration successful! You can now log in.";
+                        ShowFeedback();
+                        StartFeedbackTimer();
+                    }
+                    else
+                    {
+                        successFeedback = false;
+                        feedback = "Registration failed. No token received.";
+                        ShowFeedback();
+                        StartFeedbackTimer();
+                    }
                     break;
-
-
             }
 
 

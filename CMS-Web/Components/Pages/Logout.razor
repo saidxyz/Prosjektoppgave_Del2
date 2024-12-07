@@ -1,0 +1,39 @@
+﻿@page "/logout"
+
+@using System.Text.Json
+@using System.Text.Json.Serialization
+@using System.Net.Http.Headers
+@using CMS_Web.Data.Models
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@rendermode InteractiveServer
+@inject IHttpClientFactory ClientFactory
+@inject HttpClient Http
+@inject IJSRuntime JSRuntime
+@inject NavigationManager NavManager
+
+
+<h3>Logout</h3>
+
+<div>
+    <p>
+        @message
+    </p>
+</div>
+
+@code {
+    private string message = "You are being logged out...";
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("localStorage.removeItem", "key");
+
+            message = "You have been logged out, redirecting.";
+
+            NavManager.NavigateTo("/login");
+
+        }
+    }
+}

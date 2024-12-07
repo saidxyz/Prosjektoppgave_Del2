@@ -1,27 +1,26 @@
-﻿namespace Client.Data.Models
+﻿namespace CMS_Web.Data.Models;
+
+class FolderDto
 {
-    class FolderDto
-    {
-        public int Id { get; set; }
-        public string Name { get; set; } = null!;
-        public int? ParentFolderId { get; set; }
+    public int Id { get; set; }
+    public string Name { get; set; } = null!;
+    public int? ParentFolderId { get; set; }
 
-    }
-    class CreateFolderDto
-    {
-        public string Name { get; set; } = null!;
-        public int ParentFolderId { get; set; }
+}
+class CreateFolderDto
+{
+    public string Name { get; set; } = null!;
+    public int ParentFolderId { get; set; }
 
-    }
+}
 
 
-    class NavigatableFolderDto
-    {
-        public int Id { get; set; }
-        public string Name { get; set; } = null!;
-        public FolderDto? ParentFolder { get; set; }
-        public List<DocumentDto> Documents { get; set; } = null!;
-        public string Url { get; set; } = null!;
+class NavigatableFolderDto
+{
+    public int Id { get; set; }
+    public string Name { get; set; } = null!;
+    public FolderDto? ParentFolder { get; set; }
+    public List<DocumentDto> Documents { get; set; } = null!;
+    public string Url { get; set; } = null!;
 
-    }
 }

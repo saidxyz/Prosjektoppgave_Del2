@@ -12,4 +12,4 @@
             Document = document ?? new DocumentDetailDto();
         }
     }
-}
+}   

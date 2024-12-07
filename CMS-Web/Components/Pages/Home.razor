@@ -1,8 +1,10 @@
 ﻿@page "/"
 @using System.Text.Json
+@using System.Text.Json.Serialization
 @using System.Net.Http.Headers
+@using CMSAPI_Frontend.Data.Models
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using System.Web
-@using Client.Data.Models
 @rendermode InteractiveServer
 @inject HttpClient Http
 @inject IJSRuntime JSRuntime
@@ -145,10 +147,10 @@
     private async Task<List<NavigatableFolderDto>> GetFolders()
     {
         var requestMessage = new HttpRequestMessage()
-        {
-            Method = new HttpMethod("GET"),
-            RequestUri = new Uri("https://localhost:7225/api/Folder")
-        };
+            {
+                Method = new HttpMethod("GET"),
+                RequestUri = new Uri("https://localhost:7238/api/Folder")
+            };
         //new LoginDto { Password = "Bobby123!", Email = "bob@bobs.com" }
 
         requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userToken);
@@ -195,11 +197,11 @@
             newFolder.ParentFolderId = currentFolder.Id;
 
             var requestMessage = new HttpRequestMessage()
-            {
-                Method = new HttpMethod("POST"),
-                RequestUri = new Uri("https://localhost:7225/api/Folder"),
-                Content = JsonContent.Create(newFolder)
-            };
+                {
+                    Method = new HttpMethod("POST"),
+                    RequestUri = new Uri("https://localhost:7238/api/Folder"),
+                    Content = JsonContent.Create(newFolder)
+                };
 
 
             requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userToken);
@@ -256,11 +258,11 @@
         {
 
             var requestMessage = new HttpRequestMessage()
-            {
-                Method = new HttpMethod("PUT"),
-                RequestUri = new Uri($"https://localhost:7225/api/Folder/{HttpUtility.UrlEncode(targetEditFolder.Url)}"),
-                Content = JsonContent.Create(editFolder)
-            };
+                {
+                    Method = new HttpMethod("PUT"),
+                    RequestUri = new Uri($"https://localhost:7238/api/Folder/{HttpUtility.UrlEncode(targetEditFolder.Url)}"),
+                    Content = JsonContent.Create(editFolder)
+                };
 
 
             requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userToken);
@@ -314,10 +316,10 @@
         {
 
             var requestMessage = new HttpRequestMessage()
-            {
-                Method = new HttpMethod("DELETE"),
-                RequestUri = new Uri($"https://localhost:7225/api/Folder/{HttpUtility.UrlEncode(targetDeleteFolder.Url)}"),
-            };
+                {
+                    Method = new HttpMethod("DELETE"),
+                    RequestUri = new Uri($"https://localhost:7238/api/Folder/{HttpUtility.UrlEncode(targetDeleteFolder.Url)}"),
+                };
 
 
             requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userToken);

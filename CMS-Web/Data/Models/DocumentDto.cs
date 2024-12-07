@@ -1,4 +1,4 @@
-﻿namespace Client.Data.Models
+﻿namespace CMS_Web.Data.Models
 {
     public class DocumentDto
     {

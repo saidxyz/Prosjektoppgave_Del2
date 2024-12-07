@@ -1,7 +1,8 @@
 ﻿@page "/login"
 @using System.Text.Json
 @using System.Timers
-@using Client.Data.Models
+@using CMS_Web.Data.Models
+@using CMS_Web.Data.Models
 @rendermode InteractiveServer
 
 @inject IHttpClientFactory ClientFactory
@@ -17,7 +18,7 @@
 <div class="form-group">
     <form>
         <label for="email">e-mail</label>
-        <input type="text" id="email" class="form-control" @bind="loginDto.Username" required />
+        <input type="text" id="email" class="form-control" @bind="loginDto.Email" required />
         <br />
 
         <label for="password">pass the word</label>
@@ -46,7 +47,7 @@
     public async Task OnLoginClick()
     {
 
-        if (loginDto.Username == null || loginDto.Password == null)
+        if (loginDto.Email == null || loginDto.Password == null)
         {
             return;
         }
@@ -89,7 +90,7 @@
 
                     feedback = "Registered successfully, redirecting shortly.";
                     responseBody = await response.Content.ReadAsStringAsync();
-                    var deserializeResponseBody = JsonSerializer.Deserialize<JWTDto>(responseBody, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                    var deserializeResponseBody = JsonSerializer.Deserialize<JWTResponseDto>(responseBody, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
                     if (deserializeResponseBody != null && deserializeResponseBody.IsSuccess == true) await JSRuntime.InvokeVoidAsync("localStorage.setItem", "key", deserializeResponseBody.Token);
 
                     NavManager.NavigateTo("/");
