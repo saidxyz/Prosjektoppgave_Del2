@@ -54,11 +54,11 @@
         }
 
         var requestMessage = new HttpRequestMessage()
-            {
-                Method = new HttpMethod("POST"),
-                RequestUri = new Uri("https://localhost:7238/api/Auth/Login"),
-                Content = JsonContent.Create(loginDto)
-            };
+        { 
+            Method = new HttpMethod("POST"),
+            RequestUri = new Uri("https://localhost:7238/api/Auth/Login"),
+            Content = JsonContent.Create(loginDto)
+        };
 
         var client = ClientFactory.CreateClient();
         HttpResponseMessage? response = null;
@@ -73,12 +73,11 @@
             feedback = $"An error occurred: {ex.Message}";
             ShowFeedback();
             return;
-
         }
         if (response != null)
         {
             string responseBody = await response.Content.ReadAsStringAsync();
-            Console.WriteLine(responseBody);
+            Console.WriteLine("Response body: " + responseBody);
             
             switch (response.StatusCode)
             {
@@ -92,9 +91,9 @@
                     {
                         var token = deserializeResponseBody["token"];
                         await JSRuntime.InvokeVoidAsync("localStorage.setItem", "authToken", token);
+                        Console.WriteLine("Token saved to localStorage: " + token);
                         feedback = "Login successful! Redirecting shortly.";
-                        await Task.Delay(500);
-                        NavManager.NavigateTo("/");
+                        NavManager.NavigateTo("/");                    
                     }
                     else
                     {

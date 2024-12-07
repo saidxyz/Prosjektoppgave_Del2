@@ -2,6 +2,7 @@
 @using System.Text.Json
 @using System.Text.Json.Serialization
 @using System.Net.Http.Headers
+@using System.Text
 @using CMS_Web.Data.Models
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using System.Web
@@ -124,22 +125,36 @@
         {
             userToken = await JSRuntime.InvokeAsync<string>("localStorage.getItem", "key");
 
-
-            if (userToken == null)
+            
+            if (string.IsNullOrEmpty(userToken))
             {
                 NavManager.NavigateTo("/login");
+                return;  // Early return to prevent further execution
             }
-
-            if (userToken != null)
+            
+            if (IsTokenExpired(userToken))
             {
-
-                var deserializedResponse = await GetFolders();
-
-                UpdateCurrentFolder(deserializedResponse, "/Root");
-
-
+                NavManager.NavigateTo("/login");
+                return;  // Early return if the token is expired
             }
+            
+            
+            // If token is valid, proceed to get folders
+            var deserializedResponse = await GetFolders();
+            UpdateCurrentFolder(deserializedResponse, "/Root");
+            
         }
+    }
+    private bool IsTokenExpired(string token)
+    {
+        // Decode the token and check for expiration
+        var parts = token.Split('.');
+        if (parts.Length != 3) return true;
+
+        var payload = parts[1];
+        var json = Encoding.UTF8.GetString(Convert.FromBase64String(payload));
+        var expiration = JsonSerializer.Deserialize<JsonElement>(json).GetProperty("exp").GetInt64();
+        return DateTime.UtcNow > DateTimeOffset.FromUnixTimeSeconds(expiration).UtcDateTime;
     }
 
     // GET ALL NEW FOLDERS
