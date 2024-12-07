@@ -18,7 +18,7 @@
 <div class="form-group">
     <form>
         <label for="email">e-mail</label>
-        <input type="text" id="email" class="form-control" @bind="loginDto.Email" required />
+        <input type="text" id="email" class="form-control" @bind="loginDto.Username" required />
         <br />
 
         <label for="password">pass the word</label>
@@ -47,7 +47,7 @@
     public async Task OnLoginClick()
     {
 
-        if (loginDto.Email == null || loginDto.Password == null)
+        if (loginDto.Username == null || loginDto.Password == null)
         {
             return;
         }
