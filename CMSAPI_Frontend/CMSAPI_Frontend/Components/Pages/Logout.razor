@@ -28,7 +28,7 @@
     {
         if (firstRender)
         {
-            await JSRuntime.InvokeVoidAsync("localStorage.removeItem", "key");
+            await JSRuntime.InvokeVoidAsync("localStorage.removeItem", "authToken");
 
             message = "You have been logged out, redirecting.";
 

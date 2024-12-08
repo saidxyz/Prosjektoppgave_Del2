@@ -14,31 +14,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dd71df89-53c1-4b5a-af52-1e82122ea875" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../CMS-Web/Data/Models/FolderDto.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CMS Project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CMS Project/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controllers/AuthController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/AuthController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Data/CMS.db" beforeDir="false" afterPath="$PROJECT_DIR$/Data/CMS.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/CMS.db-shm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/CMS.db-wal" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CMS-Web/Components/Pages/CreateFolder.razor" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/Components/Pages/CreateFolder.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CMS-Web/Data/Models/Folder.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CMS-Web/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CMS-Web/bin/Debug/net8.0/CMS-API.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/bin/Debug/net8.0/CMS-API.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CMS-Web/bin/Debug/net8.0/CMS-API.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/bin/Debug/net8.0/CMS-API.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CMS-Web/bin/Debug/net8.0/CMS-API.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/bin/Debug/net8.0/CMS-API.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CMS-Web/bin/Debug/net8.0/CMS-Web.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/bin/Debug/net8.0/CMS-Web.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CMS-Web/bin/Debug/net8.0/CMS-Web.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/bin/Debug/net8.0/CMS-Web.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CMS-Web/bin/Debug/net8.0/CMS-Web.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/bin/Debug/net8.0/CMS-Web.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/CMS.db-shm" beforeDir="false" afterPath="$PROJECT_DIR$/Data/CMS.db-shm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/CMS.db-wal" beforeDir="false" afterPath="$PROJECT_DIR$/Data/CMS.db-wal" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.AssemblyInfoInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/CMS-Web.sourcelink.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/apphost.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/apphost.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/ref/CMS-Web.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/ref/CMS-Web.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/refint/CMS-Web.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../CMS-Web/obj/Debug/net8.0/refint/CMS-Web.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMSAPI_Frontend/.idea/.idea.CMSAPI_Frontend/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../CMSAPI_Frontend/.idea/.idea.CMSAPI_Frontend/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMSAPI_Frontend/CMSAPI_Frontend/Components/Pages/Home.razor" beforeDir="false" afterPath="$PROJECT_DIR$/../CMSAPI_Frontend/CMSAPI_Frontend/Components/Pages/Home.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMSAPI_Frontend/CMSAPI_Frontend/Components/Pages/Logout.razor" beforeDir="false" afterPath="$PROJECT_DIR$/../CMSAPI_Frontend/CMSAPI_Frontend/Components/Pages/Logout.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMSAPI_Frontend/CMSAPI_Frontend/bin/Debug/net8.0/CMSAPI_Frontend.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../CMSAPI_Frontend/CMSAPI_Frontend/bin/Debug/net8.0/CMSAPI_Frontend.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMSAPI_Frontend/CMSAPI_Frontend/bin/Debug/net8.0/CMSAPI_Frontend.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../CMSAPI_Frontend/CMSAPI_Frontend/bin/Debug/net8.0/CMSAPI_Frontend.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMSAPI_Frontend/CMSAPI_Frontend/bin/Debug/net8.0/CMSAPI_Frontend.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../CMSAPI_Frontend/CMSAPI_Frontend/bin/Debug/net8.0/CMSAPI_Frontend.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMSAPI_Frontend/CMSAPI_Frontend/obj/Debug/net8.0/CMSAPI_Frontend.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../CMSAPI_Frontend/CMSAPI_Frontend/obj/Debug/net8.0/CMSAPI_Frontend.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMSAPI_Frontend/CMSAPI_Frontend/obj/Debug/net8.0/CMSAPI_Frontend.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../CMSAPI_Frontend/CMSAPI_Frontend/obj/Debug/net8.0/CMSAPI_Frontend.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMSAPI_Frontend/CMSAPI_Frontend/obj/Debug/net8.0/CMSAPI_Frontend.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../CMSAPI_Frontend/CMSAPI_Frontend/obj/Debug/net8.0/CMSAPI_Frontend.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMSAPI_Frontend/CMSAPI_Frontend/obj/Debug/net8.0/CMSAPI_Frontend.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../CMSAPI_Frontend/CMSAPI_Frontend/obj/Debug/net8.0/CMSAPI_Frontend.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMSAPI_Frontend/CMSAPI_Frontend/obj/Debug/net8.0/CMSAPI_Frontend.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/../CMSAPI_Frontend/CMSAPI_Frontend/obj/Debug/net8.0/CMSAPI_Frontend.sourcelink.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMSAPI_Frontend/CMSAPI_Frontend/obj/Debug/net8.0/apphost.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../CMSAPI_Frontend/CMSAPI_Frontend/obj/Debug/net8.0/apphost.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMSAPI_Frontend/CMSAPI_Frontend/obj/Debug/net8.0/ref/CMSAPI_Frontend.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../CMSAPI_Frontend/CMSAPI_Frontend/obj/Debug/net8.0/ref/CMSAPI_Frontend.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMSAPI_Frontend/CMSAPI_Frontend/obj/Debug/net8.0/refint/CMSAPI_Frontend.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../CMSAPI_Frontend/CMSAPI_Frontend/obj/Debug/net8.0/refint/CMSAPI_Frontend.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMSAPI_Frontend/CMSAPI_Frontend/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/../CMSAPI_Frontend/CMSAPI_Frontend/obj/rider.project.model.nuget.info" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,6 +134,7 @@
       <workItem from="1733605727848" duration="1501000" />
       <workItem from="1733609065921" duration="701000" />
       <workItem from="1733612179210" duration="638000" />
+      <workItem from="1733619953979" duration="627000" />
     </task>
     <servers />
   </component>

@@ -5,6 +5,7 @@
 @using CMSAPI_Frontend.Data.Models
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using System.Web
+@using CMS_Web.Service
 @rendermode InteractiveServer
 @inject HttpClient Http
 @inject IJSRuntime JSRuntime
@@ -12,6 +13,7 @@
 
 
 <PageTitle>@currentFolder.Name</PageTitle>
+<button @onclick="OnLogoutClick">Logout</button>
 
 <a href="/logout">Logout</a>
 
@@ -418,5 +420,22 @@
         }
 
     }
+    private async Task OnLogoutClick()
+    {
+        // Clear token from localStorage and update the login state
+        await JSRuntime.InvokeVoidAsync("localStorage.removeItem", "authToken");
+        await JSRuntime.InvokeVoidAsync("localStorage.removeItem", "authToken");
+        LoginStateService loginService = new LoginStateService();
+        loginService.SetLoginStatus(false);
+        
+        //LoginStateService.SetLoginStatus(false);
 
+        // Redirect to login page after logout
+        NavManager.NavigateTo("/login");
+    }
 }
+
+
+
+
+
