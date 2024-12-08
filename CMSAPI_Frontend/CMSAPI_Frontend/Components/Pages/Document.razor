@@ -191,7 +191,7 @@ else if (selectedDocument != null && editingDocument == true)
             var requestMessage = new HttpRequestMessage()
                 {
                     Method = new HttpMethod("POST"),
-                    RequestUri = new Uri("https://localhost:7225/api/Document"),
+                    RequestUri = new Uri("https://localhost:7238/api/Document"),
                     Content = JsonContent.Create(newDocument)
                 };
 
@@ -236,7 +236,7 @@ else if (selectedDocument != null && editingDocument == true)
         var requestMessage = new HttpRequestMessage()
             {
                 Method = new HttpMethod("GET"),
-                RequestUri = new Uri($"https://localhost:7225/api/Document/{id}")
+                RequestUri = new Uri($"https://localhost:7238/api/Document/{id}")
             };
 
         requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userToken);
@@ -283,7 +283,7 @@ else if (selectedDocument != null && editingDocument == true)
             var requestMessage = new HttpRequestMessage()
                 {
                     Method = new HttpMethod("PUT"),
-                    RequestUri = new Uri($"https://localhost:7225/api/Document/{selectedDocument.Id}"),
+                    RequestUri = new Uri($"https://localhost:7238/api/Document/{selectedDocument.Id}"),
                     Content = JsonContent.Create(updateDocument)
                 };
 
@@ -297,7 +297,7 @@ else if (selectedDocument != null && editingDocument == true)
                 requestMessage = new HttpRequestMessage()
                     {
                         Method = new HttpMethod("GET"),
-                        RequestUri = new Uri($"https://localhost:7225/api/Document/{selectedDocument.Id}")
+                        RequestUri = new Uri($"https://localhost:7238/api/Document/{selectedDocument.Id}")
                     };
                 requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userToken);
                 response = await Http.SendAsync(requestMessage);
@@ -350,7 +350,7 @@ else if (selectedDocument != null && editingDocument == true)
             var requestMessage = new HttpRequestMessage()
                 {
                     Method = new HttpMethod("DELETE"),
-                    RequestUri = new Uri($"https://localhost:7225/api/Document/{selectedDocument.Id}"),
+                    RequestUri = new Uri($"https://localhost:7238/api/Document/{selectedDocument.Id}"),
                 };
 
 
@@ -388,7 +388,7 @@ else if (selectedDocument != null && editingDocument == true)
         var requestMessage = new HttpRequestMessage()
             {
                 Method = new HttpMethod("GET"),
-                RequestUri = new Uri("https://localhost:7225/api/Folder")
+                RequestUri = new Uri("https://localhost:7238/api/Folder")
             };
 
         requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userToken);

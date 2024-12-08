@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using CMS_Project.Data;
+﻿using CMS_Project.Data;
 using CMS_Project.Models.Entities;
 using CMS_Project.Models.DTOs;
 using Microsoft.EntityFrameworkCore;
@@ -8,8 +6,6 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
 
 
 namespace CMS_Project.Services

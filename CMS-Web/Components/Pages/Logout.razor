@@ -1,16 +1,16 @@
 ﻿@inject IJSRuntime JSRuntime
 
-
 @page "/logout"
 
 <h3>Logging out...</h3>
-
 @code {
     [Inject] private NavigationManager NavigationManager { get; set; }
     
     protected override Task OnAfterRenderAsync(bool firstRender)
     {
-        JSRuntime.InvokeVoidAsync("localStorage.setItem", "authToken", "").GetAwaiter().GetResult();
+        JSRuntime.InvokeVoidAsync("localStorage.clear");
+        //JSRuntime.InvokeVoidAsync("localStorage.clear", "authToken");
+        //JSRuntime.InvokeVoidAsync("localStorage.setItem", "authToken", "").GetAwaiter().GetResult();
         // Simply navigate to the login page immediately
         NavigationManager.NavigateTo("/login", true);
 

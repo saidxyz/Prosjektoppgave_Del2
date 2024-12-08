@@ -1,3 +1,4 @@
+using CMS_Web.Service;
 using CMSAPI_Frontend.Components;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +8,7 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddHttpClient();
+builder.Services.AddSingleton<LoginStateService>();
 
 var app = builder.Build();
 

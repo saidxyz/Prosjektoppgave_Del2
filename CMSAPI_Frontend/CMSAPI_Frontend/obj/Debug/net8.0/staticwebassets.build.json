@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ZUHK2/R2syW3d0XswF76rMdX6cKO2qxWJ5Uz3GueSq8=",
+  "Hash": "KzkD5hu429Jwm3heaOgbcKrQWDZhqfXu/WOfdQf5tMY=",
   "Source": "CMSAPI_Frontend",
   "BasePath": "_content/CMSAPI_Frontend",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "CMSAPI_Frontend\\wwwroot",
       "Source": "CMSAPI_Frontend",
-      "ContentRoot": "C:\\DTE2802_Prosjekt\\CMSAPI_Frontend\\CMSAPI_Frontend\\wwwroot\\",
+      "ContentRoot": "C:\\Prosjektoppgave_Del2\\CMSAPI_Frontend\\CMSAPI_Frontend\\wwwroot\\",
       "BasePath": "_content/CMSAPI_Frontend",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\DTE2802_Prosjekt\\CMSAPI_Frontend\\CMSAPI_Frontend\\obj\\Debug\\net8.0\\scopedcss\\bundle\\CMSAPI_Frontend.styles.css",
+      "Identity": "C:\\Prosjektoppgave_Del2\\CMSAPI_Frontend\\CMSAPI_Frontend\\obj\\Debug\\net8.0\\scopedcss\\bundle\\CMSAPI_Frontend.styles.css",
       "SourceId": "CMSAPI_Frontend",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\DTE2802_Prosjekt\\CMSAPI_Frontend\\CMSAPI_Frontend\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
+      "ContentRoot": "C:\\Prosjektoppgave_Del2\\CMSAPI_Frontend\\CMSAPI_Frontend\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
       "BasePath": "_content/CMSAPI_Frontend",
       "RelativePath": "CMSAPI_Frontend.styles.css",
       "AssetKind": "All",
@@ -33,13 +33,13 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\DTE2802_Prosjekt\\CMSAPI_Frontend\\CMSAPI_Frontend\\obj\\Debug\\net8.0\\scopedcss\\bundle\\CMSAPI_Frontend.styles.css"
+      "OriginalItemSpec": "C:\\Prosjektoppgave_Del2\\CMSAPI_Frontend\\CMSAPI_Frontend\\obj\\Debug\\net8.0\\scopedcss\\bundle\\CMSAPI_Frontend.styles.css"
     },
     {
-      "Identity": "C:\\DTE2802_Prosjekt\\CMSAPI_Frontend\\CMSAPI_Frontend\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\CMSAPI_Frontend.bundle.scp.css",
+      "Identity": "C:\\Prosjektoppgave_Del2\\CMSAPI_Frontend\\CMSAPI_Frontend\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\CMSAPI_Frontend.bundle.scp.css",
       "SourceId": "CMSAPI_Frontend",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\DTE2802_Prosjekt\\CMSAPI_Frontend\\CMSAPI_Frontend\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
+      "ContentRoot": "C:\\Prosjektoppgave_Del2\\CMSAPI_Frontend\\CMSAPI_Frontend\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
       "BasePath": "_content/CMSAPI_Frontend",
       "RelativePath": "CMSAPI_Frontend.bundle.scp.css",
       "AssetKind": "All",
@@ -52,13 +52,13 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\DTE2802_Prosjekt\\CMSAPI_Frontend\\CMSAPI_Frontend\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\CMSAPI_Frontend.bundle.scp.css"
+      "OriginalItemSpec": "C:\\Prosjektoppgave_Del2\\CMSAPI_Frontend\\CMSAPI_Frontend\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\CMSAPI_Frontend.bundle.scp.css"
     },
     {
-      "Identity": "C:\\DTE2802_Prosjekt\\CMSAPI_Frontend\\CMSAPI_Frontend\\wwwroot\\app.css",
+      "Identity": "C:\\Prosjektoppgave_Del2\\CMSAPI_Frontend\\CMSAPI_Frontend\\wwwroot\\app.css",
       "SourceId": "CMSAPI_Frontend",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\DTE2802_Prosjekt\\CMSAPI_Frontend\\CMSAPI_Frontend\\wwwroot\\",
+      "ContentRoot": "C:\\Prosjektoppgave_Del2\\CMSAPI_Frontend\\CMSAPI_Frontend\\wwwroot\\",
       "BasePath": "_content/CMSAPI_Frontend",
       "RelativePath": "app.css",
       "AssetKind": "All",
@@ -74,10 +74,10 @@
       "OriginalItemSpec": "wwwroot\\app.css"
     },
     {
-      "Identity": "C:\\DTE2802_Prosjekt\\CMSAPI_Frontend\\CMSAPI_Frontend\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "Identity": "C:\\Prosjektoppgave_Del2\\CMSAPI_Frontend\\CMSAPI_Frontend\\wwwroot\\bootstrap\\bootstrap.min.css",
       "SourceId": "CMSAPI_Frontend",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\DTE2802_Prosjekt\\CMSAPI_Frontend\\CMSAPI_Frontend\\wwwroot\\",
+      "ContentRoot": "C:\\Prosjektoppgave_Del2\\CMSAPI_Frontend\\CMSAPI_Frontend\\wwwroot\\",
       "BasePath": "_content/CMSAPI_Frontend",
       "RelativePath": "bootstrap/bootstrap.min.css",
       "AssetKind": "All",
@@ -93,10 +93,10 @@
       "OriginalItemSpec": "wwwroot\\bootstrap\\bootstrap.min.css"
     },
     {
-      "Identity": "C:\\DTE2802_Prosjekt\\CMSAPI_Frontend\\CMSAPI_Frontend\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "Identity": "C:\\Prosjektoppgave_Del2\\CMSAPI_Frontend\\CMSAPI_Frontend\\wwwroot\\bootstrap\\bootstrap.min.css.map",
       "SourceId": "CMSAPI_Frontend",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\DTE2802_Prosjekt\\CMSAPI_Frontend\\CMSAPI_Frontend\\wwwroot\\",
+      "ContentRoot": "C:\\Prosjektoppgave_Del2\\CMSAPI_Frontend\\CMSAPI_Frontend\\wwwroot\\",
       "BasePath": "_content/CMSAPI_Frontend",
       "RelativePath": "bootstrap/bootstrap.min.css.map",
       "AssetKind": "All",
@@ -112,10 +112,10 @@
       "OriginalItemSpec": "wwwroot\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Identity": "C:\\DTE2802_Prosjekt\\CMSAPI_Frontend\\CMSAPI_Frontend\\wwwroot\\favicon.png",
+      "Identity": "C:\\Prosjektoppgave_Del2\\CMSAPI_Frontend\\CMSAPI_Frontend\\wwwroot\\favicon.png",
       "SourceId": "CMSAPI_Frontend",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\DTE2802_Prosjekt\\CMSAPI_Frontend\\CMSAPI_Frontend\\wwwroot\\",
+      "ContentRoot": "C:\\Prosjektoppgave_Del2\\CMSAPI_Frontend\\CMSAPI_Frontend\\wwwroot\\",
       "BasePath": "_content/CMSAPI_Frontend",
       "RelativePath": "favicon.png",
       "AssetKind": "All",

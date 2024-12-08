@@ -1,23 +1,23 @@
 {
   "Files": [
     {
-      "Id": "C:\\DTE2802_Prosjekt\\CMSAPI_Frontend\\CMSAPI_Frontend\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\CMSAPI_Frontend.bundle.scp.css",
+      "Id": "C:\\Prosjektoppgave_Del2\\CMSAPI_Frontend\\CMSAPI_Frontend\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\CMSAPI_Frontend.bundle.scp.css",
       "PackagePath": "staticwebassets\\CMSAPI_Frontend.bundle.scp.css"
     },
     {
-      "Id": "C:\\DTE2802_Prosjekt\\CMSAPI_Frontend\\CMSAPI_Frontend\\wwwroot\\app.css",
+      "Id": "C:\\Prosjektoppgave_Del2\\CMSAPI_Frontend\\CMSAPI_Frontend\\wwwroot\\app.css",
       "PackagePath": "staticwebassets\\app.css"
     },
     {
-      "Id": "C:\\DTE2802_Prosjekt\\CMSAPI_Frontend\\CMSAPI_Frontend\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "Id": "C:\\Prosjektoppgave_Del2\\CMSAPI_Frontend\\CMSAPI_Frontend\\wwwroot\\bootstrap\\bootstrap.min.css",
       "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css"
     },
     {
-      "Id": "C:\\DTE2802_Prosjekt\\CMSAPI_Frontend\\CMSAPI_Frontend\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "Id": "C:\\Prosjektoppgave_Del2\\CMSAPI_Frontend\\CMSAPI_Frontend\\wwwroot\\bootstrap\\bootstrap.min.css.map",
       "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Id": "C:\\DTE2802_Prosjekt\\CMSAPI_Frontend\\CMSAPI_Frontend\\wwwroot\\favicon.png",
+      "Id": "C:\\Prosjektoppgave_Del2\\CMSAPI_Frontend\\CMSAPI_Frontend\\wwwroot\\favicon.png",
       "PackagePath": "staticwebassets\\favicon.png"
     },
     {

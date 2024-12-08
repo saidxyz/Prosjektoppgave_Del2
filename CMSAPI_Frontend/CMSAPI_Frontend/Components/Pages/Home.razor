@@ -122,7 +122,7 @@
     {
         if (firstRender)
         {
-            userToken = await JSRuntime.InvokeAsync<string>("localStorage.getItem", "key");
+            userToken = await JSRuntime.InvokeAsync<string>("localStorage.getItem", "authToken");
 
 
             if (userToken == null)
@@ -149,7 +149,7 @@
         var requestMessage = new HttpRequestMessage()
             {
                 Method = new HttpMethod("GET"),
-                RequestUri = new Uri("https://localhost:7225/api/Folder")
+                RequestUri = new Uri("https://localhost:7238/api/Folder")
             };
         //new LoginDto { Password = "Bobby123!", Email = "bob@bobs.com" }
 
@@ -196,7 +196,7 @@
             var requestMessage = new HttpRequestMessage()
                 {
                     Method = new HttpMethod("POST"),
-                    RequestUri = new Uri("https://localhost:7225/api/Folder"),
+                    RequestUri = new Uri("https://localhost:7238/api/Folder"),
                     Content = JsonContent.Create(newFolder)
                 };
             requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userToken);
@@ -252,7 +252,7 @@
             var requestMessage = new HttpRequestMessage()
                 {
                     Method = new HttpMethod("PUT"),
-                    RequestUri = new Uri($"https://localhost:7225/api/Folder/{HttpUtility.UrlEncode(targetEditFolder.Url)}"),
+                    RequestUri = new Uri($"https://localhost:7238/api/Folder/{HttpUtility.UrlEncode(targetEditFolder.Url)}"),
                     Content = JsonContent.Create(editFolder)
                 };
 
@@ -310,7 +310,7 @@
             var requestMessage = new HttpRequestMessage()
                 {
                     Method = new HttpMethod("DELETE"),
-                    RequestUri = new Uri($"https://localhost:7225/api/Folder/{HttpUtility.UrlEncode(targetDeleteFolder.Url)}"),
+                    RequestUri = new Uri($"https://localhost:7238/api/Folder/{HttpUtility.UrlEncode(targetDeleteFolder.Url)}"),
                 };
 
 

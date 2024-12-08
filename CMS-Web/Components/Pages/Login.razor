@@ -35,7 +35,6 @@
             <p style="color:red;margin:0;">@feedback</p>
         </div>
     }
-
 </div>
 
 @code {
@@ -68,7 +67,6 @@
 
         var client = ClientFactory.CreateClient();
         HttpResponseMessage? response = null;
-
         try
         {
             response = await client.SendAsync(requestMessage);

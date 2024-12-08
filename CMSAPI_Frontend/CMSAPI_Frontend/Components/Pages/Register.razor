@@ -54,7 +54,7 @@
     public async Task OnRegisterClick()
     {
 
-        if (registerDto.Email == null || registerDto.Password == null)
+        if (registerDto.Username == null || registerDto.Password == null || registerDto.Email == null)
         {
             return;
         }
@@ -62,7 +62,7 @@
         var requestMessage = new HttpRequestMessage()
             {
                 Method = new HttpMethod("POST"),
-                RequestUri = new Uri("https://localhost:7225/api/Auth/Register"),
+                RequestUri = new Uri("https://localhost:7238/api/Auth/Register"),
                 Content = JsonContent.Create(registerDto)
             };
 
