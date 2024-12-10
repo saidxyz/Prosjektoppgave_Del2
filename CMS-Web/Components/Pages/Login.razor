@@ -25,9 +25,10 @@
 
         <br />
         <button class="btn btn-primary" type="submit" @onclick="OnLoginClick" @onclick:preventDefault="true">Login</button>
+        <button class="btn btn-primary" type="submit" @onclick="OnRegisterClick" @onclick:preventDefault="true">Register</button>
+
     </form>
 
-    <a href="/register">Don't have an account yet? Register here.</a>
 
     @if (showFeedback)
     {
@@ -42,7 +43,12 @@
     private string? feedback;
     private bool showFeedback = false;
     private bool isLoggingIn = false;  // Flag to prevent multiple clicks
-    private Timer feedbackTimer;
+    private Timer feedbackTimer;    
+    
+    public void OnRegisterClick()
+    {
+        NavManager.NavigateTo("/register");
+    }
 
     public async Task OnLoginClick()
     {
@@ -105,7 +111,7 @@
                         // Add delay before redirect to ensure user sees feedback
                         await Task.Delay(1000);
 
-                        NavManager.NavigateTo("/dashboard");
+                        NavManager.NavigateTo("/");
                     }
                     else
                     {

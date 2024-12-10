@@ -16,6 +16,7 @@ namespace CMS_Project.Controllers
         private readonly IFolderService _folderService;
         private readonly ILogger<FolderController> _logger;
         private readonly IUserService _userService;
+        
 
         public FolderController(
             IUserService userService, 
@@ -26,19 +27,20 @@ namespace CMS_Project.Controllers
             _folderService = folderService;
             _logger = logger;
         }
-
         
-        // POST: api/Folder/create-folder
+        [HttpGet("folders-with-documents")]
+        public async Task<IActionResult> GetFoldersWithDocuments()
+        {
+            var folders = await _folderService.GetFoldersWithDocumentsAsync();
+            return Ok(folders);
+        }
         [HttpPost("create-folder")]
         public async Task<IActionResult> CreateFolder([FromBody] FolderCreateDto  folderCreateDto)
         {
-            //ModelState check
-            if (!ModelState.IsValid)
-            {
+            if (!ModelState.IsValid) {
                 _logger.LogWarning("Attempted to create a folder with invalid data.");
                 return BadRequest(ModelState);
             }
-
             try
             {
                 var userId = await _userService.GetUserIdFromClaimsAsync(User);
@@ -55,7 +57,6 @@ namespace CMS_Project.Controllers
                 await _folderService.CreateFolderAsync(folder);
                 _logger.LogInformation($"Folder created with ID {folder.Id}.");
                 
-                // Map folder til FolderDto for responsen
                 var folderDto = MapToFolderDto(folder);
 
                 return CreatedAtAction(nameof(GetFolder), new { id = folder.Id }, folderDto);
@@ -71,9 +72,9 @@ namespace CMS_Project.Controllers
                 return StatusCode(500, "Unexpected error occured.");
             }
         }
-
-
-        // GET: api/Folder/all
+        
+        
+        
         [HttpGet("all")]
         public async Task<IActionResult> GetFolders()
         {
@@ -95,9 +96,6 @@ namespace CMS_Project.Controllers
 
             return Ok(response);
         }
-
-        
-        // Rekursiv mapping til FolderDto
         private FolderDto MapToFolderDto(Folder folder)
         {
             return new FolderDto
@@ -109,8 +107,7 @@ namespace CMS_Project.Controllers
                 ChildrenFolders = folder.ChildrenFolders.Select(MapToFolderDto).ToList() ?? new List<FolderDto>()
             };
         }
-
-        // GET: api/Folder/details/{id}
+        
         [HttpGet("{id}")]
         public async Task<IActionResult> GetFolder(int id)
         {
@@ -134,17 +131,15 @@ namespace CMS_Project.Controllers
             }
         }
         
-        // PUT: api/Folder/{id}
+        
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateFolder(int id, [FromBody] UpdateFolderDto updateFolderDto)
-        {
-            //ModelState check
+        { 
             if (!ModelState.IsValid)
             {
                 _logger.LogWarning($"Attempted to update folder with ID {id} with invalid data.");
                 return BadRequest(ModelState);
             }
-            // Get user ID from claims
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claims = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
             var userId = await _userService.GetUserIdAsync(claims.Value);
@@ -152,7 +147,7 @@ namespace CMS_Project.Controllers
             {
                 return StatusCode(500, "UserId not found. User might not exist.");
             }
-
+            
             try
             {
                 var result = await _folderService.UpdateFolderAsync(id, updateFolderDto, userId);
@@ -175,12 +170,10 @@ namespace CMS_Project.Controllers
                 return StatusCode(500, "An unexpected Error occured.");
             }
         }
-
-        // DELETE: api/Folder/{id}
+        
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteFolder(int id)
         {
-            // Get user ID from claims
             var userId = await _userService.GetUserIdFromClaimsAsync(User);
     
             if (userId == -1)
@@ -207,5 +200,6 @@ namespace CMS_Project.Controllers
                 return StatusCode(500, $"An unexpected error occurred: {ex.Message}");
             }
         }
+        
     }
 }

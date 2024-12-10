@@ -1,19 +1,13 @@
 using CMS_Project.Controllers;
 using CMS_Project.Services;
 using Microsoft.AspNetCore.Http;
-using System.Threading.Tasks;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
 using Newtonsoft.Json.Linq; 
-using System.Collections.Generic;
-using System.Dynamic;
-using System.Security.Claims;
 using CMS_Project.Models.DTOs;
-using CMS_Project.Models.Entities;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json.Linq;
 
 
 public class DocumentControllerTests
@@ -25,19 +19,17 @@ public class DocumentControllerTests
     private readonly DocumentController _controller;
     private readonly ClaimsPrincipal _userPrincipal;
 
-
-
     public DocumentControllerTests()
     {
         _documentServiceMock = new Mock<IDocumentService>();
         _userServiceMock = new Mock<IUserService>();
         _loggerMock = new Mock<ILogger<DocumentController>>();
-        _folderServiceMock = new Mock<IFolderService>(); // Mock IFolderService
+        _folderServiceMock = new Mock<IFolderService>();
         _controller = new DocumentController(
             _documentServiceMock.Object,
             _userServiceMock.Object,
             _loggerMock.Object,
-            _folderServiceMock.Object); // Pass all 4 mocked services to the controller constructor
+            _folderServiceMock.Object);
     }
 
     private DocumentController CreateControllerWithUser(int userId)
@@ -65,13 +57,12 @@ public class DocumentControllerTests
     [Fact]
     public async Task GetAllDocuments_ReturnsOk_WithValidDocuments()
     {
-        // Arrange
         var userId = 1;
         var documents = new List<DocumentDto>
         {
             new DocumentDto
             {
-                DocumentId = 1,  // Use DocumentId as in DocumentDto
+                DocumentId = 1, 
                 Title = "Test Document 1",
                 Content = "Content of document 1",
                 ContentType = "text/plain",
@@ -79,15 +70,14 @@ public class DocumentControllerTests
             },
             new DocumentDto
             {
-                DocumentId = 2,  // Use DocumentId as in DocumentDto
+                DocumentId = 2, 
                 Title = "Test Document 2",
                 Content = "Content of document 2",
                 ContentType = "text/plain",
                 CreatedDate = DateTime.UtcNow
             }
         };
-
-        // Mocking the necessary services
+        
         _userServiceMock.Setup(u => u.GetUserIdFromClaimsAsync(It.IsAny<ClaimsPrincipal>()))
             .ReturnsAsync(userId);
 
@@ -100,30 +90,24 @@ public class DocumentControllerTests
                 CreatedDate = DateTime.UtcNow
             });
 
-        // Mock the GetAllDocumentsAsync to return a list of DocumentDto
         _documentServiceMock.Setup(d => d.GetAllDocumentsAsync(userId))
-            .ReturnsAsync(documents);  // Return a list of DocumentDto
+            .ReturnsAsync(documents); 
 
         // Act
         var result = await _controller.GetAllDocuments();
 
         // Assert
-        var okResult = Assert.IsType<OkObjectResult>(result); // Assert OK response
-
-        // Deserialize the response value into a JObject for easier access
+        var okResult = Assert.IsType<OkObjectResult>(result);
         var response = JObject.FromObject(okResult.Value);
 
-        // Check the properties of the response
         Assert.Equal(userId, (int)response["user"]["userId"]);
         Assert.Equal("testuser", (string)response["user"]["username"]);
         Assert.Equal("testuser@example.com", (string)response["user"]["email"]);
         Assert.NotNull(response["user"]["createdDate"]);
 
-        // Ensure there are 2 documents in the response
         var documentsArray = (JArray)response["documents"];
         Assert.Equal(2, documentsArray.Count);
 
-        // Verify the values of each document
         var firstDocument = documentsArray[0];
         Assert.Equal(1, (int)firstDocument["documentId"]);
         Assert.Equal("Test Document 1", (string)firstDocument["title"]);
@@ -140,11 +124,9 @@ public class DocumentControllerTests
         // Arrange
         var userId = 1;
 
-        // Mock the user service to simulate user not found
         _userServiceMock.Setup(u => u.GetUserIdFromClaimsAsync(It.IsAny<ClaimsPrincipal>())).ReturnsAsync(userId);
         _userServiceMock.Setup(u => u.GetUserDtoByIdAsync(userId)).ReturnsAsync((UserDto)null); // Simulate user not found
 
-        // Mock ClaimsPrincipal for the controller
         var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[] { new Claim(ClaimTypes.NameIdentifier, userId.ToString()) }, "mock"));
         _controller.ControllerContext = new ControllerContext
         {
@@ -155,9 +137,9 @@ public class DocumentControllerTests
         var result = await _controller.GetAllDocuments();
 
         // Assert
-        var statusCodeResult = Assert.IsType<ObjectResult>(result); // Ensure it returns an ObjectResult
-        Assert.Equal(500, statusCodeResult.StatusCode); // Ensure it returns status code 500
-        Assert.Equal("User not found.", statusCodeResult.Value); // Check error message
+        var statusCodeResult = Assert.IsType<ObjectResult>(result); 
+        Assert.Equal(500, statusCodeResult.StatusCode);
+        Assert.Equal("User not found.", statusCodeResult.Value); 
     }
 
     [Fact]
@@ -165,11 +147,7 @@ public class DocumentControllerTests
     {
         // Arrange
         var userId = 1;
-
-        // Mock the user service to throw an exception
         _userServiceMock.Setup(u => u.GetUserIdFromClaimsAsync(It.IsAny<ClaimsPrincipal>())).ThrowsAsync(new Exception("Test exception"));
-
-        // Mock ClaimsPrincipal for the controller
         var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[] { new Claim(ClaimTypes.NameIdentifier, userId.ToString()) }, "mock"));
         _controller.ControllerContext = new ControllerContext
         {
@@ -180,9 +158,9 @@ public class DocumentControllerTests
         var result = await _controller.GetAllDocuments();
 
         // Assert
-        var statusCodeResult = Assert.IsType<ObjectResult>(result); // Ensure it returns an ObjectResult
-        Assert.Equal(500, statusCodeResult.StatusCode); // Ensure it returns status code 500
-        Assert.Equal("An unexpected error occurred.", statusCodeResult.Value); // Check error message
+        var statusCodeResult = Assert.IsType<ObjectResult>(result); 
+        Assert.Equal(500, statusCodeResult.StatusCode);
+        Assert.Equal("An unexpected error occurred.", statusCodeResult.Value); 
     }
     
     
@@ -199,12 +177,8 @@ public class DocumentControllerTests
 
         // Assert
         var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
-    
-        // Assert the ModelState errors are serialized correctly
         var serializableError = Assert.IsType<SerializableError>(badRequestResult.Value);
         var errors = (string[])serializableError["Title"];
-    
-        // Assert the "Title" field contains the correct error message
         Assert.Contains("Required", errors);
     }
 
@@ -214,12 +188,9 @@ public class DocumentControllerTests
     {
         // Arrange
         var documentId = 1;
-        var updateDocumentDto = new UpdateDocumentDto();  // Ensure it's properly instantiated
-
-        // Mock user service to return -1 (indicating user not found)
+        var updateDocumentDto = new UpdateDocumentDto();
+        
         _userServiceMock.Setup(u => u.GetUserIdAsync(It.IsAny<string>())).ReturnsAsync(-1);
-
-        // Mock ClaimsPrincipal to simulate a logged-in user
         var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[] { new Claim(ClaimTypes.NameIdentifier, "1") }, "mock"));
         _controller.ControllerContext = new ControllerContext
         {
@@ -230,10 +201,10 @@ public class DocumentControllerTests
         var result = await _controller.UpdateDocument(documentId, updateDocumentDto);
 
         // Assert
-        var statusCodeResult = Assert.IsType<ObjectResult>(result);  // Should return a 500 status code for userId not found
-        Assert.Equal(500, statusCodeResult.StatusCode);  // Ensure it's StatusCode 500 for user not found
-        var response = Assert.IsType<string>(statusCodeResult.Value);  // Check that the response is a string message
-        Assert.Equal("UserId not found. User might not exist.", response);  // Assert the expected error message
+        var statusCodeResult = Assert.IsType<ObjectResult>(result); 
+        Assert.Equal(500, statusCodeResult.StatusCode); 
+        var response = Assert.IsType<string>(statusCodeResult.Value); 
+        Assert.Equal("UserId not found. User might not exist.", response); 
     }
 
     
@@ -244,24 +215,17 @@ public class DocumentControllerTests
         var documentId = 1;
         var updateDocumentDto = new UpdateDocumentDto
         {
-            // Initialize necessary properties for the DTO
         };
-
-        // Mock the User.Identity (this is often required for controller tests)
         var claimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
         {
-            new Claim(ClaimTypes.NameIdentifier, "1") // Mocking the User ID as 1
+            new Claim(ClaimTypes.NameIdentifier, "1")
         }));
 
         _controller.ControllerContext = new ControllerContext()
         {
             HttpContext = new DefaultHttpContext() { User = claimsPrincipal }
         };
-
-        // Mock the user service to return a valid userId
         _userServiceMock.Setup(u => u.GetUserIdAsync(It.IsAny<string>())).ReturnsAsync(1);
-
-        // Mock the document service to return true for update success
         _documentServiceMock.Setup(d => d.UpdateDocumentAsync(documentId, updateDocumentDto, 1))
             .ReturnsAsync(true);
 
@@ -278,11 +242,11 @@ public class DocumentControllerTests
     {
         // Arrange
         var documentId = 1;
-        var updateDocumentDto = new UpdateDocumentDto(); // Ensure it's correctly instantiated
+        var updateDocumentDto = new UpdateDocumentDto();
 
-        _userServiceMock.Setup(u => u.GetUserIdAsync(It.IsAny<string>())).ReturnsAsync(1);  // Mock user ID
+        _userServiceMock.Setup(u => u.GetUserIdAsync(It.IsAny<string>())).ReturnsAsync(1); 
         _documentServiceMock.Setup(d => d.UpdateDocumentAsync(It.IsAny<int>(), It.IsAny<UpdateDocumentDto>(), It.IsAny<int>()))
-            .ThrowsAsync(new DbUpdateConcurrencyException());  // Simulate the DbUpdateConcurrencyException
+            .ThrowsAsync(new DbUpdateConcurrencyException()); 
 
         var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[] { new Claim(ClaimTypes.NameIdentifier, "1") }, "mock"));
         _controller.ControllerContext = new ControllerContext
@@ -294,8 +258,8 @@ public class DocumentControllerTests
         var result = await _controller.UpdateDocument(documentId, updateDocumentDto);
 
         // Assert
-        var statusCodeResult = Assert.IsType<ObjectResult>(result);  // Should return a 500 status code
-        Assert.Equal(500, statusCodeResult.StatusCode);  // Ensure it's a StatusCode 500
+        var statusCodeResult = Assert.IsType<ObjectResult>(result); 
+        Assert.Equal(500, statusCodeResult.StatusCode); 
     }
 
 
@@ -304,16 +268,10 @@ public class DocumentControllerTests
     {
         // Arrange
         var documentId = 1;
-        var updateDocumentDto = new UpdateDocumentDto();  // Ensure it's properly instantiated
-
-        // Mock user service to return a valid user ID
+        var updateDocumentDto = new UpdateDocumentDto();
         _userServiceMock.Setup(u => u.GetUserIdAsync(It.IsAny<string>())).ReturnsAsync(1);
-
-        // Simulate an exception being thrown from the document service
         _documentServiceMock.Setup(d => d.UpdateDocumentAsync(It.IsAny<int>(), It.IsAny<UpdateDocumentDto>(), It.IsAny<int>()))
             .ThrowsAsync(new Exception("Something went wrong"));
-
-        // Mock ClaimsPrincipal to simulate a logged-in user
         var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[] { new Claim(ClaimTypes.NameIdentifier, "1") }, "mock"));
         _controller.ControllerContext = new ControllerContext
         {
@@ -324,8 +282,8 @@ public class DocumentControllerTests
         var result = await _controller.UpdateDocument(documentId, updateDocumentDto);
 
         // Assert
-        var statusCodeResult = Assert.IsType<ObjectResult>(result);  // Should return a 500 status code
-        Assert.Equal(500, statusCodeResult.StatusCode);  // Ensure it's StatusCode 500 for unexpected errors
+        var statusCodeResult = Assert.IsType<ObjectResult>(result); 
+        Assert.Equal(500, statusCodeResult.StatusCode);  
     }
 
 
@@ -366,8 +324,6 @@ public class DocumentControllerTests
 
         // Assert
         var createdAtActionResult = Assert.IsType<CreatedAtActionResult>(result);
-        
-        // Check that the created document value is correct
         var documentResponseDto = Assert.IsType<DocumentResponseDto>(createdAtActionResult.Value);
         Assert.Equal(createdDocumentResponse.Document.DocumentId, documentResponseDto.Document.DocumentId);
     }
@@ -377,11 +333,9 @@ public class DocumentControllerTests
     public async Task CreateDocument_InvalidModelState_ReturnsBadRequest()
     {
         // Arrange
-        var documentCreateDto = new DocumentCreateDto { Title = "", Content = "" }; // Invalid data (empty title/content)
+        var documentCreateDto = new DocumentCreateDto { Title = "", Content = "" };
     
         var controller = CreateControllerWithUser(1);
-
-        // Force the model to be invalid
         controller.ModelState.AddModelError("Title", "Title is required.");
     
         // Act
@@ -419,8 +373,8 @@ public class DocumentControllerTests
 
         // Assert
         var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
-        var errorObject = Assert.IsType<ErrorResponse>(badRequestResult.Value);  // Expecting ErrorResponse
-        Assert.Equal("Invalid document data", errorObject.Message);  // Access Message with correct case
+        var errorObject = Assert.IsType<ErrorResponse>(badRequestResult.Value); 
+        Assert.Equal("Invalid document data", errorObject.Message); 
     }
     
     
@@ -431,16 +385,14 @@ public class DocumentControllerTests
         var documentId = 1;
         var userId = 1;
 
-        // Initialize DocumentDetailDto and FolderDto as per actual structure
-        var documentDetail = new DocumentDetailDto { Content = "Content" }; // Assuming 'Content' is the property of DocumentDetailDto
-        var folderDto = new FolderDto { Name = "Test Folder" }; // Assuming 'Name' is a property of FolderDto
+        var documentDetail = new DocumentDetailDto { Content = "Content" }; 
+        var folderDto = new FolderDto { Name = "Test Folder" };
     
         var documentResponse = new DocumentResponseDto
         {
             Document = documentDetail,
             Folder = folderDto
         };
-
         _userServiceMock.Setup(u => u.GetUserIdFromClaimsAsync(It.IsAny<ClaimsPrincipal>())).ReturnsAsync(userId);
         _documentServiceMock.Setup(d => d.GetDocumentByIdAsync(documentId, userId)).ReturnsAsync(documentResponse);
 
@@ -450,11 +402,10 @@ public class DocumentControllerTests
         // Assert
         var okResult = Assert.IsType<OkObjectResult>(result);
         var returnValue = Assert.IsType<DocumentResponseDto>(okResult.Value);
-        Assert.NotNull(returnValue); // Ensure the returned value is not null
-    
-        // Verify Folder and Document properties
-        Assert.Equal("Test Folder", returnValue.Folder.Name); // Assuming FolderDto has a Name property
-        Assert.Equal("Content", returnValue.Document.Content); // Check Content property of DocumentDetailDto
+        Assert.NotNull(returnValue);
+        
+        Assert.Equal("Test Folder", returnValue.Folder.Name); 
+        Assert.Equal("Content", returnValue.Document.Content); 
     }
     
     [Fact]
@@ -475,10 +426,8 @@ public class DocumentControllerTests
 
         // Assert
         var notFoundResult = Assert.IsType<NotFoundObjectResult>(result);
-
-        // Cast to dynamic type and check the 'message' property
         var response = notFoundResult.Value as dynamic;
-        Assert.NotNull(response);  // Ensure response is not null
+        Assert.NotNull(response); 
     }
 
     [Fact]
@@ -508,12 +457,10 @@ public class DocumentControllerTests
         // Assert
         Assert.Null(response.Folder);
         Assert.NotNull(response.Document);
-        Assert.Equal(string.Empty, response.Document.Title);  // Assuming DocumentDetailDto's default Title is empty
-        Assert.Equal(string.Empty, response.Document.Content);  // Assuming DocumentDetailDto's default Content is empty
+        Assert.Equal(string.Empty, response.Document.Title); 
+        Assert.Equal(string.Empty, response.Document.Content); 
     }
-
-
-
+    
     [Fact]
     public async Task GetDocumentById_ReturnsNotFound_WhenDocumentNotFound()
     {
@@ -530,16 +477,10 @@ public class DocumentControllerTests
 
         // Assert
         var notFoundResult = Assert.IsType<NotFoundObjectResult>(result);
-
-        // Cast the response value to dynamic to access the 'message' property
         var value = notFoundResult.Value as dynamic;
-        Assert.NotNull(value); // Ensure that value is not null
+        Assert.NotNull(value);
     }
 
-
-
-
-    
     
     [Fact]
     public async Task GetDocumentById_ReturnsInternalServerError_WhenExceptionIsThrown()
@@ -573,11 +514,8 @@ public class DocumentControllerTests
             Content = "This document will fail due to a database error."
         };
         var userId = 1;
-
-        // Mock services
         _userServiceMock.Setup(u => u.GetUserIdFromClaimsAsync(It.IsAny<ClaimsPrincipal>())).ReturnsAsync(userId);
         _documentServiceMock.Setup(d => d.CreateDocumentAsync(documentCreateDto, userId)).ThrowsAsync(new DbUpdateException("Database error"));
-
         var controller = CreateControllerWithUser(userId);
 
         // Act
@@ -597,14 +535,13 @@ public class DocumentControllerTests
         {
             Title = "New Document",
             Content = "This document belongs to a non-existent folder.",
-            FolderId = 999  // Folder that does not exist
+            FolderId = 999 
         };
         var userId = 1;
-
         _userServiceMock
             .Setup(u => u.GetUserIdFromClaimsAsync(It.IsAny<ClaimsPrincipal>()))
             .ReturnsAsync(userId);
-
+        
         _folderServiceMock
             .Setup(f => f.GetFolderByIdAsync(999, userId))
             .ReturnsAsync((FolderDetailDto)null);  // Folder not found
@@ -616,11 +553,7 @@ public class DocumentControllerTests
 
         // Assert
         var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
-    
-        // Use Newtonsoft.Json JObject for safe dynamic access
-        var errorObject = JObject.FromObject(badRequestResult.Value); 
-
-        // Assert the error message
+        var errorObject = JObject.FromObject(badRequestResult.Value);
         Assert.Equal("Specified folder does not exist or does not belong to the user.", errorObject["error"]["message"].ToString());
     }
 
@@ -650,9 +583,9 @@ public class DocumentControllerTests
         var result = await controller.CreateDocument(documentCreateDto);
 
         // Assert
-        var objectResult = Assert.IsType<ObjectResult>(result);  // Expecting ObjectResult
-        Assert.Equal(500, objectResult.StatusCode);  // Check for 500 status code
-        Assert.Equal("An unexpected error occurred.", objectResult.Value);  // Check message
+        var objectResult = Assert.IsType<ObjectResult>(result);  
+        Assert.Equal(500, objectResult.StatusCode);  
+        Assert.Equal("An unexpected error occurred.", objectResult.Value); 
     }
 
 
@@ -668,129 +601,109 @@ public class DocumentControllerTests
             Content = "This document will fail due to an unexpected error."
         };
         var userId = 1;
-
-        // Mock services
         _userServiceMock.Setup(u => u.GetUserIdFromClaimsAsync(It.IsAny<ClaimsPrincipal>())).ReturnsAsync(userId);
         _documentServiceMock.Setup(d => d.CreateDocumentAsync(documentCreateDto, userId)).ThrowsAsync(new Exception("Unexpected error"));
-
         var controller = CreateControllerWithUser(userId);
 
         // Act
         var result = await controller.CreateDocument(documentCreateDto);
 
         // Assert
-        var statusCodeResult = Assert.IsType<ObjectResult>(result);  // Expecting ObjectResult for 500 errors
-        Assert.Equal(500, statusCodeResult.StatusCode);  // Check if the status code is 500
-        Assert.Equal("An unexpected error occurred.", statusCodeResult.Value);  // Check the error message
+        var statusCodeResult = Assert.IsType<ObjectResult>(result); 
+        Assert.Equal(500, statusCodeResult.StatusCode);  
+        Assert.Equal("An unexpected error occurred.", statusCodeResult.Value);
     }
 
     
     [Fact]
     public async Task CreateDocument_ValidData_ReturnsCreatedDocument()
     {
-        // Define userId (this can be any valid ID you'd like to test with)
         int userId = 1;
-
-        // Create a mock response for DocumentResponseDto
         var createdDocumentResponse = new DocumentResponseDto
         {
             Document = new DocumentDetailDto
             {
-                DocumentId = 123,  // Accessing DocumentId from DocumentDetailDto
+                DocumentId = 123, 
                 Title = "New Document",
                 Content = "Document Content",
-                ContentType = "text/plain",
-                CreatedDate = DateTime.Now,
-                FolderId = 1,  // Optional, based on your setup
-                Folder = new FolderDto { FolderId = 1, Name = "Test Folder" }  // Ensure Folder is set
-            }
-        };
-
-        // Setup the mock services
-        _userServiceMock.Setup(u => u.GetUserIdFromClaimsAsync(It.IsAny<ClaimsPrincipal>())).ReturnsAsync(userId);
-        _folderServiceMock.Setup(f => f.GetFolderByIdAsync(It.IsAny<int>(), It.IsAny<int>())).ReturnsAsync(new FolderDetailDto { FolderId = 1, Name = "Test Folder" });
-        _documentServiceMock.Setup(d => d.CreateDocumentAsync(It.IsAny<DocumentCreateDto>(), userId)).ReturnsAsync(createdDocumentResponse);
-
-        var controller = CreateControllerWithUser(userId);
-
-        // Act
-        var result = await controller.CreateDocument(new DocumentCreateDto { Title = "New Document", Content = "Document Content", FolderId = 1 });
-
-        // Assert
-        var actionResult = Assert.IsType<CreatedAtActionResult>(result);  // This checks that the result is CreatedAtActionResult
-        var createdDocument = Assert.IsType<DocumentResponseDto>(actionResult.Value);  // Ensure the returned result is a DocumentResponseDto
-
-        // Now, access DocumentId from the Document property inside DocumentResponseDto
-        Assert.Equal(123, createdDocument.Document.DocumentId);  // Assert the DocumentId
-        Assert.Equal("New Document", createdDocument.Document.Title);  // Further checks
-    }
-
-
-    [Fact]
-    public async Task GetDocumentById_ValidId_ReturnsDocument()
-    {
-        // Define test values
-        int documentId = 1;
-        int userId = 1;
-
-        // Create mock document response
-        var documentDto = new DocumentResponseDto
-        {
-            Document = new DocumentDetailDto
-            {
-                DocumentId = documentId,
-                Title = "Test Document",
-                Content = "This is a test document.",
                 ContentType = "text/plain",
                 CreatedDate = DateTime.Now,
                 FolderId = 1,
                 Folder = new FolderDto { FolderId = 1, Name = "Test Folder" }
             }
         };
+        _userServiceMock.Setup(u => u.GetUserIdFromClaimsAsync(It.IsAny<ClaimsPrincipal>())).ReturnsAsync(userId);
+        _folderServiceMock.Setup(f => f.GetFolderByIdAsync(It.IsAny<int>(), It.IsAny<int>())).ReturnsAsync(new FolderDetailDto { FolderId = 1, Name = "Test Folder" });
+        _documentServiceMock.Setup(d => d.CreateDocumentAsync(It.IsAny<DocumentCreateDto>(), userId)).ReturnsAsync(createdDocumentResponse);
+        var controller = CreateControllerWithUser(userId);
 
-        // Setup the mock service to return the documentDto
+        // Act
+        var result = await controller.CreateDocument(new DocumentCreateDto { Title = "New Document", Content = "Document Content", FolderId = 1 });
+
+        // Assert
+        var actionResult = Assert.IsType<CreatedAtActionResult>(result);  
+        var createdDocument = Assert.IsType<DocumentResponseDto>(actionResult.Value);
+
+        Assert.Equal(123, createdDocument.Document.DocumentId); 
+        Assert.Equal("New Document", createdDocument.Document.Title); 
+    }
+    
+    
+    [Fact]
+    public async Task GetDocumentById_ValidId_ReturnsDocument()
+    {
+        // Arrange
+        int documentId = 1;
+        int userId = 1;
+
+        var expectedDocument = new DocumentDetailDto
+        {
+            DocumentId = documentId,
+            Title = "Test Document",
+            Content = "This is a test document.",
+            ContentType = "text/plain",
+            CreatedDate = DateTime.UtcNow,
+            FolderId = 1,
+            Folder = new FolderDto { FolderId = 1, Name = "Test Folder" }
+        };
+
+        var documentResponseDto = new DocumentResponseDto
+        {
+            Document = expectedDocument
+        };
+
         _documentServiceMock.Setup(d => d.GetDocumentByIdAsync(documentId, userId))
-            .ReturnsAsync(documentDto);  // Ensure this is returning a valid DocumentResponseDto
+            .ReturnsAsync(documentResponseDto);
 
-        // Mock the user service to return the correct userId
         _userServiceMock.Setup(u => u.GetUserIdFromClaimsAsync(It.IsAny<ClaimsPrincipal>()))
             .ReturnsAsync(userId);
 
-        // Create the controller with the mock user
         var controller = CreateControllerWithUser(userId);
 
         // Act
         var result = await controller.GetDocumentById(documentId);
 
-        // Check the result type for debugging
-        if (result is OkObjectResult okResult)
-        {
-            var returnedDocument = Assert.IsType<DocumentResponseDto>(okResult.Value);
-            Assert.Equal(documentId, returnedDocument.Document.DocumentId);
-            Assert.Equal("Test Document", returnedDocument.Document.Title);
-        }
-        else if (result is NotFoundObjectResult notFoundResult)
-        {
-            // Log the message if we hit a NotFound result
-            Console.WriteLine($"NotFound result message: {notFoundResult.Value}");
-            Assert.True(false, $"Expected OK result, but got NotFound. Message: {notFoundResult.Value}");
-        }
-        else
-        {
-            // Log unexpected result type
-            Console.WriteLine($"Unexpected result type: {result.GetType()}");
-            Assert.True(false, $"Unexpected result type: {result.GetType()}");
-        }
+        // Assert
+        var okResult = Assert.IsType<OkObjectResult>(result); 
+        var actualDocument = Assert.IsType<DocumentResponseDto>(okResult.Value);
+
+        Assert.NotNull(actualDocument);
+        Assert.NotNull(actualDocument.Document);
+        Assert.Equal(expectedDocument.DocumentId, actualDocument.Document.DocumentId);
+        Assert.Equal(expectedDocument.Title, actualDocument.Document.Title);
+        Assert.Equal(expectedDocument.Content, actualDocument.Document.Content);
+        Assert.Equal(expectedDocument.ContentType, actualDocument.Document.ContentType);
+        Assert.Equal(expectedDocument.FolderId, actualDocument.Document.FolderId);
+
+        Assert.NotNull(actualDocument.Document.Folder);
+        Assert.Equal(expectedDocument.Folder.FolderId, actualDocument.Document.Folder.FolderId);
+        Assert.Equal(expectedDocument.Folder.Name, actualDocument.Document.Folder.Name);
+
+        _documentServiceMock.Verify(d => d.GetDocumentByIdAsync(documentId, userId), Times.Once);
+        _userServiceMock.Verify(u => u.GetUserIdFromClaimsAsync(It.IsAny<ClaimsPrincipal>()), Times.Once);
     }
-
-
-
-
-
-
-
-
-
+    
+    
     [Fact]
     public async Task CreateDocument_InvalidData_ReturnsBadRequest()
     {
@@ -816,8 +729,7 @@ public class DocumentControllerTests
         // Arrange
         var documentId = 1;
         var userId = 1;
-
-        // Create the expected document DTO
+        
         var documentDto = new DocumentDetailDto
         { 
             DocumentId = documentId, 
@@ -829,8 +741,7 @@ public class DocumentControllerTests
         {
             Document = documentDto
         };
-
-        // Setup the mocks
+        
         _userServiceMock.Setup(u => u.GetUserIdFromClaimsAsync(It.IsAny<ClaimsPrincipal>())).ReturnsAsync(userId);
         _documentServiceMock.Setup(d => d.GetDocumentByIdAsync(documentId, userId)).ReturnsAsync(documentResponseDto);
 
@@ -840,21 +751,12 @@ public class DocumentControllerTests
         var result = await controller.GetDocumentById(documentId);
 
         // Assert
-        var okResult = Assert.IsType<OkObjectResult>(result); // Expecting 200 OK response
+        var okResult = Assert.IsType<OkObjectResult>(result);
         Assert.Equal(200, okResult.StatusCode);
-
-        // Assert: Ensure the correct document is returned
         var resultDto = Assert.IsType<DocumentResponseDto>(okResult.Value);
         Assert.Equal(documentId, resultDto.Document.DocumentId);
         Assert.Equal("Test Document", resultDto.Document.Title);
     }
-
-
-
-
-
-
-    
     
     [Fact]
     public async Task GetDocumentById_DocumentNotFound_ReturnsNotFound()
@@ -862,15 +764,12 @@ public class DocumentControllerTests
         // Arrange
         var documentId = 1;
         var userId = 1;
-
-        // Setup the mock for user ID from claims
+        
         _userServiceMock.Setup(u => u.GetUserIdFromClaimsAsync(It.IsAny<ClaimsPrincipal>())).ReturnsAsync(userId);
-
-        // Setup the mock for GetDocumentByIdAsync to return null (document not found)
+        
         _documentServiceMock.Setup(d => d.GetDocumentByIdAsync(documentId, userId))
-            .ReturnsAsync((DocumentResponseDto)null);  // Correct return type (null as DocumentResponseDto)
+            .ReturnsAsync((DocumentResponseDto)null); 
 
-        // Create the controller with the mock user
         var controller = CreateControllerWithUser(userId);
 
         // Act
@@ -879,7 +778,7 @@ public class DocumentControllerTests
         // Assert
         var notFoundResult = Assert.IsType<NotFoundObjectResult>(result);
         Assert.Equal(404, notFoundResult.StatusCode);
-        Assert.Contains("Document with ID", notFoundResult.Value.ToString());  // Ensure the message contains 'Document with ID'
+        Assert.Contains("Document with ID", notFoundResult.Value.ToString());
     }
     
     
@@ -978,9 +877,9 @@ public class DocumentControllerTests
         var result = await controller.DeleteDocument(documentId);
 
         // Assert
-        var objectResult = Assert.IsType<ObjectResult>(result);  // Expecting ObjectResult
-        Assert.Equal(500, objectResult.StatusCode);  // Expecting status code 500
-        Assert.Equal("UserId not found. User might not exist.", objectResult.Value);  // Check message in ObjectResult
+        var objectResult = Assert.IsType<ObjectResult>(result);  
+        Assert.Equal(500, objectResult.StatusCode);
+        Assert.Equal("UserId not found. User might not exist.", objectResult.Value);
     }
 
     
@@ -991,7 +890,7 @@ public class DocumentControllerTests
         var documentId = 1;
         var userId = 1;
         _userServiceMock.Setup(u => u.GetUserIdFromClaimsAsync(It.IsAny<ClaimsPrincipal>())).ReturnsAsync(userId);
-        _documentServiceMock.Setup(d => d.DeleteDocumentAsync(documentId, userId)).ReturnsAsync(true);  // Successful deletion
+        _documentServiceMock.Setup(d => d.DeleteDocumentAsync(documentId, userId)).ReturnsAsync(true);
 
         var controller = CreateControllerWithUser(userId);
 
@@ -1000,7 +899,7 @@ public class DocumentControllerTests
 
         // Assert
         var noContentResult = Assert.IsType<NoContentResult>(result);
-        Assert.Equal(204, noContentResult.StatusCode);  // Expecting 204 NoContent
+        Assert.Equal(204, noContentResult.StatusCode);
     }
 
     [Fact]
@@ -1018,9 +917,9 @@ public class DocumentControllerTests
         var result = await controller.DeleteDocument(documentId);
 
         // Assert
-        var objectResult = Assert.IsType<ObjectResult>(result);  // Expecting ObjectResult
-        Assert.Equal(500, objectResult.StatusCode);  // Expecting status code 500
-        Assert.Equal("An unexpected error occurred.", objectResult.Value);  // Check message
+        var objectResult = Assert.IsType<ObjectResult>(result); 
+        Assert.Equal(500, objectResult.StatusCode);
+        Assert.Equal("An unexpected error occurred.", objectResult.Value);
     }
 
     [Fact]
@@ -1033,7 +932,7 @@ public class DocumentControllerTests
             Title = "Updated Document",
             Content = "Updated content"
         };
-        var userId = 1;  // Mocked userId
+        var userId = 1;
         _userServiceMock.Setup(u => u.GetUserIdAsync(It.IsAny<string>())).ReturnsAsync(userId);
         _documentServiceMock.Setup(d => d.UpdateDocumentAsync(documentId, updateDocumentDto, userId)).ReturnsAsync(true);
 
@@ -1043,7 +942,7 @@ public class DocumentControllerTests
         var result = await controller.UpdateDocument(documentId, updateDocumentDto);
 
         // Assert
-        Assert.IsType<NoContentResult>(result); // Should return NoContent
+        Assert.IsType<NoContentResult>(result);
     }
 
     
@@ -1052,7 +951,7 @@ public class DocumentControllerTests
     {
         // Arrange
         var documentId = 1;
-        var updateDocumentDto = new UpdateDocumentDto(); // Invalid data
+        var updateDocumentDto = new UpdateDocumentDto();
         var controller = CreateControllerWithUser(1);
         controller.ModelState.AddModelError("Title", "Required");
 
@@ -1076,8 +975,8 @@ public class DocumentControllerTests
             Title = "Updated Document",
             Content = "Updated content"
         };
-        var userId = -1; // Simulate user not found scenario
-        _userServiceMock.Setup(u => u.GetUserIdAsync(It.IsAny<string>())).ReturnsAsync(userId);  // Simulate user not found
+        var userId = -1; 
+        _userServiceMock.Setup(u => u.GetUserIdAsync(It.IsAny<string>())).ReturnsAsync(userId);
         _documentServiceMock.Setup(d => d.UpdateDocumentAsync(documentId, updateDocumentDto, userId))
             .ThrowsAsync(new UnauthorizedAccessException("UserId not found"));
 
@@ -1087,19 +986,12 @@ public class DocumentControllerTests
         var result = await controller.UpdateDocument(documentId, updateDocumentDto);
 
         // Assert
-        var objectResult = Assert.IsType<ObjectResult>(result);  // Ensure ObjectResult
-
-        // Check the status code
-        Assert.Equal(500, objectResult.StatusCode);  // Expected 500 for InternalServerError
-
-        // Check if the error message is a string (not an anonymous object)
-        var value = Assert.IsType<string>(objectResult.Value);  // The value is a string message
-        Assert.Equal("UserId not found. User might not exist.", value);  // Assert the message
+        var objectResult = Assert.IsType<ObjectResult>(result);
+        Assert.Equal(500, objectResult.StatusCode); 
+        var value = Assert.IsType<string>(objectResult.Value);  
+        Assert.Equal("UserId not found. User might not exist.", value);
     }
-
-
-
-
+    
     
     [Fact]
     public async Task UpdateDocument_UnauthorizedAccess_ReturnsUnauthorized()
@@ -1123,20 +1015,10 @@ public class DocumentControllerTests
 
         // Assert
         var unauthorizedResult = Assert.IsType<UnauthorizedObjectResult>(result);  // Ensure UnauthorizedObjectResult
-
-        // Parse the Value to JObject
         var value = JObject.FromObject(unauthorizedResult.Value);  // Use JObject to access anonymous properties
-
-        // Check the 'message' property
         var message = value["message"].ToString();
         Assert.Equal("Unauthorized access", message);  // Check if the message matches
     }
-    
-    
-
-
-
-
     
     [Fact]
     public async Task UpdateDocument_GeneralError_ReturnsInternalServerError()
@@ -1159,12 +1041,9 @@ public class DocumentControllerTests
         var result = await controller.UpdateDocument(documentId, updateDocumentDto);
 
         // Assert
-        var objectResult = Assert.IsType<ObjectResult>(result);  // Change to ObjectResult
-        Assert.Equal(500, objectResult.StatusCode);  // Ensure the status code is 500
-        Assert.Equal("Unexpected error occured.", objectResult.Value);  // Match the actual error message
+        var objectResult = Assert.IsType<ObjectResult>(result);
+        Assert.Equal(500, objectResult.StatusCode); 
+        Assert.Equal("Unexpected error occured.", objectResult.Value);
     }
-
-
-    
     
 }

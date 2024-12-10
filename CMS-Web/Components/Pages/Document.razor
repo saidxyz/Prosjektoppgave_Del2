@@ -1,0 +1,436 @@
+﻿@page "/document"
+@using System.Text.Json
+@using System.Net.Http.Headers
+@using CMS_Web.Data.Models
+@using Microsoft.AspNetCore.Components.Authorization
+@using DocumentDto = CMS_Web.Data.Models.DocumentDto
+@using UpdateDocumentDto = CMS_Web.Data.Models.UpdateDocumentDto
+@rendermode InteractiveServer
+@inject IHttpClientFactory ClientFactory
+@inject HttpClient Http
+@inject IJSRuntime JSRuntime
+@inject NavigationManager NavManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+
+@if (selectedDocument != null)
+{
+    <PageTitle>@selectedDocument.Title</PageTitle>
+}
+else
+{
+    <PageTitle>New Document</PageTitle>
+}
+
+<h3>Document</h3>
+
+<button @onclick="NavigateCreateNewDocument">create totally new document</button> @if (selectedDocument != null && editingDocument == false)
+{
+    <button style="margin-left:8px;" @onclick="OpenUpdateDocument">EDIT</button>
+    <button style="margin-left:8px;" @onclick="OpenDeleteDocument">DELETE</button>
+}
+
+@if (selectedDocumentId == null)
+{
+    @if (allFolders is null)
+    {
+        <p>Loading folders...</p>
+    }
+    else
+    {
+        <form>
+            <label for="title">title</label><br />
+            <input type="text" id="title" @bind="newDocument.Title" class="form-control" /><br />
+
+            <label for="content">content</label>
+            <input type="text" id="content" @bind="newDocument.ContentType" class="form-control" style="height:200px;" />
+
+            <label for="contentType">type</label>
+            <input type="text" id="contentType" @bind="newDocument.Content" class="form-control" />
+            
+            <label for="parentFolder">location</label><br />
+            <select id="parentFolder" @bind="newDocument.FolderId" class="form-control">
+                <option value="0">--Select a folder--</option>
+                @foreach (var folder in allFolders.Folders)
+                {
+                    <option value="@folder.FolderId">@folder.Name</option>
+                }
+            </select><br /><br />
+            
+            <button @onclick="CreateNewDocument" @onclick:preventDefault="true">Save</button>
+        </form>
+    }
+}
+else if (selectedDocument != null && editingDocument == false)
+{
+    <h4>@selectedDocument.Title</h4>
+    <p>in: @selectedDocument.FolderName</p>
+    <p>created: @selectedDocument.CreatedDate</p>
+    <p>type: @selectedDocument.ContentType</p>
+    <p>@selectedDocument.Content</p>
+
+    @if (openDeleteDocument)
+    {
+        <div>
+            <p>Are you sure you want to delete "@selectedDocument.Title"?</p><br />
+            <button @onclick="DeleteDocument">DELETE</button>
+        </div>
+    }
+}
+
+else if (selectedDocument != null && editingDocument == true)
+{
+    <form>
+        <label for="title">title</label>
+        <br />
+        <input type="text" id="title" @bind="updateDocument.Title" class="form-control" />
+        <br />
+        <label for="content">content</label>
+        <br />
+        <input type="text" id="content" @bind="updateDocument.ContentType" class="form-control" style="height:200px;" />
+        <br />
+        <label for="contentType">type</label>
+        <br />
+        <input type="text" id="contentType" @bind="updateDocument.Content" class="form-control" />
+        <br />
+        <label for="parentFolder">location</label>
+        <br />
+        <select name="folderIdSelect" id="parentFolder" @bind="updateDocument.FolderId">
+            <option value=0> </option>
+            @foreach (var folder in allFolders.Folders)
+            {
+                <option value="@folder.FolderId">@folder.Name</option>
+            }
+        </select>
+        <br />
+        <br />
+        <button @onclick="UpdateDocument" @onclick:preventDefault="true">Save</button>
+
+    </form>
+}
+
+@code {
+    private NavigatableFolderDto allFolders;
+    private DocumentDto newDocument = new DocumentDto();
+    private IEnumerable<FolderDto> userFolders = new List<FolderDto>();
+
+    // Variables
+    private DocumentDto? selectedDocument;
+    //private readonly DocumentCreateDto newDocument = new();
+
+    private UpdateDocumentDto updateDocument = new();
+
+
+    public bool editingDocument = false;
+    public bool openDeleteDocument = false;
+
+    public string? userToken;
+    public string? responseBody;
+
+    public string? selectedDocumentId;
+    
+    // Starter
+    private bool initialized;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && !initialized)
+        {
+            // Safe to call JSRuntime now
+            userToken = await JSRuntime.InvokeAsync<string>("localStorage.getItem", "authToken");
+            var hasSelected = await JSRuntime.InvokeAsync<bool>("localStorage.hasOwnProperty", "selectedDocumentId");
+            if (hasSelected)
+            {
+                selectedDocumentId = await JSRuntime.InvokeAsync<string>("localStorage.getItem", "selectedDocumentId");
+                selectedDocument = await FetchDocumentById(selectedDocumentId);
+
+                updateDocument.Title = selectedDocument.Title;
+                updateDocument.ContentType = selectedDocument.ContentType;
+                updateDocument.FolderId = selectedDocument.FolderId;
+                updateDocument.Content = selectedDocument.Content;
+
+                await JSRuntime.InvokeVoidAsync("localStorage.removeItem", "selectedDocumentId");
+            }
+
+            allFolders = await GetFolders();
+
+            initialized = true;
+            StateHasChanged();
+        }
+    }
+
+    // CREATE NEW DOCUMENT
+    private string? pendingDocumentId;
+ 
+    private async Task CreateNewDocument()
+    {
+        if (string.IsNullOrWhiteSpace(newDocument.Title))
+        {
+            Console.WriteLine("Title is required");
+            return;
+        }
+        if (newDocument.FolderId == 0)
+        {
+            Console.WriteLine("folder ID cannot be 0");
+            return;
+        }
+        if (string.IsNullOrWhiteSpace(newDocument.Content))
+        {
+            newDocument.Content = "Default content.";
+        }
+        if (string.IsNullOrWhiteSpace(newDocument.ContentType))
+        {
+            newDocument.ContentType = "text/plain";
+        }
+        
+        Console.WriteLine(JsonSerializer.Serialize(newDocument, new JsonSerializerOptions { WriteIndented = true }));
+        
+        // Print the payload for debugging
+        Console.WriteLine(JsonSerializer.Serialize(newDocument, new JsonSerializerOptions { WriteIndented = true }));
+
+        var requestMessage = new HttpRequestMessage()
+        {
+            Method = HttpMethod.Post,
+            RequestUri = new Uri("https://localhost:7238/api/Document/create-document"),
+            Content = JsonContent.Create(newDocument)
+        };
+
+        requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userToken);
+        var response = await Http.SendAsync(requestMessage);
+
+        if (response.IsSuccessStatusCode)
+        {
+            responseBody = await response.Content.ReadAsStringAsync();
+
+            var deserializedResponse = JsonSerializer.Deserialize<DocumentDto>(responseBody, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+            await JSRuntime.InvokeVoidAsync("localStorage.setItem", "selectedDocumentId", deserializedResponse.DocumentId);
+
+            NavManager.NavigateTo("/", forceLoad: true);
+        }
+        else
+        {
+            responseBody = await response.Content.ReadAsStringAsync();
+            Console.WriteLine($"Error: {response.StatusCode}");
+            Console.WriteLine(responseBody);
+        }
+    }
+
+    
+    // Navigation
+    private void NavigateCreateNewDocument()
+    {
+        NavManager.NavigateTo("/document", forceLoad: true);
+    }
+
+    // Get Document
+    private async Task<DocumentDto> FetchDocumentById(string? id)
+    {
+        var requestMessage = new HttpRequestMessage()
+            {
+                Method = new HttpMethod("GET"),
+                RequestUri = new Uri($"https://localhost:7238/api/Document/{id}")
+            };
+
+        requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userToken);
+
+        var response = await Http.SendAsync(requestMessage);
+
+        if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+        {
+            NavManager.NavigateTo("/login");
+        }
+
+        if (!response.IsSuccessStatusCode)
+        {
+            NavManager.NavigateTo("/Error");
+        }
+
+        responseBody = await response.Content.ReadAsStringAsync();
+
+        var deserializedResponseDocument = JsonSerializer.Deserialize<DocumentDto>(responseBody, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+        StateHasChanged();
+
+        return deserializedResponseDocument;
+
+
+    }
+    // Update Document
+    private async Task UpdateDocument()
+    {
+        if (string.IsNullOrWhiteSpace(updateDocument.Title))
+        {
+            Console.WriteLine("CannotUpdateDocument: Title is required.");
+            return;
+        }
+
+        if (updateDocument.FolderId == 0)
+        {
+            Console.WriteLine("CannotUpdateDocument: Folder ID cannot be 0.");
+            return;
+        }
+
+        try
+        {
+            // Ensure FolderName is set if needed
+            if (allFolders.Folders.Any(f => f.FolderId == updateDocument.FolderId))
+            {
+                updateDocument.FolderName = allFolders.Folders
+                    .First(f => f.FolderId == updateDocument.FolderId).Name;
+            }
+
+            // Create HTTP PUT request to update the document
+            var requestMessage = new HttpRequestMessage()
+            {
+                Method = HttpMethod.Put,
+                RequestUri = new Uri($"https://localhost:7238/api/Document/{selectedDocument.DocumentId}"),
+                Content = JsonContent.Create(updateDocument)
+            };
+
+            // Add Bearer token for authorization
+            requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userToken);
+
+            var response = await Http.SendAsync(requestMessage);
+
+            if (response.IsSuccessStatusCode)
+            {
+                Console.WriteLine("Document updated successfully.");
+
+                // Fetch updated document details to ensure the UI reflects the latest changes
+                var getRequest = new HttpRequestMessage()
+                {
+                    Method = HttpMethod.Get,
+                    RequestUri = new Uri($"https://localhost:7238/api/Document/{selectedDocument.DocumentId}")
+                };
+
+                getRequest.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userToken);
+                var getResponse = await Http.SendAsync(getRequest);
+
+                if (getResponse.IsSuccessStatusCode)
+                {
+                    responseBody = await getResponse.Content.ReadAsStringAsync();
+
+                    // Deserialize updated document
+                    var deserializedResponse = JsonSerializer.Deserialize<DocumentDto>(responseBody, new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    });
+
+                    // Update the UI with the new document data
+                    selectedDocument = deserializedResponse;
+
+                    // Store the updated document ID in local storage
+                    await JSRuntime.InvokeVoidAsync("localStorage.setItem", "selectedDocumentId", deserializedResponse.DocumentId);
+
+                    // Navigate to the document view page
+                    NavManager.NavigateTo("/document", forceLoad: true);
+                }
+                else
+                {
+                    Console.WriteLine($"Failed to fetch updated document. Status Code: {getResponse.StatusCode}");
+                }
+            }
+            else
+            {
+                Console.WriteLine($"Failed to update document. Status Code: {response.StatusCode}");
+                responseBody = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(responseBody); // Log server error message
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error while updating document: {ex.Message}");
+        }
+    }
+
+
+    private void OpenUpdateDocument()
+    {
+        editingDocument = true;
+    }
+
+    private void CloseUpdateDocument()
+    {
+        editingDocument = false;
+    }
+
+    // DELETE DOCUMENT
+    private async Task DeleteDocument()
+    {
+        if (selectedDocument == null)
+        {
+            Console.WriteLine("CannotDeleteDocument: No document selected.");
+            return;
+        }
+
+        try
+        {
+            Console.WriteLine($"Attempting to delete document with ID: {selectedDocument.DocumentId}");
+
+            var requestMessage = new HttpRequestMessage()
+            {
+                Method = HttpMethod.Delete,
+                RequestUri = new Uri($"https://localhost:7238/api/Document/{selectedDocument.DocumentId}")
+            };
+            requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userToken);
+
+            var response = await Http.SendAsync(requestMessage);
+
+            if (response.IsSuccessStatusCode)
+            {
+                Console.WriteLine($"Document with ID {selectedDocument.DocumentId} deleted successfully.");
+
+                selectedDocument = null;
+                await JSRuntime.InvokeVoidAsync("localStorage.removeItem", "selectedDocumentId");
+
+                NavManager.NavigateTo("/documentList", forceLoad: true);
+            }
+            else
+            {
+                Console.WriteLine($"Failed to delete document. Status Code: {response.StatusCode}");
+                var responseBody = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(responseBody); // Log server error message for debugging
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error while deleting document: {ex.Message}");
+        }
+    }
+    
+    private void OpenDeleteDocument()
+    {
+        openDeleteDocument = true;
+    }
+    
+
+    // GET ALL FOLDERS
+
+    private async Task<NavigatableFolderDto> GetFolders()
+    {
+        var requestMessage = new HttpRequestMessage()
+            {
+                Method = new HttpMethod("GET"),
+                RequestUri = new Uri("https://localhost:7238/api/Folder/all")
+            };
+
+        requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userToken);
+
+        var response = await Http.SendAsync(requestMessage);
+
+        if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+        {
+            NavManager.NavigateTo("/login");
+        }
+
+        if (!response.IsSuccessStatusCode)
+        {
+            NavManager.NavigateTo("/Error");
+        }
+
+        responseBody = await response.Content.ReadAsStringAsync();
+
+        return JsonSerializer.Deserialize<NavigatableFolderDto>(responseBody, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+    }
+}

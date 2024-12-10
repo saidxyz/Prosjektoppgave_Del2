@@ -1,6 +1,4 @@
-﻿// Models/DTOs/FolderCreateDto.cs
-
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace CMS_Project.Models.DTOs
 {

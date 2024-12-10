@@ -1,0 +1,493 @@
+﻿@page "/"
+@using CMS_Web.Service
+@using CMS_Web.Data.Models
+@using System.Net.Http.Headers
+@using System.Text.Json
+@inject HttpClient Http
+@rendermode InteractiveServer
+@inject LoginStateService LoginStateService
+@inject IJSRuntime JSRuntime
+@inject NavigationManager NavManager
+
+<h3>Welcome to the Dashboard</h3>
+
+<script src="js/ajaxFunctions.js"></script>
+
+<button class="btn btn-primary" type="submit" @onclick="OnLogoutClick" @onclick:preventDefault="true">Logout</button>
+
+<h1>@currentFolder.Name</h1>
+
+<style type="text/css">
+    .childButton {
+        margin-left: 4px;
+    }
+</style>
+
+@if (openNewFolder)
+{
+    <div>
+        <h3>add new folder</h3>
+        <form>
+            <label for="newFolderName">new folder name:</label>
+            <input type="text" id="newFolderName" class="form-control" @bind="newFolder.Name" required />
+            <br />
+            <button class="btn btn-primary" type="submit" @onclick="AddFolder" @onclick:preventDefault="true">Add Folder</button>
+        </form>
+    </div>
+}
+@if (openEditFolder)
+{
+    <div>
+        <h3>
+            Edit folder @targetEditFolder.Name
+        </h3>
+        <form>
+            <label for="editFolderName">edit folder name:</label>
+            <input type="text" id="editFolderName" class="form-control" @bind="editFolder.Name" required />
+            <br />
+            <label for="selectParent">change location:</label>
+
+            <select name="parentFolderSelect" id="selectParent" @bind="editFolder.ParentFolderId">
+                @foreach (var folder in FlattenFolders(allFolders.Folders))
+                {
+                    <option value="@folder.FolderId">@folder.FolderName</option>
+                }
+            </select>
+            <br />
+            <button class="btn btn-primary" type="submit" @onclick="EditFolder" @onclick:preventDefault="true">Edit Folder</button>
+        </form>
+    </div>
+}
+
+@if (openDeleteFolder)
+{
+    <div>
+        <h3>delete folder @targetDeleteFolder.Name?</h3>
+        <p>Are you sure you want to delete folder @targetDeleteFolder.Name?</p>
+        <button class="btn btn-primary" type="submit" @onclick="DeleteFolder">Delete Folder</button>
+    </div>
+}
+<div>
+    <button @onclick="OpenNewFolder">New Folder</button>
+</div>
+
+
+@if (allFolders.Folders != null)
+{
+    <h3>Folder Overview</h3>
+
+    @foreach (var folder in allFolders.Folders)
+    {
+        <div style="margin-left: 20px;">
+            <button style="background-color: transparent; border: none; color: rebeccapurple;"
+                    class="childButton"
+                    @onclick="() => NavigateToFolder(folder)">
+                @folder.Name
+            </button>
+            <button class="childButton" @onclick="() => OpenEditFolder(folder)">EDIT</button>
+            <button class="childButton" @onclick="() => OpenDeleteFolder(folder)">DELETE</button>
+
+            @if (folder.ChildrenFolders != null && folder.ChildrenFolders.Any())
+            {
+                <div style="margin-left: 20px;">
+                    @RenderChildFolders(folder.ChildrenFolders)
+                </div>
+            }
+        </div>
+    }
+}
+else
+{
+    <p>No folders available.</p>
+}
+
+<h4>Documents</h4>
+
+@if (documents != null && documents.Any())
+{
+    <ul>
+        @foreach (var document in documents)
+        {
+            <li>
+                <button @onclick="() => OnSelectDocument(document)">
+                    @document.Title (@document.ContentType)
+                </button>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>No documents found</p>
+}
+
+@code {
+    private List<DocumentDto> documents = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        //documents = await Http.GetFromJsonAsync<List<DocumentDto>>("https://localhost:7238/api/document/all");
+    }
+
+    private async Task OnSelectDocument(DocumentDto document)
+    {
+        await JSRuntime.InvokeVoidAsync("localStorage.setItem", "selectedDocumentId", document.DocumentId);
+        NavManager.NavigateTo("/document");
+    }
+}
+
+
+@code {
+    public bool openNewFolder = false;
+    public bool openEditFolder = false;
+    public bool openDeleteFolder = false;
+    public string? userToken;
+    public string? responseBody;
+    public void OnLogoutClick()
+    {
+        NavManager.NavigateTo("/logout");
+    }
+
+
+    private List<FolderWithDocumentsDto> foldersWithDocuments = new();
+
+    private NavigatableFolderDto allFolders = new();
+
+    public List<DocumentDto> childDocuments = new();
+
+    private readonly CreateFolderDto newFolder = new();
+
+    private FolderDto? targetDeleteFolder;
+
+    private readonly CreateFolderDto editFolder = new();
+
+    private FolderDto? targetEditFolder;
+
+    private FolderDto currentFolder = new() { Name = "Root" };
+    
+    // start up
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            userToken = await JSRuntime.InvokeAsync<string>("localStorage.getItem", "authToken");
+
+            if (string.IsNullOrEmpty(userToken) || !LoginStateService.IsLoggedIn)
+            {
+                NavManager.NavigateTo("/login");
+            }
+
+            if (userToken != null)
+            {
+                await GetFolders();
+                await UpdateCurrentFolder(0);
+                
+                await LoadFoldersWithDocuments();
+            }
+        }
+    }
+    private async Task LoadFoldersWithDocuments()
+    {
+        try
+        {
+            var response = await Http.GetFromJsonAsync<List<FolderWithDocumentsDto>>("https://localhost:7238/api/folder/folders-with-documents");
+            foldersWithDocuments = response ?? new List<FolderWithDocumentsDto>();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading folders with documents: {ex.Message}");
+        }
+    }
+
+    
+    // Get all folders
+    private async Task GetFolders()
+    {
+        var requestMessage = new HttpRequestMessage()
+            {
+                Method = new HttpMethod("GET"),
+                RequestUri = new Uri("https://localhost:7238/api/Folder/all")
+            };
+
+        requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userToken);
+
+        var response = await Http.SendAsync(requestMessage);
+
+        if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+        {
+            NavManager.NavigateTo("/login");
+        }
+
+        if (!response.IsSuccessStatusCode)
+        {
+            Console.WriteLine($"Error: {response.StatusCode}");
+            
+        }
+
+        responseBody = await response.Content.ReadAsStringAsync();
+
+        allFolders = JsonSerializer.Deserialize<NavigatableFolderDto>(responseBody, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+    }
+
+    // Create New Folder
+    private async Task AddFolder()
+    {
+        if (newFolder.Name == null || newFolder.Name == "" || newFolder.Name.ToLower() == "root")
+        {
+            Console.WriteLine("CannotMakeFolder");
+        }
+        else
+        {
+            userToken = await JSRuntime.InvokeAsync<string>("localStorage.getItem", "authToken");
+            newFolder.ParentFolderId = currentFolder.FolderId == 0 ? null : currentFolder.FolderId;
+            var requestMessage = new HttpRequestMessage()
+                {
+                    Method = new HttpMethod("POST"),
+                    RequestUri = new Uri("https://localhost:7238/api/Folder/create-folder"),
+                    Content = JsonContent.Create(newFolder)
+                };
+            requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userToken);
+            var response = await Http.SendAsync(requestMessage);
+
+            if (response.IsSuccessStatusCode)
+            {
+                await GetFolders();
+                await UpdateCurrentFolder(currentFolder.FolderId);
+            }
+            else
+            {
+                Console.WriteLine(response.StatusCode);
+            }
+        }
+
+        CloseNewFolder();
+
+    }
+
+    private void OpenNewFolder()
+    {
+        CloseOtherFields("new");
+        openNewFolder = true;
+    }
+
+    private void CloseNewFolder()
+    {
+        openNewFolder = false;
+    }
+
+
+    // EDIT FOLDER
+
+    private async Task EditFolder()
+    {
+        if (editFolder.Name == null || editFolder.Name == "" || editFolder.Name.ToLower() == "root")
+        {
+            Console.WriteLine("CannotMakeFolder");
+            Console.WriteLine($"need to select parent folder, edit folder parent: {editFolder.ParentFolderId}");
+
+        }
+        else if (targetEditFolder == null)
+        {
+            Console.WriteLine("Invalid target edit folder");
+        }
+        else
+        {
+            var requestMessage = new HttpRequestMessage()
+                {
+                    Method = new HttpMethod("PUT"),
+                    RequestUri = new Uri($"https://localhost:7238/api/Folder/{targetEditFolder.FolderId}"),
+                    Content = JsonContent.Create(editFolder)
+                };
+
+            requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userToken);
+            var response = await Http.SendAsync(requestMessage);
+
+            if (response.IsSuccessStatusCode)
+            {
+                await GetFolders();
+                await UpdateCurrentFolder(0);
+            }
+            else
+            {
+                Console.WriteLine(response.ToString());
+            }
+        }
+
+        CloseEditFolder();
+    }
+
+    private void OpenEditFolder(FolderDto targetFolder)
+    {
+        CloseOtherFields("edit");
+        targetEditFolder = targetFolder;
+        editFolder.Name = targetFolder.Name;
+        openEditFolder = true;
+    }
+
+    private void CloseEditFolder()
+    {
+        openEditFolder = false;
+    }
+
+
+    // DELETE FOLDER
+    private async Task DeleteFolder()
+    {
+        var requestMessage = new HttpRequestMessage()
+            {
+                Method = new HttpMethod("DELETE"),
+                RequestUri = new Uri($"https://localhost:7238/api/Folder/{targetDeleteFolder.FolderId}"),
+            };
+
+
+        requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userToken);
+        var response = await Http.SendAsync(requestMessage);
+
+        if (response.IsSuccessStatusCode)
+        {
+            await GetFolders();
+            await UpdateCurrentFolder(0);
+        }
+        else
+        {
+            Console.WriteLine(response.ToString());
+        }
+
+        CloseDeleteFolder();
+    }
+
+    private void OpenDeleteFolder(FolderDto targetFolder)
+    {
+        CloseOtherFields("delete");
+        targetDeleteFolder = targetFolder;
+        openDeleteFolder = true;
+    }
+
+    private void CloseDeleteFolder()
+    {
+        openDeleteFolder = false;
+    }
+
+    // NAVIGATION
+    private async Task NavigateToFolder(FolderDto selectedFolder)
+    {
+        await UpdateCurrentFolder(selectedFolder.FolderId);
+    }
+
+
+    // STATE UPDATE
+    private async Task UpdateCurrentFolder(int id)
+    {
+        if (id == 0)
+        {
+            currentFolder = new() { Name = "Root" };
+        }
+        else
+        {
+            var requestMessage = new HttpRequestMessage()
+                {
+                    Method = new HttpMethod("GET"),
+                    RequestUri = new Uri($"https://localhost:7238/api/Folder/{id}")
+                };
+
+            requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userToken);
+
+            var response = await Http.SendAsync(requestMessage);
+
+            if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                NavManager.NavigateTo("/login");
+            }
+
+            if (!response.IsSuccessStatusCode)
+            {
+                Console.WriteLine($"Error: {response.StatusCode}");
+            }
+
+            responseBody = await response.Content.ReadAsStringAsync();
+            currentFolder = JsonSerializer.Deserialize<FolderDto>(responseBody, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+        }
+
+        StateHasChanged();
+    }
+
+    private void CloseOtherFields(string currentField)
+    {
+        switch (currentField)
+        {
+            case "new":
+                CloseDeleteFolder();
+                CloseEditFolder();
+                break;
+            case "edit":
+                CloseNewFolder();
+                CloseDeleteFolder();
+                break;
+            case "delete":
+                CloseNewFolder();
+                CloseEditFolder();
+                break;
+        }
+    }
+
+    private RenderFragment RenderChildFolders(List<FolderDto>
+        children) => builder =>
+        {
+            foreach (var child in children)
+            {
+                builder.OpenElement(0, "div");
+                builder.AddAttribute(1, "style", "margin-left: 20px;");
+                builder.OpenElement(2, "button");
+                builder.AddAttribute(3, "style", "background-color: transparent; border: none; color: rebeccapurple;");
+                builder.AddAttribute(4, "class", "childButton");
+                builder.AddAttribute(5, "onclick", EventCallback.Factory.Create(this, () => NavigateToFolder(child)));
+                builder.AddContent(6, child.Name);
+                builder.CloseElement();
+
+                builder.OpenElement(7, "button");
+                builder.AddAttribute(8, "class", "childButton");
+                builder.AddAttribute(9, "onclick", EventCallback.Factory.Create(this, () => OpenEditFolder(child)));
+                builder.AddContent(10, "EDIT");
+                builder.CloseElement();
+
+                builder.OpenElement(11, "button");
+                builder.AddAttribute(12, "class", "childButton");
+                builder.AddAttribute(13, "onclick", EventCallback.Factory.Create(this, () => OpenDeleteFolder(child)));
+                builder.AddContent(14, "DELETE");
+                builder.CloseElement();
+
+                if (child.ChildrenFolders != null && child.ChildrenFolders.Any())
+                {
+                    builder.AddContent(15, RenderChildFolders(child.ChildrenFolders));
+                }
+
+                builder.CloseElement();
+            }
+        };
+
+    private List<FlattenedFolder> FlattenFolders(List<FolderDto> folders, int level = 0)
+    {
+        var result = new List<FlattenedFolder>
+            ();
+        foreach (var folder in folders)
+        {
+            result.Add(new FlattenedFolder
+                {
+                    FolderId = folder.FolderId,
+                    FolderName = new string('-', level * 2) + folder.Name // Indentation with `--`
+                });
+
+            if (folder.ChildrenFolders != null && folder.ChildrenFolders.Any())
+            {
+                result.AddRange(FlattenFolders(folder.ChildrenFolders, level + 1));
+            }
+        }
+        return result;
+    }
+
+    private class FlattenedFolder
+    {
+        public int FolderId { get; set; }
+        public string FolderName { get; set; }
+    }
+}

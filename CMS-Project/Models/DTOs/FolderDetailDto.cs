@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace CMS_Project.Models.DTOs
+﻿namespace CMS_Project.Models.DTOs
 {
     public class FolderDetailDto
     {

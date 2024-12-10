@@ -3,6 +3,7 @@ using CMS_Project.Controllers;
 using CMS_Project.Models.DTOs;
 using CMS_Project.Models.Entities;
 using CMS_Project.Services;
+using CMS_Web.Data.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -27,18 +28,15 @@ public class FolderControllerTests
             _folderServiceMock.Object, 
             _loggerMock.Object        
         );
-
     }
 
     private FolderController CreateControllerWithUser(int userId = 1)
     {
         var controller = new FolderController(
-            _userServiceMock.Object,  // IUserService comes first
-            _folderServiceMock.Object,  // IFolderService comes second
-            Mock.Of<ILogger<FolderController>>()  // ILogger<FolderController> comes third
+            _userServiceMock.Object,  
+            _folderServiceMock.Object, 
+            Mock.Of<ILogger<FolderController>>()
         );
-
-        // Simuler en autentisert bruker
         var user = new ClaimsPrincipal(
             new ClaimsIdentity(new Claim[]
             {
@@ -60,7 +58,7 @@ public class FolderControllerTests
         // Arrange
         var folderId = 1;
         var userId = 1;
-        var folderDetailDto = new FolderDetailDto { FolderId = folderId, Name = "Test Folder" }; // Change Id to FolderId
+        var folderDetailDto = new FolderDetailDto { FolderId = folderId, Name = "Test Folder" };
 
         _userServiceMock.Setup(s => s.GetUserIdFromClaimsAsync(It.IsAny<ClaimsPrincipal>())).ReturnsAsync(userId);
         _folderServiceMock.Setup(f => f.GetFolderByIdAsync(folderId, userId)).ReturnsAsync(folderDetailDto);
@@ -75,59 +73,66 @@ public class FolderControllerTests
         Assert.Equal("Test Folder", returnedFolder.Name);
     }
 
-
     [Fact]
-    public async Task GetFolder_FolderNotFound_ReturnsNotFound()
+    public async Task GetFolder_FolderNotFound_ReturnsNotFoundWithErrorMessage()
     {
         // Arrange
         var folderId = 1;
-        _folderServiceMock.Setup(f => f.GetFolderByIdAsync(folderId, It.IsAny<int>())).Throws(new KeyNotFoundException("Folder not found"));
+        var errorMessage = "Folder not found";
+
+        // Mock the service to throw KeyNotFoundException
+        _folderServiceMock
+            .Setup(f => f.GetFolderByIdAsync(folderId, It.IsAny<int>()))
+            .ThrowsAsync(new KeyNotFoundException(errorMessage));
 
         // Act
         var result = await _controller.GetFolder(folderId);
 
-        // Assert
+        // Assert 
         var notFoundResult = Assert.IsType<NotFoundObjectResult>(result);
     
-        // Check if notFoundResult.Value is null
-        Assert.NotNull(notFoundResult.Value); // Ensure it's not null
-
-        // If it's not a dynamic object, check its actual type
-        var response = notFoundResult.Value;
-
-        // Log the type and content of response to help debugging
-        Console.WriteLine("Response type: " + response.GetType());
-        Console.WriteLine("Response value: " + response);
-
-        // If response is a dictionary-like object (which it likely is), access the 'message' field
-        if (response is IDictionary<string, object> responseDict)
-        {
-            Assert.True(responseDict.ContainsKey("message"));
-            Assert.Equal("Folder not found", responseDict["message"]);
-        }
-        else
-        {
-            // If it's not a dictionary or doesn't contain 'message', log the result
-            Console.WriteLine("Response doesn't contain 'message': " + response);
-        }
+        // Assert that the response value is not null
+        Assert.NotNull(notFoundResult.Value);
+        dynamic responseContent = notFoundResult.Value;
+        _folderServiceMock.Verify(f => f.GetFolderByIdAsync(folderId, It.IsAny<int>()), Times.Once);
     }
 
+
+    [Fact]
+    public async Task GetFolder_ServiceThrowsException_ReturnsInternalServerError()
+    {
+        var folderId = 1;
+        var userId = 123;
+
+        _folderServiceMock.Setup(f => f.GetFolderByIdAsync(folderId, userId))
+            .ThrowsAsync(new Exception("Unexpected error"));
+
+        _userServiceMock.Setup(u => u.GetUserIdFromClaimsAsync(It.IsAny<ClaimsPrincipal>()))
+            .ReturnsAsync(userId);
+
+        var result = await _controller.GetFolder(folderId);
+
+        var serverErrorResult = Assert.IsType<ObjectResult>(result);
+        Assert.Equal(500, serverErrorResult.StatusCode);
+        Assert.Equal("An unexpected error occurred.", serverErrorResult.Value);
+    }
+    
+    
 
     [Fact]
     public async Task GetFolder_UnexpectedError_ReturnsInternalServerError()
     {
         // Arrange
         var folderId = 1;
-        // Simulate an unexpected exception
         _folderServiceMock.Setup(f => f.GetFolderByIdAsync(folderId, It.IsAny<int>())).Throws(new Exception("Unexpected error"));
 
         // Act
         var result = await _controller.GetFolder(folderId);
 
         // Assert
-        var objectResult = Assert.IsType<ObjectResult>(result); // Expecting ObjectResult, not StatusCodeResult
-        Assert.Equal(500, objectResult.StatusCode); // Ensure the status code is 500
-        Assert.Equal("An unexpected error occurred.", objectResult.Value); // Ensure the message is as expected
+        var objectResult = Assert.IsType<ObjectResult>(result); 
+        Assert.Equal(500, objectResult.StatusCode); 
+        Assert.Equal("An unexpected error occurred.", objectResult.Value);
     }
 
 
@@ -136,19 +141,17 @@ public class FolderControllerTests
     {
         // Arrange
         var folderId = 1;
-        // Simulate the case where the user is not found
-        _userServiceMock.Setup(us => us.GetUserIdFromClaimsAsync(It.IsAny<ClaimsPrincipal>())).ReturnsAsync(-1); // Simulate invalid user ID
+        _userServiceMock.Setup(us => us.GetUserIdFromClaimsAsync(It.IsAny<ClaimsPrincipal>())).ReturnsAsync(-1);
         _folderServiceMock.Setup(f => f.GetFolderByIdAsync(folderId, It.IsAny<int>())).Throws(new Exception("Unexpected error"));
 
         // Act
         var result = await _controller.GetFolder(folderId);
 
         // Assert
-        var objectResult = Assert.IsType<ObjectResult>(result); // Expecting ObjectResult for error cases
-        Assert.Equal(500, objectResult.StatusCode); // Ensure the status code is 500
-        Assert.Equal("An unexpected error occurred.", objectResult.Value); // Ensure the message is correct
+        var objectResult = Assert.IsType<ObjectResult>(result); 
+        Assert.Equal(500, objectResult.StatusCode); 
+        Assert.Equal("An unexpected error occurred.", objectResult.Value); 
     }
-
     
     // Test for CreateFolder
     [Fact]
@@ -161,7 +164,6 @@ public class FolderControllerTests
             Name = "New Folder",
             ParentFolderId = null
         };
-
         _userServiceMock.Setup(u => u.GetUserIdFromClaimsAsync(It.IsAny<ClaimsPrincipal>()))
             .ReturnsAsync(1);
 
@@ -183,21 +185,6 @@ public class FolderControllerTests
         Assert.Equal(100, returnedFolder.FolderId);
         Assert.Equal("New Folder", returnedFolder.Name);
     }
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-        
-        
-        
         
     [Fact]
     public async Task CreateFolder_ValidInput_ReturnsCreatedAtAction()
@@ -260,11 +247,10 @@ public class FolderControllerTests
 
         // Assert
         var conflictResult = Assert.IsType<ConflictObjectResult>(result);
-        var response = conflictResult.Value as ErrorResponse; // Replace ErrorResponse with dynamic if necessary
+        var response = conflictResult.Value as ErrorResponse; 
         Assert.NotNull(response);
-        Assert.Equal("Folder already exists", response.Message);  // Match without the period
+        Assert.Equal("Folder already exists", response.Message); 
     }
-
 
     [Fact]
     public async Task CreateFolder_UnexpectedException_ReturnsInternalServerError()
@@ -317,25 +303,22 @@ public class FolderControllerTests
         // Arrange
         var folderCreateDto = new FolderCreateDto { Name = "NewFolder", ParentFolderId = null };
         var controller = CreateControllerWithUser(1);
-
-        // Mock the user service to return a valid user ID
+        
         _userServiceMock.Setup(u => u.GetUserIdFromClaimsAsync(It.IsAny<ClaimsPrincipal>()))
             .ReturnsAsync(1);
 
-        // Mock the folder service to simulate successful folder creation
         _folderServiceMock.Setup(f => f.CreateFolderAsync(It.IsAny<Folder>()))
-            .Returns(Task.CompletedTask); // Simulate no error on folder creation
+            .Returns(Task.CompletedTask); 
 
         // Act
         var result = await controller.CreateFolder(folderCreateDto);
 
         // Assert
-        var createdResult = Assert.IsType<CreatedAtActionResult>(result); // Assert it is CreatedAtActionResult
-        Assert.NotNull(createdResult); // Ensure the result is not null
-        Assert.Equal("GetFolder", createdResult.ActionName); // Ensure the correct action is returned
-        Assert.NotNull(createdResult.Value); // Ensure the response value is not null
+        var createdResult = Assert.IsType<CreatedAtActionResult>(result); 
+        Assert.NotNull(createdResult); 
+        Assert.Equal("GetFolder", createdResult.ActionName);
+        Assert.NotNull(createdResult.Value);
     }
-    
     
     // Test for GetFolders
     [Fact]
@@ -382,19 +365,6 @@ public class FolderControllerTests
         Assert.Equal("testuser", (string)response.User.Username);
         Assert.Equal("test@example.com", (string)response.User.Email);
     }
-
-
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     // Test for GetFolder
     [Fact]
@@ -423,13 +393,7 @@ public class FolderControllerTests
         Assert.Equal("Test Folder", folder.Name);
     }
 
-    
-    
-    
-    
-    
-    
-    
+
     // Test for UpdateFolder
     [Fact]
     public async Task UpdateFolder_ValidRequest_ReturnsNoContent()
@@ -457,24 +421,23 @@ public class FolderControllerTests
     {
         // Arrange
         var controller = CreateControllerWithUser();
-        controller.ModelState.AddModelError("Name", "Required"); // Simulate an invalid model state
-        var updateFolderDto = new UpdateFolderDto(); // Invalid DTO (missing required fields)
+        controller.ModelState.AddModelError("Name", "Required");
+        var updateFolderDto = new UpdateFolderDto();
 
         // Act
         var result = await controller.UpdateFolder(1, updateFolderDto);
 
         // Assert
         var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
-        Assert.IsType<SerializableError>(badRequestResult.Value); // Ensure it's a validation error
+        Assert.IsType<SerializableError>(badRequestResult.Value);
     }
-
-
+    
     [Fact]
     public async Task UpdateFolder_UserNotFound_ReturnsInternalServerError()
     {
         // Arrange
         var controller = CreateControllerWithUser();
-        _userServiceMock.Setup(u => u.GetUserIdAsync(It.IsAny<string>())).ReturnsAsync(-1); // Simulate user not found
+        _userServiceMock.Setup(u => u.GetUserIdAsync(It.IsAny<string>())).ReturnsAsync(-1);
 
         var updateFolderDto = new UpdateFolderDto { Name = "Updated Folder" };
 
@@ -507,7 +470,6 @@ public class FolderControllerTests
         Assert.NotNull(notFoundResult.Value);
     }
     
-    
     [Fact]
     public async Task UpdateFolder_Success_ReturnsNoContent()
     {
@@ -521,9 +483,57 @@ public class FolderControllerTests
         var result = await controller.UpdateFolder(1, updateFolderDto);
 
         // Assert
-        var noContentResult = Assert.IsType<NoContentResult>(result); // Expect NoContentResult for 204 status code
-        Assert.Equal(204, noContentResult.StatusCode); // Ensure the status code is 204
+        var noContentResult = Assert.IsType<NoContentResult>(result);
+        Assert.Equal(204, noContentResult.StatusCode);
     }
+    [Fact]
+    public async Task CreateFolder_DuplicateFolder_ReturnsConflict()
+    {
+        // Arrange
+        var folderCreateDto = new FolderCreateDto { Name = "Duplicate Folder" };
+        var exceptionMessage = "A folder with this name already exists.";
+
+        _userServiceMock
+            .Setup(u => u.GetUserIdFromClaimsAsync(It.IsAny<ClaimsPrincipal>()))
+            .ReturnsAsync(123);
+
+        _folderServiceMock
+            .Setup(f => f.CreateFolderAsync(It.IsAny<Folder>()))
+            .Throws(new ArgumentException(exceptionMessage));
+
+        // Act
+        var result = await _controller.CreateFolder(folderCreateDto);
+
+        // Assert
+        var conflictResult = Assert.IsType<ConflictObjectResult>(result);
+        Assert.Equal(409, conflictResult.StatusCode);
+        var errorResponse = Assert.IsType<ErrorResponse>(conflictResult.Value);
+        Assert.Equal(exceptionMessage, errorResponse.Message);
+    }
+    
+    [Fact]
+    public async Task CreateFolder_UnhandledException_ReturnsInternalServerError()
+    {
+        // Arrange
+        var folderCreateDto = new FolderCreateDto { Name = "New Folder" };
+
+        _userServiceMock
+            .Setup(u => u.GetUserIdFromClaimsAsync(It.IsAny<ClaimsPrincipal>()))
+            .ReturnsAsync(123);
+
+        _folderServiceMock
+            .Setup(f => f.CreateFolderAsync(It.IsAny<Folder>()))
+            .Throws(new Exception("Unexpected error"));
+
+        // Act
+        var result = await _controller.CreateFolder(folderCreateDto);
+
+        // Assert
+        var serverErrorResult = Assert.IsType<ObjectResult>(result);
+        Assert.Equal(500, serverErrorResult.StatusCode);
+        Assert.Equal("Unexpected error occured.", serverErrorResult.Value);
+    }
+
 
 
     [Fact]
@@ -532,7 +542,7 @@ public class FolderControllerTests
         // Arrange
         var controller = CreateControllerWithUser();
         _folderServiceMock.Setup(f => f.UpdateFolderAsync(It.IsAny<int>(), It.IsAny<UpdateFolderDto>(), It.IsAny<int>()))
-            .ThrowsAsync(new ArgumentException("Invalid folder data")); // Simulate ArgumentException
+            .ThrowsAsync(new ArgumentException("Invalid folder data"));
 
         var updateFolderDto = new UpdateFolderDto { Name = "Updated Folder" };
 
@@ -551,7 +561,7 @@ public class FolderControllerTests
         // Arrange
         var controller = CreateControllerWithUser();
         _folderServiceMock.Setup(f => f.UpdateFolderAsync(It.IsAny<int>(), It.IsAny<UpdateFolderDto>(), It.IsAny<int>()))
-            .ThrowsAsync(new Exception("An unexpected error occurred.")); // Simulate an unexpected error
+            .ThrowsAsync(new Exception("An unexpected error occurred."));
 
         var updateFolderDto = new UpdateFolderDto { Name = "Updated Folder" };
 
@@ -581,7 +591,7 @@ public class FolderControllerTests
         var result = await controller.UpdateFolder(1, updateFolderDto);
 
         // Assert
-        var objectResult = Assert.IsType<ObjectResult>(result); // Expect ObjectResult for unexpected errors
+        var objectResult = Assert.IsType<ObjectResult>(result);
         Assert.Equal(500, objectResult.StatusCode);
         Assert.Equal("An unexpected Error occured.", objectResult.Value);
     }
@@ -603,23 +613,17 @@ public class FolderControllerTests
     {
         // Arrange
         var controller = CreateControllerWithUser(1);
-
-        // Simulate the scenario where userId is -1 (user not found)
         _userServiceMock.Setup(u => u.GetUserIdFromClaimsAsync(It.IsAny<ClaimsPrincipal>()))
-            .ReturnsAsync(-1); // Simulate that user does not exist
-
-        var folderId = 999; // Example folder ID
+            .ReturnsAsync(-1);
+        
+        var folderId = 999;
 
         // Act
         var result = await controller.DeleteFolder(folderId);
 
         // Assert
-        var objectResult = Assert.IsType<ObjectResult>(result);  // Expect ObjectResult
-
-        // Ensure the status code is 500 for server error
+        var objectResult = Assert.IsType<ObjectResult>(result);
         Assert.Equal(500, objectResult.StatusCode);
-
-        // Ensure the error message contains the expected text
         Assert.Contains("UserId not found", objectResult.Value.ToString());
     }
 
@@ -630,23 +634,17 @@ public class FolderControllerTests
     {
         // Arrange
         var controller = CreateControllerWithUser(1);
-
-        // Simulate folder not found or not belonging to the user
         _folderServiceMock.Setup(f => f.DeleteFolderAsync(It.IsAny<int>(), It.IsAny<int>()))
-            .ReturnsAsync(false); // Folder not found or does not belong to the user
+            .ReturnsAsync(false); 
 
-        var folderId = 999; // Use a folder ID that will not be found
+        var folderId = 999;
 
         // Act
         var result = await controller.DeleteFolder(folderId);
 
         // Assert
         var notFoundResult = Assert.IsType<NotFoundObjectResult>(result);
-    
-        // Parse the response as a JObject to access the 'message' property
         var response = JObject.FromObject(notFoundResult.Value);
-    
-        // Ensure the 'message' property contains the expected value
         Assert.Equal("Folder with ID 999 was not found or does not belong to the user.", response["message"].ToString());
     }
 
@@ -663,16 +661,16 @@ public class FolderControllerTests
     {
         // Arrange
         _userServiceMock.Setup(u => u.GetUserIdFromClaimsAsync(It.IsAny<ClaimsPrincipal>()))
-            .ReturnsAsync(1); // Simulate user ID is 1
+            .ReturnsAsync(1); 
 
         _folderServiceMock.Setup(f => f.DeleteFolderAsync(It.IsAny<int>(), It.IsAny<int>()))
-            .ReturnsAsync(true); // Simulate successful deletion of the folder
+            .ReturnsAsync(true);
 
         // Act
-        var result = await _controller.DeleteFolder(1); // Attempt to delete folder with ID 1
+        var result = await _controller.DeleteFolder(1); 
 
         // Assert
-        Assert.IsType<NoContentResult>(result); // Expecting NoContent (HTTP 204)
+        Assert.IsType<NoContentResult>(result);
     }
 
     [Fact]
@@ -680,23 +678,18 @@ public class FolderControllerTests
     {
         // Arrange
         var controller = CreateControllerWithUser(1);
-
-        // Simulate an exception occurring during deletion
+        
         _folderServiceMock.Setup(f => f.DeleteFolderAsync(It.IsAny<int>(), It.IsAny<int>()))
             .ThrowsAsync(new Exception("Unexpected error"));
 
-        var folderId = 999; // Use a folder ID that will trigger an error
+        var folderId = 999;
 
         // Act
         var result = await controller.DeleteFolder(folderId);
 
         // Assert
-        var objectResult = Assert.IsType<ObjectResult>(result); // Expect ObjectResult
-
-        // Check if the status code is 500
+        var objectResult = Assert.IsType<ObjectResult>(result);
         Assert.Equal(500, objectResult.StatusCode);
-
-        // Ensure the error message contains the expected text
         Assert.Contains("Unexpected error", objectResult.Value.ToString());
     }
 

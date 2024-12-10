@@ -29,15 +29,11 @@ namespace CMS_Project.Controllers
             _folderService = folderService;
             _logger = logger;
         }
-        
-        // POST: api/Document/create-document
+
         [HttpPost("create-document")]
         public async Task<IActionResult> CreateDocument([FromBody] DocumentCreateDto documentCreateDto)
         {
-            
             _logger.LogInformation("Received documentCreateDto: {@documentCreateDto}", documentCreateDto);
-
-            // ModelState check
             if (!ModelState.IsValid)
             {
                 _logger.LogWarning("Attempted to create a document with invalid data.");
@@ -48,7 +44,6 @@ namespace CMS_Project.Controllers
             {
                 var userId = await _userService.GetUserIdFromClaimsAsync(User);
 
-                // Check if FolderId is provided and if the folder exists
                 if (documentCreateDto.FolderId.HasValue)
                 {
                     var folder = await _folderService.GetFolderByIdAsync(documentCreateDto.FolderId.Value, userId);
@@ -79,20 +74,13 @@ namespace CMS_Project.Controllers
                 return StatusCode(500, "An unexpected error occurred.");
             }
         }
-
-
-        
-
-        // GET: api/Document/all
         [HttpGet("all")]
         public async Task<IActionResult> GetAllDocuments()
         {
             try
             {
-                // Retrieve the authenticated user's ID from claims
                 var userId = await _userService.GetUserIdFromClaimsAsync(User);
 
-                // Retrieve user information as UserDto to exclude sensitive fields
                 var userDto = await _userService.GetUserDtoByIdAsync(userId);
                 
                 if (userDto == null)
@@ -100,11 +88,7 @@ namespace CMS_Project.Controllers
                     _logger.LogError("User with ID {UserId} not found.", userId);
                     return StatusCode(500, "User not found.");
                 }
-
-                // Retrieve all documents associated with the user
                 var documents = await _documentService.GetAllDocumentsAsync(userId);
-
-                // Construct the response with specific user properties
                 var response = new
                 {
                     user = new
@@ -133,12 +117,6 @@ namespace CMS_Project.Controllers
             }
         }
 
-
-
-        
-
-
-        // GET: api/Documents/{id}
         [HttpGet("{id}")]
         public async Task<IActionResult> GetDocumentById(int id)
         {
@@ -166,22 +144,14 @@ namespace CMS_Project.Controllers
             }
         }
 
-
-
-
-        // PUT: api/Documents/{id}
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateDocument(int id, [FromBody] UpdateDocumentDto updateDocumentDto)
         {
-            //ModelState check
             if (!ModelState.IsValid)
             {
                 _logger.LogWarning($"Attempted to update document with ID {id} with invalid data.");
                 return BadRequest(ModelState);
-
             }
-            
-            // Get userId from claims
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claims = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
             var userId = await _userService.GetUserIdAsync(claims.Value);
@@ -215,16 +185,10 @@ namespace CMS_Project.Controllers
                 return StatusCode(500, "Unexpected error occured.");
             }
         }
-
         
-        
-        
-        
-        // DELETE: api/Documents/{id}
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteDocument(int id)
         {
-            // Get user ID from claims
             var userId = await _userService.GetUserIdFromClaimsAsync(User);
 
             if (userId == -1)

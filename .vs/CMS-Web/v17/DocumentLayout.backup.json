@@ -1,0 +1,61 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\said_\\Downloads\\FinalProsjectFile\\Prosjektoppgave_Del2\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{ED2F11BD-2A37-4823-BCE1-89EE73C8F13D}|CMS-Web\\CMS-Web.csproj|c:\\users\\said_\\downloads\\finalprosjectfile\\prosjektoppgave_del2\\cms-web\\components\\pages\\document.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{ED2F11BD-2A37-4823-BCE1-89EE73C8F13D}|CMS-Web\\CMS-Web.csproj|solutionrelative:cms-web\\components\\pages\\document.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED2F11BD-2A37-4823-BCE1-89EE73C8F13D}|CMS-Web\\CMS-Web.csproj|c:\\users\\said_\\downloads\\finalprosjectfile\\prosjektoppgave_del2\\cms-web\\components\\pages\\index.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{ED2F11BD-2A37-4823-BCE1-89EE73C8F13D}|CMS-Web\\CMS-Web.csproj|solutionrelative:cms-web\\components\\pages\\index.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Document.razor",
+              "DocumentMoniker": "C:\\Users\\said_\\Downloads\\FinalProsjectFile\\Prosjektoppgave_Del2\\CMS-Web\\Components\\Pages\\Document.razor",
+              "RelativeDocumentMoniker": "CMS-Web\\Components\\Pages\\Document.razor",
+              "ToolTip": "C:\\Users\\said_\\Downloads\\FinalProsjectFile\\Prosjektoppgave_Del2\\CMS-Web\\Components\\Pages\\Document.razor",
+              "RelativeToolTip": "CMS-Web\\Components\\Pages\\Document.razor",
+              "ViewState": "AgIAAKIAAAAAAAAAAAAAAK4AAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-12-10T17:13:49.621Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.razor",
+              "DocumentMoniker": "C:\\Users\\said_\\Downloads\\FinalProsjectFile\\Prosjektoppgave_Del2\\CMS-Web\\Components\\Pages\\Index.razor",
+              "RelativeDocumentMoniker": "CMS-Web\\Components\\Pages\\Index.razor",
+              "ToolTip": "C:\\Users\\said_\\Downloads\\FinalProsjectFile\\Prosjektoppgave_Del2\\CMS-Web\\Components\\Pages\\Index.razor",
+              "RelativeToolTip": "CMS-Web\\Components\\Pages\\Index.razor",
+              "ViewState": "AgIAANkAAAAAAAAAAAAMwNMAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-12-10T17:04:02.025Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

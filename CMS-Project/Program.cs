@@ -10,23 +10,19 @@ using CMS_Project.Converters;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowLocalhost",
-        policy => policy.WithOrigins("https://localhost:7039") // Your Blazor app's URL
+        policy => policy.WithOrigins("https://localhost:7158") 
             .AllowAnyHeader()
             .AllowAnyMethod());
 });
 
 builder.Services.AddControllers();
 
-
-// Legg til DbContext
 builder.Services.AddDbContext<CMSContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Registrer tjenester
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IFolderService, FolderService>();
 builder.Services.AddScoped<IDocumentService, DocumentService>();
@@ -36,8 +32,6 @@ builder.Services.AddScoped<IDocumentService, DocumentService>();
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 
-
-// Legg til kontrollerne med JSON-innstillinger for å håndtere referanseløkker
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
@@ -47,17 +41,13 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.Converters.Add(new CustomDateTimeConverter("yyyy-MM-dd"));
     });
 
-
-// Konfigurer Swagger med JWT-støtte
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "CMS API", Version = "v1" });
     
-    // Register custom filter
     c.DocumentFilter<CustomDocumentOrderFilter>();
-
-    // JWT Authentication setup (if required)
+    
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Description = @"JWT Authorization header using the Bearer scheme. 
@@ -87,7 +77,7 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
-// Konfigurer Authentication
+
 var jwtKey = builder.Configuration["Jwt:Key"];
 var jwtIssuer = builder.Configuration["Jwt:Issuer"];
 var jwtAudience = builder.Configuration["Jwt:Audience"];
@@ -113,7 +103,6 @@ builder.Services.AddAuthentication(options =>
 
 var app = builder.Build();
 
-// Konfigurer HTTP-request pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
@@ -122,11 +111,7 @@ if (app.Environment.IsDevelopment())
 }
 app.UseCors("AllowLocalhost");
 app.UseHttpsRedirection();
-
-// Bruk autentisering og autorisering
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();

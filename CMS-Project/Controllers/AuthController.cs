@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using CMS_Project.Models.DTOs;
+﻿using CMS_Project.Models.DTOs;
 using CMS_Project.Services;
 using Microsoft.AspNetCore.Mvc;
 namespace CMS_Project.Controllers
@@ -16,7 +14,6 @@ namespace CMS_Project.Controllers
             _userService = userService;
         }
 
-        // POST: api/Auth/register
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
         {
@@ -42,7 +39,6 @@ namespace CMS_Project.Controllers
             }
         }
         
-        // POST: api/Auth/login
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
@@ -59,8 +55,7 @@ namespace CMS_Project.Controllers
                 return Unauthorized(new { message = ex.Message });
             }
             catch (Exception ex)
-            {
-                // Log the error here if you have logging configured
+            { 
                 return StatusCode(500, "En unexpected error occurred.");
             }
         }

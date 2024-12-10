@@ -1,20 +1,31 @@
-﻿@inject IJSRuntime JSRuntime
+﻿@page "/logout"
 
-@page "/logout"
+@rendermode InteractiveServer
+@inject IJSRuntime JSRuntime
+@inject NavigationManager NavManager
 
-<h3>Logging out...</h3>
+<h3>Logout</h3>
+
+<div>
+    <p>
+        @message
+    </p>
+</div>
+
 @code {
-    [Inject] private NavigationManager NavigationManager { get; set; }
-    
-    protected override Task OnAfterRenderAsync(bool firstRender)
+    private string message = "You are being logged out...";
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        JSRuntime.InvokeVoidAsync("localStorage.clear");
-        //JSRuntime.InvokeVoidAsync("localStorage.clear", "authToken");
-        //JSRuntime.InvokeVoidAsync("localStorage.setItem", "authToken", "").GetAwaiter().GetResult();
-        // Simply navigate to the login page immediately
-        NavigationManager.NavigateTo("/login", true);
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("localStorage.removeItem", "authToken");
 
-        return base.OnAfterRenderAsync(firstRender);
+            message = "You have been logged out, redirecting.";
+
+            NavManager.NavigateTo("/login");
+
+        }
     }
-
 }

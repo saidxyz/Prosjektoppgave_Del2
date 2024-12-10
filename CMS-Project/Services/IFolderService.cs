@@ -1,5 +1,6 @@
 ﻿using CMS_Project.Models.Entities;
 using CMS_Project.Models.DTOs;
+using CMS_Web.Data.Models;
 
 namespace CMS_Project.Services
 {
@@ -10,5 +11,7 @@ namespace CMS_Project.Services
         Task<FolderDetailDto> GetFolderByIdAsync(int folderId, int userId);
         Task<bool> UpdateFolderAsync(int id, UpdateFolderDto updateFolderDto, int userId);
         Task<bool> DeleteFolderAsync(int id, int userId);
+        Task<List<FolderWithDocumentsDto>> GetFoldersWithDocumentsAsync();
+
     }
 }

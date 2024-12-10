@@ -19,13 +19,11 @@ namespace CMS_Project.Models.Entities
 
         public DateTime CreatedDate { get; set; }
 
-        // Fremmednøkkel User
         [Required]
         public int UserId { get; set; }
 
         public User User { get; set; } = null!;
         
-        // Fremmednøkkel Folder
         public int? FolderId { get; set; }
 
         public Folder? Folder { get; set; }

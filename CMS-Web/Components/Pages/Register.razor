@@ -2,7 +2,6 @@
 @using System.Text.Json
 @using System.Timers
 @using CMS_Web.Data.Models
-@using CMS_Web.Data.Models
 @rendermode InteractiveServer
 
 
@@ -32,6 +31,8 @@
 
         <br />
         <button class="btn btn-primary" type="submit" @onclick="OnRegisterClick" @onclick:preventDefault="true">Login</button>
+        <button class="btn btn-primary" type="submit" @onclick="onCancelClick" @onclick:preventDefault="true">Cancel</button>
+
     </form>
 
     <div style="border:solid 1px @successStyleColor;padding-left:8px;margin-top:16px;display:@visibleFeedback;">
@@ -48,6 +49,10 @@
     public string visibleFeedback = "none";
     public string successStyleColor = "red";
 
+    public void onCancelClick()
+    {
+        NavManager.NavigateTo("/login");
+    }
 
     private Timer feedbackTimer;
     private string? token;

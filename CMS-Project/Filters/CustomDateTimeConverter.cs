@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text.Json;
+﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace CMS_Project.Converters
@@ -20,7 +19,7 @@ namespace CMS_Project.Converters
 
         public override void Write(Utf8JsonWriter writer, DateTime value, JsonSerializerOptions options)
         {
-            writer.WriteStringValue(value.ToString(_format)); // Format output as date-only
+            writer.WriteStringValue(value.ToString(_format));
         }
     }
 }

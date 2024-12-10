@@ -13,7 +13,6 @@ namespace CMS_Project.Models.Entities
 
         public DateTime CreatedDate { get; set; }
 
-        // Navigasjons-egenskaper
         public int? ParentFolderId { get; set; }
         public Folder? ParentFolder { get; set; }
 
